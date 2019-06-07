@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>TagSLAM</title>
+<meta name="generator" content="Hugo 0.40.1" />
+<link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/">
+<link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://berndpfrommer.github.io/tagslam_web/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://berndpfrommer.github.io/tagslam_web/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>TagSLAM</h1>
+
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/tagslam_web/">Home</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main>
+
+<h1 id="tagslam-localization-and-mapping-from-tags">TagSLAM: Localization and mapping from Tags</h1>
+
+<p>TagSLAM is a ROS based package for simultaneous multi-camera localization and
+mapping (SLAM) with the
+popular <a href="https://april.eecs.umich.edu/software/apriltag">AprilTags</a>.</p>
+
+<p>TagSLAM can also solve several sub problems related to SLAM:</p>
+
+<ul>
+<li>Mapping: walk around with a camera and discover tag poses whenever
+multiple tags are visible in the same frame.</li>
+<li>Localization: if you have the tags mapped already, you can enter
+their poses as fixed input, and later just localize off those tags.</li>
+<li>Extrinsics camera calibration: TagSLAM support <em>synchronized</em>
+multi-camera systems, and therefore can be used to find the relative
+poses of multiple cameras.</li>
+</ul>
+
+<p><img src="media/pennstock.png" alt="pennstock"  width="1000"/></p>
+
+<p>(Image shows the poses of a quad rotor platform flying in a tunnel
+(pennstock) with a 4-camera setup, dataset courtesy of Tolga Ozaslan)</p>
+<nav class="pagination">
+</nav><div class="edit-meta">
+</div>
+<footer><p class="powered"></p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class="active"><a href="https://berndpfrommer.github.io/tagslam_web/">Home</a></li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>
