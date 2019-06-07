@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>2) Example - TagSLAM</title>
+<meta name="generator" content="Hugo 0.40.1" />
+<link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/getting_started/example/">
+<link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://berndpfrommer.github.io/tagslam_web/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://berndpfrommer.github.io/tagslam_web/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>TagSLAM</h1>
+
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/tagslam_web/">Home</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>2) Example</h1>
+
+<p>In the
+<a href="https://github.com/berndpfrommer/tagslam/tree/master/example">example</a> folder
+of the tagslam repository you can find a simple example for a
+monucular camera setup. Here&rsquo;s how to run it.</p>
+
+<h1 id="running-the-example-directly-from-the-bag">Running the example directly from the bag</h1>
+
+<p>The example bag file already contains the extracted tags,
+so you can directly feed the bag into tagslam. You need to
+set <a href="http://wiki.ros.org/Clock"><code>use_sim_time</code></a> to <code>true</code> so
+<code>tagslam</code> can  drive the clock.</p>
+
+<pre><code>rosparam set use_sim_time true
+rviz -d `rospack find tagslam`/example/tagslam_example.rviz &amp;
+roslaunch tagslam tagslam.launch bag:=`rospack find tagslam`/example/example.bag
+</code></pre>
+
+<p>Rviz should show you a tag/camera configuration like the one on the
+image below, but without the camera image.</p>
+
+<p>The program will complete too quickly to observe it in rviz, but you can
+ask tagslam to replay the sequence with a ROS service call (tagslam must
+still be running at that point):</p>
+
+<pre><code>rosservice call /tagslam/replay
+</code></pre>
+
+<h1 id="running-the-example-in-online-mode">Running the example in online mode</h1>
+
+<p>Run these three commands, each in a separate terminal when required</p>
+
+<pre><code>rosparam set use_sim_time true
+roslaunch tagslam tagslam.launch run_online:=true
+roslaunch tagslam apriltag_detector_node.launch
+rviz -d `rospack find tagslam`/example/tagslam_example.rviz &amp;
+rosbag play --clock `rospack find tagslam`/example/example.bag --topics /pg_17274483/image_raw/compressed
+</code></pre>
+
+<p>If all goes well, your rviz window should look like this:</p>
+
+<p><img src="../../media/example_online.png" alt="rviz online" title="rviz online" /></p>
+
+<h1 id="extracting-tags-from-images-in-a-bag">Extracting tags from images in a bag</h1>
+
+<p>Unless you must run online, it is best to run the tag detector on the
+whole bag first, and then directly feed the detections into tagslam.
+The tagslam workspace contains <code>sync_and_detect</code>, a tool to extract
+tags and write them to a new bag. At the same time, it also synchronizes
+the detections that come from multiple cameras, i.e it filters frames
+that don&rsquo;t have images from all configured cameras.</p>
+
+<p>Here is an example of how to run it on the example bag:</p>
+
+<pre><code>roslaunch tagslam sync_and_detect.launch bag:=`rospack find tagslam`/example/example.bag
+</code></pre>
+
+<p>This will produce a bag in the <code>example</code> directory:</p>
+
+<pre><code>example.bag_output.bag
+</code></pre>
+
+<p>Under the topic <code>/detector/tags</code> the bag has the tag detections, so it
+can be used to directly drive tagslam. Besides that there is the topic
+<code>/annotated_images/compressed</code> which has the tags highlighted in the
+original image.</p>
+
+<h1 id="more-examples">More examples</h1>
+
+<p>Many more examples can be found in the <a href="https://github.com/berndpfrommer/tagslam_test/tree/master/tests">tagslam test
+repository</a>.</p>
+<div class="edit-meta">
+</div>
+<nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/getting_started/installation/" title="1) Installation"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 1) Installation</a>
+<a class="nav nav-next" href="/tagslam_web/getting_started/installation/" title="1) Installation">Next - 1) Installation <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered"></p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/">Home</a></li>
+
+<li class="parent"><a href="/tagslam_web/getting_started/">A) Getting Started</a>
+<ul class="sub-menu">
+<li class=""><a href="/tagslam_web/getting_started/installation/">1) Installation</a></li>
+<li class="active"><a href="/tagslam_web/getting_started/example/">2) Example</a></li>
+</ul>
+  
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

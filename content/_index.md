@@ -3,7 +3,7 @@ date: 2017-10-17T15:26:15Z
 lastmod: 2018-12-05T15:26:15Z
 ---
 
-# TagSLAM: Localization and mapping from Tags
+# TagSLAM: Localization and mapping with tags
 
 TagSLAM is a ROS based package for simultaneous multi-camera localization and
 mapping (SLAM) with the
