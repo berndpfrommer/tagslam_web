@@ -15,7 +15,7 @@ TagSLAM can also solve several sub problems related to SLAM:
   multiple tags are visible in the same frame.
 - Localization: if you have the tags mapped already, you can enter
   their poses as fixed input, and later just localize off those tags.
-- Extrinsics camera calibration: TagSLAM support *synchronized*
+- Extrinsics camera calibration: TagSLAM supports *synchronized*
   multi-camera systems, and therefore can be used to find the relative
   poses of multiple cameras.
 
