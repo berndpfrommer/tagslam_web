@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>tagslam_web</name>
+  <version>1.0.0</version>
+  <description>web pages for the tagslam project</description>
+
+  <maintainer email="bernd.pfrommer@gmail.com">Bernd Pfrommer</maintainer>
+  <license>Apache</license>
+  <buildtool_depend>catkin</buildtool_depend>
+</package>
