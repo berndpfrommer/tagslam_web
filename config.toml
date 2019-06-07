@@ -1,4 +1,4 @@
-baseurl = "https://berndpfrommer.github.io/tagslam/"
+baseurl = "https://berndpfrommer.github.io/tagslam_web/"
 languageCode = "en-us"
 DefaultContentLanguage = "en"
 title = "TagSLAM"
