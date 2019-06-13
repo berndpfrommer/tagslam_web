@@ -11,25 +11,5 @@
 	<atom:link href="https://berndpfrommer.github.io/tagslam_web/getting_started/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>1) Installation</title>
-      <link>https://berndpfrommer.github.io/tagslam_web/getting_started/installation/</link>
-      <pubDate>Sat, 18 Jul 2015 14:08:35 +0200</pubDate>
-      
-      <guid>https://berndpfrommer.github.io/tagslam_web/getting_started/installation/</guid>
-      <description>TagSLAM has been tested on Ubuntu 16.04 and 18.04LTS. You will need a full ROS installation (Kinetic or Melodic). For installation instructions see the tagslam root repository.</description>
-    </item>
-    
-    <item>
-      <title>2) Example</title>
-      <link>https://berndpfrommer.github.io/tagslam_web/getting_started/example/</link>
-      <pubDate>Sat, 18 Jul 2015 14:08:35 +0200</pubDate>
-      
-      <guid>https://berndpfrommer.github.io/tagslam_web/getting_started/example/</guid>
-      <description>In the example folder of the tagslam repository you can find a simple example for a monucular camera setup. Here&amp;rsquo;s how to run it.
-Running the example directly from the bag The example bag file already contains the extracted tags, so you can directly feed the bag into tagslam. You need to set use_sim_time to true so tagslam can drive the clock.
-rosparam set use_sim_time true rviz -d `rospack find tagslam`/example/tagslam_example.</description>
-    </item>
-    
   </channel>
 </rss>

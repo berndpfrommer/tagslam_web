@@ -26,12 +26,91 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>A) Getting Started</h1><p><a name="getting_started"/>
-<a href="https://berndpfrommer.github.io/tagslam_web/getting_started/installation/">Installation</a></p>
+<main><h1>A) Getting Started</h1>
+
+<h1 id="installation">Installation</h1>
+
+<p>TagSLAM has been tested on Ubuntu 16.04 and 18.04LTS. You will need a
+full ROS installation (Kinetic or Melodic). For installation
+instructions see
+<a href="https://github.com/berndpfrommer/tagslam_root">the tagslam root repository</a>.</p>
+
+<h1 id="example">Example</h1>
+
+<p>In the
+<a href="https://github.com/berndpfrommer/tagslam/tree/master/example">example</a> folder
+of the tagslam repository you can find a simple example for a
+monucular camera setup. Here&rsquo;s how to run it.</p>
+
+<h2 id="running-the-example-directly-from-the-bag">Running the example directly from the bag</h2>
+
+<p>The example bag file already contains the extracted tags,
+so you can directly feed the bag into tagslam. You need to
+set <a href="http://wiki.ros.org/Clock"><code>use_sim_time</code></a> to <code>true</code> so
+<code>tagslam</code> can  drive the clock.</p>
+
+<pre><code>rosparam set use_sim_time true
+rviz -d `rospack find tagslam`/example/tagslam_example.rviz &amp;
+roslaunch tagslam tagslam.launch bag:=`rospack find tagslam`/example/example.bag
+</code></pre>
+
+<p>Rviz should show you a tag/camera configuration like the one on the
+image below, but without the camera image.</p>
+
+<p>The program will complete too quickly to observe it in rviz, but you can
+ask tagslam to replay the sequence with a ROS service call (tagslam must
+still be running at that point):</p>
+
+<pre><code>rosservice call /tagslam/replay
+</code></pre>
+
+<h2 id="running-the-example-in-online-mode">Running the example in online mode</h2>
+
+<p>Run these three commands, each in a separate terminal when required</p>
+
+<pre><code>rosparam set use_sim_time true
+roslaunch tagslam tagslam.launch run_online:=true
+roslaunch tagslam apriltag_detector_node.launch
+rviz -d `rospack find tagslam`/example/tagslam_example.rviz &amp;
+rosbag play --clock `rospack find tagslam`/example/example.bag --topics /pg_17274483/image_raw/compressed
+</code></pre>
+
+<p>If all goes well, your rviz window should look like this:</p>
+
+<p><img src="../media/example_online.png" alt="rviz online" title="rviz online" /></p>
+
+<h2 id="extracting-tags-from-images-in-a-bag">Extracting tags from images in a bag</h2>
+
+<p>Unless you must run online, it is best to run the tag detector on the
+whole bag first, and then directly feed the detections into tagslam.
+The tagslam workspace contains <code>sync_and_detect</code>, a tool to extract
+tags and write them to a new bag. At the same time, it also synchronizes
+the detections that come from multiple cameras, i.e it filters frames
+that don&rsquo;t have images from all configured cameras.</p>
+
+<p>Here is an example of how to run it on the example bag:</p>
+
+<pre><code>roslaunch tagslam sync_and_detect.launch bag:=`rospack find tagslam`/example/example.bag
+</code></pre>
+
+<p>This will produce a bag in the <code>example</code> directory:</p>
+
+<pre><code>example.bag_output.bag
+</code></pre>
+
+<p>Under the topic <code>/detector/tags</code> the bag has the tag detections, so it
+can be used to directly drive tagslam. Besides that there is the topic
+<code>/annotated_images/compressed</code> which has the tags highlighted in the
+original image.</p>
+
+<h2 id="more-examples">More examples</h2>
+
+<p>Many more examples can be found in the <a href="https://github.com/berndpfrommer/tagslam_test/tree/master/tests">tagslam test
+repository</a>.</p>
 <div class="edit-meta">
 </div>
 <nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/" title=""><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - </a>
-<a class="nav nav-next" href="/tagslam_web/getting_started/installation/" title="1) Installation">Next - 1) Installation <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+<a class="nav nav-next" href="/tagslam_web/making_tags/" title="B) Making and using AprilTags">Next - B) Making and using AprilTags <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer><p class="powered"></p>
 </footer>
 </main><div class="sidebar">
@@ -40,11 +119,12 @@
 <li class=""><a href="https://berndpfrommer.github.io/tagslam_web/">Home</a></li>
 
 <li class="parent active"><a href="/tagslam_web/getting_started/">A) Getting Started</a>
-<ul class="sub-menu">
-<li class=""><a href="/tagslam_web/getting_started/installation/">1) Installation</a></li>
-<li class=""><a href="/tagslam_web/getting_started/example/">2) Example</a></li>
-</ul>
-  
+</li>
+
+<li class=""><a href="/tagslam_web/making_tags/">B) Making and using AprilTags</a>
+</li>
+
+<li class=""><a href="/tagslam_web/intrinsic_calibration/">C) Intrinsic calibration</a>
 </li>
 </ul>
 </nav>

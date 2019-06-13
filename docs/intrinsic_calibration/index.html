@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>C) Intrinsic calibration - TagSLAM</title>
+<meta name="generator" content="Hugo 0.40.1" />
+<link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/intrinsic_calibration/">
+<link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://berndpfrommer.github.io/tagslam_web/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://berndpfrommer.github.io/tagslam_web/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>TagSLAM</h1>
+
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/tagslam_web/">Home</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>C) Intrinsic calibration</h1>
+
+<h1 id="intrinsic-calibration">Intrinsic calibration</h1>
+
+<p>TagSLAM can <em>not</em> perform intrinsic calibration. You must supply
+the intrinsic parameters in the <code>cameras.yaml</code> file.</p>
+
+<p>If you are dealing with a &ldquo;normal&rdquo; lens, it is recommended that you use the
+ROS <a href="http://wiki.ros.org/camera_calibration">camera_calibration</a>
+package for intrinsic calibration. It can do the standard <code>radtan</code>
+(<code>plumb_bob</code>) radial-tangential distortion model and is the easiest tool to
+use. However, it&rsquo;s output file must be converted to work with TagSLAM</p>
+
+<p>If you are dealing with a fisheye (<code>equidistant</code>)
+lens, consider using  <a href="https://github.com/ethz-asl/kalibr">Kalibr</a> or the
+<a href="https://github.com/KumarRobotics/multicam_calibration">multicam_calibration</a>
+tool. Kalibr and multicam_calibration will already give you the output in a
+format that is close to the one that TagSLAM uses.</p>
+
+<h2 id="converting-ros-calibration-files">Converting ROS calibration files</h2>
+
+<p>After running the ROS calibration you will end up with a file that is
+called <code>ost.yaml</code>. It will look like this:</p>
+
+<pre><code>image_width: 1920
+image_height: 1200
+camera_name: pg_17408093
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [2168.758281, 0.000000, 990.688651, 0.000000, 2166.979687,
+583.914090    , 0.000000, 0.000000, 1.000000]
+distortion_model: plumb_bob
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data: [-0.189067, 0.124915, 0.000043, 0.000296, 0.000000]
+rectification_matrix:
+  rows: 3
+  cols: 3
+  data: [1.000000, 0.000000, 0.000000, 0.000000, 1.000000,
+0.000000, 0.000000    , 0.000000, 1.000000]
+projection_matrix:
+  rows: 3
+  cols: 4
+  data: [2094.321777, 0.000000, 993.054257, 0.000000, 0.000000, 2136.192139, 583.488844, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000]
+</code></pre>
+
+<p>This file must now be converted to a format that TagSLAM can process:</p>
+
+<pre><code>rosrun tagslam ros_to_kalibr.py -i ost.yaml -o cameras.yaml
+</code></pre>
+
+<p>The resulting file should look like this:</p>
+
+<pre><code>cam0:
+  camera_model: pinhole
+  intrinsics: [2168.75828, 2166.97969, 990.68865, 583.91409]
+  distortion_model: plumb_bob
+  distortion_coeffs: [-0.18907, 0.12491, 0.00004, 0.00030, 0.00000]
+  resolution: [1920, 1200]
+  tagtopic: /pg_17408093/tags
+  rig_body: XXX_NAME_OF_RIG_BODY
+</code></pre>
+
+<p>You will need to adjust the <code>tagtopic</code> to match the actual ROS topic
+under which the extracted tags are published. The <code>rig_body</code> must be
+set to match the name of the TagSLAM body to which the camera is
+attached.</p>
+<div class="edit-meta">
+</div>
+<nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/making_tags/" title="B) Making and using AprilTags"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - B) Making and using AprilTags</a>
+<a class="nav nav-next" href="/tagslam_web/getting_started/" title="A) Getting Started">Next - A) Getting Started <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered"></p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/">Home</a></li>
+
+<li class=""><a href="/tagslam_web/getting_started/">A) Getting Started</a>
+</li>
+
+<li class=""><a href="/tagslam_web/making_tags/">B) Making and using AprilTags</a>
+</li>
+
+<li class="parent active"><a href="/tagslam_web/intrinsic_calibration/">C) Intrinsic calibration</a>
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>
