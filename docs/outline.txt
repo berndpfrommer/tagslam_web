@@ -1,5 +1,4 @@
 
-- concepts of body, tags and transforms
 - what are the input files:
   cameras.yaml
   tagslam.yaml

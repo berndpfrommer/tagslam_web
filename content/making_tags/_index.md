@@ -1,7 +1,7 @@
 +++
 date = "2015-07-18T14:08:35+02:00"
 draft = false
-title = "D) Making and using AprilTags"
+title = "5. Making and using AprilTags"
 +++
 At the moment, the only tags supported by TagSLAM are the
 popular [AprilTags](https://april.eecs.umich.edu/software/apriltag).
@@ -22,7 +22,7 @@ tag. This means the AprilTag library may mistake some rectangular
 objects on the image as tags! This can be a real nuisance when using
 TagSLAM.
 
-<html>
+<!--
 <table>
 <tr><td>![tag 36h11](../media/tag_36h11.png)</td>
 <td>![tag 16h5](../media/tag_16h5.png)</td>
@@ -33,9 +33,10 @@ represent larger numbers.</td>
 false positives.</td>
 </tr>
 <table>
-</html>
-
-
+-->
+|![tag 36h11](../media/tag_36h11.png)|![tag 16h5](../media/tag_16h5.png)</td>|
+|------------------------------------|--------------------------------------:|
+|Tag family 36h11 (preferred). Small blocks, harder to detect, can represent larger numbers.|Tag family 16h5. Large blocks, better visible, but susceptible to false positives.|
 # What material to use
 An ideal AprilTag should be:
 
@@ -59,7 +60,7 @@ been used for this before. Make sure to select 1/4" thick material
 (the 1/8" boards only come glossy, not matte), and specify explicitly
 that you want it matte, and no rescaling of the image. You must supply
 them with a pdf that exactly fills the size of the board. For a
-12"x12" board, the cost is currently about $15 without shipping. The material is
+12"x12" board, the cost is currently about \$15 without shipping. The material is
 quite heavy, so not easily attached to walls with duct tape. However, it's very
 rugged and weather resistant, i.e. suitable for permanent installation
 outdoors.
@@ -78,13 +79,13 @@ board. *Avoid* the "Readi" board sold by e.g. Dollar Tree
 stores. It warps badly! Rather get a board
 of
 [3/16" ProFoam from Jerry's Artarama](https://www.jerrysartarama.com/jerrys-pro-foam) for
-about $6, from which you can cut 12 tags of size 10"x10".
+about \$6, from which you can cut 12 tags of size 10"x10".
 
 Use an inkjet printer to print the tag on a matte clear adhesive label like
 the [Avery 8665](https://www.avery.com/products/labels/8665), which go
-for about $1 for an 8.5"x11" page. Stick the label on the foam board,
-done. The board is significantly cheaper (about $1.50/tag DIY, or
-$4/tag + shipping if you have it printed) and lighter
+for about \$1 for an 8.5"x11" page. Stick the label on the foam board,
+done. The board is significantly cheaper (about \$1.50/tag DIY, or
+\$4/tag + shipping if you have it printed) and lighter
 than DiBond aluminum, but also much more fragile. Be careful not to
 touch the printed surface, or the color will come off over time.
 

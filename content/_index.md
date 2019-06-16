@@ -9,18 +9,35 @@ TagSLAM is a ROS based package for simultaneous multi-camera localization and
 mapping (SLAM) with the
 popular [AprilTags](https://april.eecs.umich.edu/software/apriltag).
 
-TagSLAM can also solve several sub problems related to SLAM:
-
-- Mapping: walk around with a camera and discover tag poses whenever
-  multiple tags are visible in the same frame.
-- Localization: if you have the tags mapped already, you can enter
-  their poses as fixed input, and later just localize off those tags.
-- Extrinsics camera calibration: TagSLAM supports *synchronized*
-  multi-camera systems, and therefore can be used to find the relative
-  poses of multiple cameras.
-
-<img src="media/pennstock.png" alt="pennstock"  width="1000"/>
+<img src="media/pennstock.png" alt="pennstock"  width="600"/>
 
 (Image shows the poses of a quad rotor platform flying in a tunnel
 (pennstock) with a 4-camera setup, dataset courtesy of Tolga Ozaslan)
 
+TagSLAM can also solve several sub problems related to SLAM:
+
+## Mapping
+Walk around with a camera and discover tag poses whenever
+multiple tags are visible in the same frame.
+
+## Localization
+If you have the tags mapped already, you can entertheir poses as fixed
+input, and later just localize off those tags.
+
+## Extrinsic camera calibration
+TagSLAM supports *synchronized* (only!)  multi-camera systems, and
+therefore can be used to find the relative  poses of multiple
+cameras. No special calibration target is needed other than AprilTags
+scattered around. No overlap between the cameras field of view is required.
+
+## State estimation
+TagSLAM can estimate the pose of an object that has tags attached to
+it. 
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/ul9THWqCOQY?autoplay=1" style="position: absolute; top: 0; left: 0; width: 60%; height: 60%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<!--
+<img src="media/block_scene.png" alt="pennstock"  width="600"/>
+{{< youtube src="ul9THWqCOQY" width="600" >}}
+-->

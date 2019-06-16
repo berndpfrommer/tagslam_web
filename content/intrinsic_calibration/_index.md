@@ -1,7 +1,7 @@
 +++
 date = "2015-07-18T14:08:35+02:00"
 draft = false
-title = "D) Intrinsic calibration"
+title = "4. Intrinsic calibration"
 +++
 # Intrinsic calibration
 TagSLAM can *not* perform intrinsic calibration. You must supply
@@ -49,7 +49,7 @@ called ``ost.yaml``. It will look like this:
 
 This file must now be converted to a format that TagSLAM can process:
 
-    rosrun tagslam ros_to_kalibr.py -i ost.yaml -o cameras.yaml
+    rosrun tagslam camerainfo_to_kalibr.py -i ost.yaml -o cameras.yaml
 
 The resulting file should look like this:
 
