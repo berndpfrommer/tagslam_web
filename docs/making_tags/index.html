@@ -3,7 +3,7 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>D) Making and using AprilTags - TagSLAM</title>
+<title>5. Making and using AprilTags - TagSLAM</title>
 <meta name="generator" content="Hugo 0.40.1" />
 <link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
 <link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/making_tags/">
@@ -18,6 +18,41 @@
 <div class="container"><header>
 <h1>TagSLAM</h1>
 
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+  inlineMath: [['$','$'], ['\\(','\\)']],
+  displayMath: [['$$','$$']],
+  processEscapes: true,
+  processEnvironments: true,
+  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+  TeX: { equationNumbers: { autoNumber: "AMS" },
+  extensions: ["AMSmath.js", "AMSsymbols.js"]
+  }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+$
+\newcommand{\cc}[1]{\color{black}{#1}}
+\newcommand{\mvec}[1]{\mathbf{#1}}
+\newcommand{\cvec}[2]{^\mathrm{#2}\mathbf{#1}}
+\newcommand{\ctrans}[3]{^\mathrm{#3}\mathbf{#1}_\mathrm{#2}}
+$
 </header>
 <div class="menu">
 <nav>
@@ -26,7 +61,7 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>D) Making and using AprilTags</h1>
+<main><h1>5. Making and using AprilTags</h1>
 
 <p>At the moment, the only tags supported by TagSLAM are the
 popular <a href="https://april.eecs.umich.edu/software/apriltag">AprilTags</a>.</p>
@@ -47,10 +82,10 @@ tag. This means the AprilTag library may mistake some rectangular
 objects on the image as tags! This can be a real nuisance when using
 TagSLAM.</p>
 
-<p><html>
+<!--
 <table>
-<tr><td><img src="../media/tag_36h11.png" alt="tag 36h11" /></td>
-<td><img src="../media/tag_16h5.png" alt="tag 16h5" /></td>
+<tr><td>![tag 36h11](../media/tag_36h11.png)</td>
+<td>![tag 16h5](../media/tag_16h5.png)</td>
 </tr>
 <tr><td>Tag family 36h11 (preferred). Small blocks, harder to detect, can
 represent larger numbers.</td>
@@ -58,7 +93,23 @@ represent larger numbers.</td>
 false positives.</td>
 </tr>
 <table>
-</html></p>
+-->
+
+<table>
+<thead>
+<tr>
+<th><img src="../media/tag_36h11.png" alt="tag 36h11" /></th>
+<th align="right"><img src="../media/tag_16h5.png" alt="tag 16h5" /></td></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Tag family 36h11 (preferred). Small blocks, harder to detect, can represent larger numbers.</td>
+<td align="right">Tag family 16h5. Large blocks, better visible, but susceptible to false positives.</td>
+</tr>
+</tbody>
+</table>
 
 <h1 id="what-material-to-use">What material to use</h1>
 
@@ -86,7 +137,7 @@ been used for this before. Make sure to select <sup>1</sup>&frasl;<sub>4</sub>&r
 (the <sup>1</sup>&frasl;<sub>8</sub>&rdquo; boards only come glossy, not matte), and specify explicitly
 that you want it matte, and no rescaling of the image. You must supply
 them with a pdf that exactly fills the size of the board. For a
-12&rdquo;x12&rdquo; board, the cost is currently about $15 without shipping. The material is
+12&rdquo;x12&rdquo; board, the cost is currently about \$15 without shipping. The material is
 quite heavy, so not easily attached to walls with duct tape. However, it&rsquo;s very
 rugged and weather resistant, i.e. suitable for permanent installation
 outdoors.</p>
@@ -105,13 +156,13 @@ board. <em>Avoid</em> the &ldquo;Readi&rdquo; board sold by e.g. Dollar Tree
 stores. It warps badly! Rather get a board
 of
 <a href="https://www.jerrysartarama.com/jerrys-pro-foam"><sup>3</sup>&frasl;<sub>16</sub>&rdquo; ProFoam from Jerry&rsquo;s Artarama</a> for
-about $6, from which you can cut 12 tags of size 10&rdquo;x10&rdquo;.</p>
+about \$6, from which you can cut 12 tags of size 10&rdquo;x10&rdquo;.</p>
 
 <p>Use an inkjet printer to print the tag on a matte clear adhesive label like
 the <a href="https://www.avery.com/products/labels/8665">Avery 8665</a>, which go
-for about $1 for an 8.5&rdquo;x11&rdquo; page. Stick the label on the foam board,
-done. The board is significantly cheaper (about $1.50/tag DIY, or
-$4/tag + shipping if you have it printed) and lighter
+for about \$1 for an 8.5&rdquo;x11&rdquo; page. Stick the label on the foam board,
+done. The board is significantly cheaper (about \$1.50/tag DIY, or
+\$4/tag + shipping if you have it printed) and lighter
 than DiBond aluminum, but also much more fragile. Be careful not to
 touch the printed surface, or the color will come off over time.</p>
 
@@ -160,8 +211,8 @@ using them).</p>
 a little off (why???).</p>
 <div class="edit-meta">
 </div>
-<nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/intrinsic_calibration/" title="D) Intrinsic calibration"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - D) Intrinsic calibration</a>
-<a class="nav nav-next" href="/tagslam_web/getting_started/" title="A) Getting Started">Next - A) Getting Started <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+<nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/intrinsic_calibration/" title="4. Intrinsic calibration"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 4. Intrinsic calibration</a>
+<a class="nav nav-next" href="/tagslam_web/visualization/" title="6. Visualization">Next - 6. Visualization <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer><p class="powered"></p>
 </footer>
 </main><div class="sidebar">
@@ -169,16 +220,22 @@ a little off (why???).</p>
 <ul>
 <li class=""><a href="https://berndpfrommer.github.io/tagslam_web/">Home</a></li>
 
-<li class=""><a href="/tagslam_web/getting_started/">A) Getting Started</a>
+<li class=""><a href="/tagslam_web/getting_started/">1. Getting Started</a>
 </li>
 
-<li class=""><a href="/tagslam_web/caveats/">B) Caveats</a>
+<li class=""><a href="/tagslam_web/concepts/">2. Concepts</a>
 </li>
 
-<li class=""><a href="/tagslam_web/intrinsic_calibration/">D) Intrinsic calibration</a>
+<li class=""><a href="/tagslam_web/caveats/">3. Caveats and Limitations</a>
 </li>
 
-<li class="parent active"><a href="/tagslam_web/making_tags/">D) Making and using AprilTags</a>
+<li class=""><a href="/tagslam_web/intrinsic_calibration/">4. Intrinsic calibration</a>
+</li>
+
+<li class="parent active"><a href="/tagslam_web/making_tags/">5. Making and using AprilTags</a>
+</li>
+
+<li class=""><a href="/tagslam_web/visualization/">6. Visualization</a>
 </li>
 </ul>
 </nav>

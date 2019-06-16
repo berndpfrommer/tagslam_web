@@ -3,10 +3,10 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>TagSLAM</title>
+<title>2. Concepts - TagSLAM</title>
 <meta name="generator" content="Hugo 0.40.1" />
 <link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
-<link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/">
+<link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/concepts/">
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
 <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/chroma.min.css">
@@ -61,68 +61,81 @@ $
 </nav>
 </div>
 <div class="content-container">
-<main>
+<main><h1>2. Concepts</h1>
 
-<h1 id="tagslam-localization-and-mapping-with-tags">TagSLAM: Localization and mapping with tags</h1>
+<h1 id="notation-for-transforms">Notation for transforms</h1>
 
-<p>TagSLAM is a ROS based package for simultaneous multi-camera localization and
-mapping (SLAM) with the
-popular <a href="https://april.eecs.umich.edu/software/apriltag">AprilTags</a>.</p>
+<p>In the following, transforms written as:
+$$
+\ctrans{T}{A}{B}
+$$
+<html></p>
 
-<p><img src="media/pennstock.png" alt="pennstock"  width="600"/></p>
+<p></html>
+take coordinates $\cvec{X}{A}$ in  frame $\mathrm{A}$ and express them in frame $\mathrm{B}$:
+$$
+\cvec{X}{B} = \ctrans{T}{A}{B}\ \cvec{X}{A}
+$$</p>
 
-<p>(Image shows the poses of a quad rotor platform flying in a tunnel
-(pennstock) with a 4-camera setup, dataset courtesy of Tolga Ozaslan)</p>
+<h1 id="bodies">Bodies</h1>
 
-<p>TagSLAM can also solve several sub problems related to SLAM:</p>
+<p>In TagSLAM, every tag is associated with a body, and tag poses are
+given relative to that body. Likewise, every camera must be associated with
+a body, and camera poses are expressed with respect to that
+body.</p>
 
-<h2 id="mapping">Mapping</h2>
+<p>Consider the following scene:</p>
 
-<p>Walk around with a camera and discover tag poses whenever
-multiple tags are visible in the same frame.</p>
+<p><img src="../media/block_scene.png" alt="block scene" width="800"/></p>
 
-<h2 id="localization">Localization</h2>
+<p>In the example above, for the camera to localize itself, the &ldquo;lab&rdquo; body&rsquo;s world pose $\ctrans{T}{lab}{map}$ must be specified, as well as
+the pose $\ctrans{T}{tag\_2}{lab}$ of the tag with respect to the lab.
+Also needed is the pose $\ctrans{T}{cam0}{cam\_rig}$ of the camera with respect to the body it is attached to (&ldquo;cam_rig&rdquo;).</p>
 
-<p>If you have the tags mapped already, you can entertheir poses as fixed
-input, and later just localize off those tags.</p>
+<p>For the block to be localized by TagSLAM, we only need to provide $\ctrans{T}{tag\_105}{block}$. When the camera sees tags 2 and tag 105 at the same time, it will be able to infer the missing transform $\ctrans{T}{block}{map}$.</p>
 
-<h2 id="extrinsic-camera-calibration">Extrinsic camera calibration</h2>
+<h1 id="poses">Poses</h1>
 
-<p>TagSLAM supports <em>synchronized</em> (only!)  multi-camera systems, and
-therefore can be used to find the relative  poses of multiple
-cameras. No special calibration target is needed other than AprilTags
-scattered around. No overlap between the cameras field of view is required.</p>
+<p>Poses can be classfied according to their time dependence:</p>
 
-<h2 id="state-estimation">State estimation</h2>
+<ul>
+<li><p>Static poses: such poses do not change over time, i.e. TagSLAM will
+maintain a single variable throughout the entire data set. An
+example would be the pose of the lab $\ctrans{T}{lab}{map}$.</p></li>
 
-<p>TagSLAM can estimate the pose of an object that has tags attached to
-it.
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="//www.youtube.com/embed/ul9THWqCOQY?autoplay=1" style="position: absolute; top: 0; left: 0; width: 60%; height: 60%; border:0;" allowfullscreen title="YouTube Video"></iframe>
-</div></p>
+<li><p>Non-static poses: they can potentially change with every
+frame. An example would be the pose $\ctrans{T}{cam\_rig}{map}$ of
+the camera rig or the pose $\ctrans{T}{block}{map}$ of the block.</p></li>
+</ul>
 
-<!--
-<img src="media/block_scene.png" alt="pennstock"  width="600"/>
+<p>Note that <em>tag and camera poses are always static</em>! That means they do
+not change with time, i.e. TagSLAM assumes one constant pose over
+time. However, the <em>body</em> to which the tags or cameras are attached
+can have a time dependent pose!</p>
 
-<div style="position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;">
-  <iframe src="//www.youtube.com/embed/?"
-  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" allowfullscreen frameborder="0" title="YouTube Video"></iframe>
+<p>Further, static poses are distinguished by prior knowledge:</p>
+
+<ul>
+<li>Known poses: the pose is already known at the start, for instance
+from a previous run of TagSLAM.</li>
+<li>Unknown poses: the pose, although static, is unknown at the
+beginning, and must be discovered on the fly.</li>
+</ul>
+<div class="edit-meta">
 </div>
--->
-<nav class="pagination"><a class="nav nav-next" href="/tagslam_web/getting_started/" title="1. Getting Started">Next - 1. Getting Started <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
-</nav><div class="edit-meta">
-</div>
-<footer><p class="powered"></p>
+<nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/getting_started/" title="1. Getting Started"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 1. Getting Started</a>
+<a class="nav nav-next" href="/tagslam_web/caveats/" title="3. Caveats and Limitations">Next - 3. Caveats and Limitations <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered"></p>
 </footer>
 </main><div class="sidebar">
 <nav>
 <ul>
-<li class="active"><a href="https://berndpfrommer.github.io/tagslam_web/">Home</a></li>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/">Home</a></li>
 
 <li class=""><a href="/tagslam_web/getting_started/">1. Getting Started</a>
 </li>
 
-<li class=""><a href="/tagslam_web/concepts/">2. Concepts</a>
+<li class="parent active"><a href="/tagslam_web/concepts/">2. Concepts</a>
 </li>
 
 <li class=""><a href="/tagslam_web/caveats/">3. Caveats and Limitations</a>

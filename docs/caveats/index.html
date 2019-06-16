@@ -3,7 +3,7 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>B) Caveats - TagSLAM</title>
+<title>3. Caveats and Limitations - TagSLAM</title>
 <meta name="generator" content="Hugo 0.40.1" />
 <link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
 <link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/caveats/">
@@ -18,6 +18,41 @@
 <div class="container"><header>
 <h1>TagSLAM</h1>
 
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+  inlineMath: [['$','$'], ['\\(','\\)']],
+  displayMath: [['$$','$$']],
+  processEscapes: true,
+  processEnvironments: true,
+  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+  TeX: { equationNumbers: { autoNumber: "AMS" },
+  extensions: ["AMSmath.js", "AMSsymbols.js"]
+  }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+$
+\newcommand{\cc}[1]{\color{black}{#1}}
+\newcommand{\mvec}[1]{\mathbf{#1}}
+\newcommand{\cvec}[2]{^\mathrm{#2}\mathbf{#1}}
+\newcommand{\ctrans}[3]{^\mathrm{#3}\mathbf{#1}_\mathrm{#2}}
+$
 </header>
 <div class="menu">
 <nav>
@@ -26,17 +61,18 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>B) Caveats</h1>
+<main><h1>3. Caveats and Limitations</h1>
 
 <h1 id="limitations">Limitations</h1>
 
 <p>The following limitations apply when using TagSLAM:</p>
 
 <ul>
-<li><p>No duplicate tag ids allowed. A tag can only exist in the
-world once.</p></li>
+<li><p>No duplicate tag ids are allowed! A tag can only exist in the
+world once. You must make sure that there are no duplicate tags
+anywhere.</p></li>
 
-<li><p>No mixing of AprilTag families. For a single data set, all tags must
+<li><p>No mixing of AprilTag families! For a single data set, all tags must
 be of the same family</p></li>
 
 <li><p>All tags must have the same number of border bits.</p></li>
@@ -46,8 +82,8 @@ be of the same family</p></li>
 detector, and if fixed there, TagSLAM should be able to handle it.</p>
 <div class="edit-meta">
 </div>
-<nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/getting_started/" title="A) Getting Started"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - A) Getting Started</a>
-<a class="nav nav-next" href="/tagslam_web/intrinsic_calibration/" title="D) Intrinsic calibration">Next - D) Intrinsic calibration <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+<nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/concepts/" title="2. Concepts"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 2. Concepts</a>
+<a class="nav nav-next" href="/tagslam_web/intrinsic_calibration/" title="4. Intrinsic calibration">Next - 4. Intrinsic calibration <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer><p class="powered"></p>
 </footer>
 </main><div class="sidebar">
@@ -55,16 +91,22 @@ detector, and if fixed there, TagSLAM should be able to handle it.</p>
 <ul>
 <li class=""><a href="https://berndpfrommer.github.io/tagslam_web/">Home</a></li>
 
-<li class=""><a href="/tagslam_web/getting_started/">A) Getting Started</a>
+<li class=""><a href="/tagslam_web/getting_started/">1. Getting Started</a>
 </li>
 
-<li class="parent active"><a href="/tagslam_web/caveats/">B) Caveats</a>
+<li class=""><a href="/tagslam_web/concepts/">2. Concepts</a>
 </li>
 
-<li class=""><a href="/tagslam_web/intrinsic_calibration/">D) Intrinsic calibration</a>
+<li class="parent active"><a href="/tagslam_web/caveats/">3. Caveats and Limitations</a>
 </li>
 
-<li class=""><a href="/tagslam_web/making_tags/">D) Making and using AprilTags</a>
+<li class=""><a href="/tagslam_web/intrinsic_calibration/">4. Intrinsic calibration</a>
+</li>
+
+<li class=""><a href="/tagslam_web/making_tags/">5. Making and using AprilTags</a>
+</li>
+
+<li class=""><a href="/tagslam_web/visualization/">6. Visualization</a>
 </li>
 </ul>
 </nav>
