@@ -1,17 +1,11 @@
 
-- what are the input files:
-  cameras.yaml
-  tagslam.yaml
-  camera_poses.yaml
 - service calls
 - launch parameters
 - using existing odometry
 - measurements
 - FAQ
-- hacking it
-  - Fake Odom
-  - squashing
-  
+- projects that use tagslam
+- diagnostics
 - examples
 - tag localization best practices
 

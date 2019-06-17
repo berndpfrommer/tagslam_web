@@ -1,7 +1,7 @@
 +++
 date = "2015-07-18T14:08:35+02:00"
 draft = false
-title = "6. Visualization"
+title = "8. Visualization"
 +++
 # How to get the rviz "Camera" feature to work.
 For the "Camera" feature in rviz to work properly you need:

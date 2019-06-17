@@ -55,3 +55,10 @@ Further, static poses are distinguished by prior knowledge:
 - Unknown poses: the pose, although static, is unknown at the
   beginning, and must be discovered on the fly.
 
+
+# Convention for tag poses
+
+Here is how the coordinate axes are oriented when facing an upright
+AprilTag. Also note the corner numbering in purple.
+
+![tag corners](../media/tag_corners.png)

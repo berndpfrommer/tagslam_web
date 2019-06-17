@@ -22,12 +22,14 @@ multiple tags are visible in the same frame.
 If you have the tags mapped already, you can enter their poses as fixed
 input, and now just localize off those tags.
 
+## Loop closing on visual odometry
+If a visual/inertial odometry trajectory and the tag detections *are computed from the same camera frames*, TagSLAM can perform loop closure.
+
 ## Extrinsic camera calibration
 TagSLAM supports *synchronized* (only!)  multi-camera systems, and
 therefore can be used to find the relative  poses of multiple
 cameras. No special calibration target is needed other than AprilTags
 scattered around. No overlap between the cameras field of view is required.
-
 
 ## State estimation
 TagSLAM can estimate the pose of an object that has tags attached to
