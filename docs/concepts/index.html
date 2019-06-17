@@ -13,7 +13,12 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <script src="https://berndpfrommer.github.io/tagslam_web/js/functions.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
-<script src="https://berndpfrommer.github.io/tagslam_web/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<script src="https://berndpfrommer.github.io/tagslam_web/js/jquery.backtothetop/jquery.backtothetop.min.js"></script><style>
+.container {
+    max-width: 1200px;
+}
+</style>
+</head>
 <body>
 <div class="container"><header>
 <h1>TagSLAM</h1>
@@ -121,6 +126,13 @@ from a previous run of TagSLAM.</li>
 <li>Unknown poses: the pose, although static, is unknown at the
 beginning, and must be discovered on the fly.</li>
 </ul>
+
+<h1 id="convention-for-tag-poses">Convention for tag poses</h1>
+
+<p>Here is how the coordinate axes are oriented when facing an upright
+AprilTag. Also note the corner numbering in purple.</p>
+
+<p><img src="../media/tag_corners.png" alt="tag corners" /></p>
 <div class="edit-meta">
 </div>
 <nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/getting_started/" title="1. Getting Started"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 1. Getting Started</a>
@@ -147,7 +159,13 @@ beginning, and must be discovered on the fly.</li>
 <li class=""><a href="/tagslam_web/making_tags/">5. Making and using AprilTags</a>
 </li>
 
-<li class=""><a href="/tagslam_web/visualization/">6. Visualization</a>
+<li class=""><a href="/tagslam_web/input_files/">6. Input files</a>
+</li>
+
+<li class=""><a href="/tagslam_web/measurements/">7. Measurements</a>
+</li>
+
+<li class=""><a href="/tagslam_web/visualization/">8. Visualization</a>
 </li>
 </ul>
 </nav>

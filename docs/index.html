@@ -13,7 +13,12 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <script src="https://berndpfrommer.github.io/tagslam_web/js/functions.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
-<script src="https://berndpfrommer.github.io/tagslam_web/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<script src="https://berndpfrommer.github.io/tagslam_web/js/jquery.backtothetop/jquery.backtothetop.min.js"></script><style>
+.container {
+    max-width: 1200px;
+}
+</style>
+</head>
 <body>
 <div class="container"><header>
 <h1>TagSLAM</h1>
@@ -84,6 +89,10 @@ multiple tags are visible in the same frame.</p>
 <p>If you have the tags mapped already, you can enter their poses as fixed
 input, and now just localize off those tags.</p>
 
+<h2 id="loop-closing-on-visual-odometry">Loop closing on visual odometry</h2>
+
+<p>If a visual/inertial odometry trajectory and the tag detections <em>are computed from the same camera frames</em>, TagSLAM can perform loop closure.</p>
+
 <h2 id="extrinsic-camera-calibration">Extrinsic camera calibration</h2>
 
 <p>TagSLAM supports <em>synchronized</em> (only!)  multi-camera systems, and
@@ -132,7 +141,13 @@ it.
 <li class=""><a href="/tagslam_web/making_tags/">5. Making and using AprilTags</a>
 </li>
 
-<li class=""><a href="/tagslam_web/visualization/">6. Visualization</a>
+<li class=""><a href="/tagslam_web/input_files/">6. Input files</a>
+</li>
+
+<li class=""><a href="/tagslam_web/measurements/">7. Measurements</a>
+</li>
+
+<li class=""><a href="/tagslam_web/visualization/">8. Visualization</a>
 </li>
 </ul>
 </nav>

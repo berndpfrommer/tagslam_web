@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>7. Measurements - TagSLAM</title>
+<meta name="generator" content="Hugo 0.40.1" />
+<link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/measurements/">
+<link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://berndpfrommer.github.io/tagslam_web/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://berndpfrommer.github.io/tagslam_web/js/jquery.backtothetop/jquery.backtothetop.min.js"></script><style>
+.container {
+    max-width: 1200px;
+}
+</style>
+</head>
+<body>
+<div class="container"><header>
+<h1>TagSLAM</h1>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+  inlineMath: [['$','$'], ['\\(','\\)']],
+  displayMath: [['$$','$$']],
+  processEscapes: true,
+  processEnvironments: true,
+  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+  TeX: { equationNumbers: { autoNumber: "AMS" },
+  extensions: ["AMSmath.js", "AMSsymbols.js"]
+  }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+$
+\newcommand{\cc}[1]{\color{black}{#1}}
+\newcommand{\mvec}[1]{\mathbf{#1}}
+\newcommand{\cvec}[2]{^\mathrm{#2}\mathbf{#1}}
+\newcommand{\ctrans}[3]{^\mathrm{#3}\mathbf{#1}_\mathrm{#2}}
+$
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/tagslam_web/">Home</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>7. Measurements</h1>
+
+<p>Sometimes distance or other measurements are available that can act as
+constraints for tag and body poses. For example, one can measure the
+distance between two tags with a laser. Or a large number of tags are
+pinned against the same, straight wall such that the $y$ coordinate of
+all tags is known.
+TagSLAM has been designed such that implementation of new measurement
+constraints should be modular and fairly straight forward.</p>
+
+<p>When measurements refer to tags, the following convention for
+orientation of the tag and corner numbering is assumed:</p>
+
+<p><img src="../media/tag_corners.png" alt="tag corners" /></p>
+
+<h1 id="distance-measurements">Distance measurements</h1>
+
+<p>If you have a laser pointer, you can measure the distances between tag
+corners, and enter them like this into <code>tagslam.yaml</code>:</p>
+
+<pre><code>distance_measurements:
+  - my_measurement_1:
+      tag1: 24
+      tag2: 60
+      corner1: 0
+      corner2: 0
+      distance: 6.017
+      noise: 0.0002
+  - my_measurement_2:
+      tag1: 29
+      tag2: 60
+      corner1: 0
+      corner2: 0
+      distance: 6.002
+      noise: 0.00159
+</code></pre>
+
+<p>The noise parameter should be set according to the expected accuracy
+of the measurement (in meters), and will determine how strongly that
+constraint will enter the optimization process.</p>
+
+<p>Once tagslam has completed, you can find an error analysis file in
+<code>$HOME/.ros/distance_diagnostics.txt</code>. The meaning of the columns
+is as follows:</p>
+
+<pre><code>optimizer |optimzed-
+error     |measured   optimzed    measured     name of measurement
+19.515 diff: -0.001   opt:  6.016 meas:  6.017 my_measurement_1
+ 0.001 diff:  0.001   opt:  6.003 meas:  6.002 my_measurement_2
+</code></pre>
+
+<h1 id="coordinate-measurements">Coordinate measurements</h1>
+
+<p>Coordinate measurements are a way to impose constraints on the
+absolute coordinates of the corner of a given tag. The following
+example (in tagslam.yaml) sets the coordinates along the direction
+<code>[0.0, 0.0, 1.0]</code>,
+i.e. the $z$-axis, of corner zero (bottom left) tags 6 and 17 to a
+known value.</p>
+
+<pre><code>coordinate_measurements:
+  - tag6_z:
+      tag: 6
+      corner: 0
+      length: 2.070
+      noise: 0.010
+      direction: [0.0, 0.0, 1.0]
+  - tag17_z:
+      tag: 17
+      corner: 0
+      length: 0.619
+      noise: 0.010
+      direction: [0.0, 0.0, 1.0]
+</code></pre>
+
+<p>The noise parameter should be set according to the expected accuracy
+of the measurement (in meters), and will determine how strongly that
+constraint will enter the optimization process.</p>
+
+<p>Once tagslam has completed, you can find an error analysis file in
+<code>$HOME/.ros/coordinate_diagnostics.txt</code>. The meaning of the columns
+is as follows:</p>
+
+<pre><code>optimizer |optimzed-
+error     |measured optimzed    measured     name of measurement
+ 0.000 diff:  0.000 opt:  2.070 meas:  2.070 tag6_z
+ 0.000 diff: -0.000 opt:  0.619 meas:  0.619 tag17_z
+</code></pre>
+<div class="edit-meta">
+</div>
+<nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/input_files/" title="6. Input files"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 6. Input files</a>
+<a class="nav nav-next" href="/tagslam_web/visualization/" title="8. Visualization">Next - 8. Visualization <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered"></p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/">Home</a></li>
+
+<li class=""><a href="/tagslam_web/getting_started/">1. Getting Started</a>
+</li>
+
+<li class=""><a href="/tagslam_web/concepts/">2. Concepts</a>
+</li>
+
+<li class=""><a href="/tagslam_web/caveats/">3. Caveats and Limitations</a>
+</li>
+
+<li class=""><a href="/tagslam_web/intrinsic_calibration/">4. Intrinsic calibration</a>
+</li>
+
+<li class=""><a href="/tagslam_web/making_tags/">5. Making and using AprilTags</a>
+</li>
+
+<li class=""><a href="/tagslam_web/input_files/">6. Input files</a>
+</li>
+
+<li class="parent active"><a href="/tagslam_web/measurements/">7. Measurements</a>
+</li>
+
+<li class=""><a href="/tagslam_web/visualization/">8. Visualization</a>
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>
