@@ -82,7 +82,7 @@ camera image with the 3d world.</p>
 <p>To start, the topics in your bag should look like this:</p>
 
 <pre><code>topics:      /camera/camera_info     1724 msgs    : sensor_msgs/CameraInfo
-             /camera/compressed      1724 msgs    : sensor_msgs/CompressedIm
+             /camera/compressed      1724 msgs    : sensor_msgs/CompressedImage
 </code></pre>
 
 <p>You can massage the bag topic scheme by using the topic renamer tool:</p>
@@ -90,9 +90,9 @@ camera image with the 3d world.</p>
 <pre><code>rosrun rosbag topic_renamer.py &lt;in topic&gt; &lt;in bag&gt; &lt;out topic&gt; &lt;out bag&gt;
 </code></pre>
 
-<p>If you don&rsquo;t have the camera info the bag, add it like so:</p>
+<p>If you don&rsquo;t have the camera info in the bag, add it like so:</p>
 
-<pre><code>rosrun tagslam add_camera_info.py --out_bag output.bag --caminfo_file camerainfo.yaml --caminfo_topic /camera/camera_info --image_topic /camera/compressed
+<pre><code>rosrun tagslam add_camera_info.py --out_bag output.bag --caminfo_file camerainfo.yaml --caminfo_topic /camera/camera_info --image_topic /camera/compressed input.bag
 </code></pre>
 
 <p>Verify that your camera_info and image messages have a frame_id of
@@ -109,7 +109,7 @@ camera image with the 3d world.</p>
 </code></pre>
 
 <p>Now you need to run the image_proc module in the namespace of your camera
-to get a rectified image. This is very important.</p>
+to get a rectified (undistorted) image. This is very important. If you use the non-rectified image, the projections done by rviz will not be lining up with the camera image.</p>
 
 <pre><code>ROS_NAMESPACE=camera  rosrun image_proc image_proc
 </code></pre>
@@ -117,7 +117,7 @@ to get a rectified image. This is very important.</p>
 <p>Next, create a Camera window in rviz, subscribing to the topic
 &ldquo;/camera/image_rect_color&rdquo;. Then run a detector node to decode the
 images, run tagslam to produce valid cam0-to-map transforms, and play
-the gab. The Camera in rviz should start displaying images now.</p>
+the bag. The Camera in rviz should start displaying images now.</p>
 
 <p>To get the tags to visualize, first run tagslam for a while so you
 have all the valid tag poses. Then dump them into a file:</p>

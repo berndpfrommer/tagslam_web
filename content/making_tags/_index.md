@@ -101,8 +101,7 @@ There is a handy little program in the TagSLAM repo (courtesy of the
 Kalibr folks) with which you can generate a pdf of an AprilTag:
 
     sudo apt install python-pyx
-    rosrun tagslam make_tag.py --nx 1 --ny 1 --marginx 0.00 --marginy
-    0.00 --tsize 0.16 --tspace 0.0 --startid 4 --tfam t36h11 --borderbits 1 
+    rosrun tagslam make_tag.py --nx 1 --ny 1 --marginx 0.00 --marginy 0.00 --tsize 0.16 --tspace 0.0 --startid 4 --tfam t36h11 --borderbits 1 
 
 This will produce a pdf file ``target.pdf`` of a single tag with id 4,
 size 16cm, and a 1 bit wide border. When you generate tags, you

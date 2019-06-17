@@ -19,15 +19,15 @@ camera image with the 3d world.
 To start, the topics in your bag should look like this:
 
     topics:      /camera/camera_info     1724 msgs    : sensor_msgs/CameraInfo
-                 /camera/compressed      1724 msgs    : sensor_msgs/CompressedIm
+                 /camera/compressed      1724 msgs    : sensor_msgs/CompressedImage
 
 You can massage the bag topic scheme by using the topic renamer tool:
 
     rosrun rosbag topic_renamer.py <in topic> <in bag> <out topic> <out bag>
 
-If you don't have the camera info the bag, add it like so:
+If you don't have the camera info in the bag, add it like so:
 
-    rosrun tagslam add_camera_info.py --out_bag output.bag --caminfo_file camerainfo.yaml --caminfo_topic /camera/camera_info --image_topic /camera/compressed
+    rosrun tagslam add_camera_info.py --out_bag output.bag --caminfo_file camerainfo.yaml --caminfo_topic /camera/camera_info --image_topic /camera/compressed input.bag
 
 Verify that your camera\_info and image messages have a frame\_id of
 "cam0" in the header. If not, change the frame_id like this:
@@ -40,14 +40,14 @@ First, run a module to decompress the image:
     rosrun image_transport republish compressed in:=/camera out:=/camera/image_raw
 	
 Now you need to run the image_proc module in the namespace of your camera
-to get a rectified image. This is very important.
+to get a rectified (undistorted) image. This is very important. If you use the non-rectified image, the projections done by rviz will not be lining up with the camera image. 
 
     ROS_NAMESPACE=camera  rosrun image_proc image_proc
 
 Next, create a Camera window in rviz, subscribing to the topic
 "/camera/image_rect_color". Then run a detector node to decode the
 images, run tagslam to produce valid cam0-to-map transforms, and play
-the gab. The Camera in rviz should start displaying images now.
+the bag. The Camera in rviz should start displaying images now.
 
 To get the tags to visualize, first run tagslam for a while so you
 have all the valid tag poses. Then dump them into a file:
