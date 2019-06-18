@@ -3,10 +3,10 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>4. Intrinsic Calibration - TagSLAM</title>
+<title>A. Hints for Better Localization - TagSLAM</title>
 <meta name="generator" content="Hugo 0.40.1" />
 <link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
-<link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/intrinsic_calibration/">
+<link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/better_localization/">
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
 <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/chroma.min.css">
@@ -78,79 +78,64 @@ $
 </nav>
 </div>
 <div class="content-container">
-<main><h1>4. Intrinsic Calibration</h1>
+<main><h1>A. Hints for Better Localization</h1>
 
-<h1 id="intrinsic-calibration">Intrinsic calibration</h1>
+<p>Paying attention to the details when using tags for localization can
+make a big difference for the quality of the results!</p>
 
-<p>TagSLAM can <em>not</em> perform intrinsic calibration. You must supply
-the intrinsic parameters in the <code>cameras.yaml</code> file.</p>
+<h1 id="camera-and-lighting">Camera and Lighting</h1>
 
-<p>If you are dealing with a &ldquo;normal&rdquo; lens, it is recommended that you use the
-ROS <a href="http://wiki.ros.org/camera_calibration">camera_calibration</a>
-package for intrinsic calibration. It can do the standard <code>radtan</code>
-(<code>plumb_bob</code>) radial-tangential distortion model and is the easiest tool to
-use. However, it&rsquo;s output file must be converted to work with TagSLAM</p>
+<p>Some important points when selecting a camera:</p>
 
-<p>If you are dealing with a fisheye (<code>equidistant</code>)
-lens, consider using  <a href="https://github.com/ethz-asl/kalibr">Kalibr</a> or the
-<a href="https://github.com/KumarRobotics/multicam_calibration">multicam_calibration</a>
-tool. Kalibr and multicam_calibration will already give you the output in a
-format that is close to the one that TagSLAM uses.</p>
+<ul>
+<li>Lighting: illuminate the tags as brightly as possible.
+The more light, the shorter the shutter times, the less motion blur. Avoid
+backlight when possible.</li>
+<li>Check that your camera is focused correctly for the distance you
+need. When in doubt, set focus to a distances a little longer than
+you expect (focus is most important for far away tags)</li>
+<li>Use a camera with global shutter, not rolling shutter. Most consumer
+cameras (webcams, GoPros etc) have rolling shutters that
+can <a href="https://www.youtube.com/watch?v=LVwmtwZLG88">distort objects</a>
+that are in motion.</li>
+<li>Short shutter times are crucial for avoiding motion blur. To this end, you want:
 
-<h2 id="converting-ros-calibration-files">Converting ROS calibration files</h2>
+<ul>
+<li>a large sensor with high quantum efficiency. The FLIR machine
+vision website (formerly PointGrey) has excellent sensor
+comparisons.</li>
+<li>a large aperture lens (but beware of focus!)</li>
+</ul></li>
+<li>Auto focus cameras are to be avoided because their calibration could
+change while recording.</li>
+<li>If using multiple cameras, they must be synchronized (use hardware
+sync!), because TagSLAM cannot handle unsynchronized camera streams!</li>
+<li>Higher resolution is better. If the resolution is too low, you may
+not be able to detect any tags.</li>
+<li>Generally wide-angle lenses (up to 120deg) are preferred, but they
+must be used in combination with a high resolution sensor.</li>
+</ul>
 
-<p>After running the ROS calibration you will end up with a file that is
-called <code>ost.yaml</code>. It will look like this:</p>
+<h1 id="tag-placement">Tag placement</h1>
 
-<pre><code>image_width: 1920
-image_height: 1200
-camera_name: pg_17408093
-camera_matrix:
-  rows: 3
-  cols: 3
-  data: [2168.758281, 0.000000, 990.688651, 0.000000, 2166.979687,
-583.914090    , 0.000000, 0.000000, 1.000000]
-distortion_model: plumb_bob
-distortion_coefficients:
-  rows: 1
-  cols: 5
-  data: [-0.189067, 0.124915, 0.000043, 0.000296, 0.000000]
-rectification_matrix:
-  rows: 3
-  cols: 3
-  data: [1.000000, 0.000000, 0.000000, 0.000000, 1.000000,
-0.000000, 0.000000    , 0.000000, 1.000000]
-projection_matrix:
-  rows: 3
-  cols: 4
-  data: [2094.321777, 0.000000, 993.054257, 0.000000, 0.000000, 2136.192139, 583.488844, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000]
-</code></pre>
+<p>Here some tips on tag placement:</p>
 
-<p>This file must now be converted to a format that TagSLAM can process:</p>
+<ul>
+<li>always have multiple tags in view. Localizing from a single tag is very fragile.</li>
+<li>make sure tags are visible (unoccluded) from all points on the camera path.</li>
+<li>avoid placing tags where there is a lot of backlight</li>
+<li>space tags as far from each other as possible, but in such a way
+that always multiple tags are still visible.</li>
+<li>resist the temptation to arrange your tags in a linear fashion, for example leaning them against the wall on the floor. TagSLAM uses a triangulation based approach, which works best with &hellip; triangles. The following video shows that better results can be obtained with 3 tags in a triangular arrangement than from 5 tags that are collinear.</li>
+</ul>
 
-<pre><code>rosrun tagslam camerainfo_to_kalibr.py -i ost.yaml -o cameras.yaml
-</code></pre>
-
-<p>The resulting file should look like this:</p>
-
-<pre><code>cam0:
-  camera_model: pinhole
-  intrinsics: [2168.75828, 2166.97969, 990.68865, 583.91409]
-  distortion_model: plumb_bob
-  distortion_coeffs: [-0.18907, 0.12491, 0.00004, 0.00030, 0.00000]
-  resolution: [1920, 1200]
-  tagtopic: /pg_17408093/tags
-  rig_body: XXX_NAME_OF_RIG_BODY
-</code></pre>
-
-<p>You will need to adjust the <code>tagtopic</code> to match the actual ROS topic
-under which the extracted tags are published. The <code>rig_body</code> must be
-set to match the name of the TagSLAM body to which the camera is
-attached.</p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0;">
+<iframe src="//www.youtube.com/embed/ti4PFfSBZyk?autoplay=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="TagSLAM on linear vs triangular tags"></iframe>
+</div>
 <div class="edit-meta">
 </div>
-<nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/caveats/" title="3. Caveats and Limitations"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 3. Caveats and Limitations</a>
-<a class="nav nav-next" href="/tagslam_web/input_files/" title="5. Input Files and Parameters">Next - 5. Input Files and Parameters <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+<nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/visualization/" title="9. Visualization"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 9. Visualization</a>
+<a class="nav nav-next" href="/tagslam_web/making_tags/" title="B. Making and Using AprilTags">Next - B. Making and Using AprilTags <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer><p class="powered"></p>
 </footer>
 </main><div class="sidebar">
@@ -167,7 +152,7 @@ attached.</p>
 <li class=""><a href="/tagslam_web/caveats/">3. Caveats and Limitations</a>
 </li>
 
-<li class="parent active"><a href="/tagslam_web/intrinsic_calibration/">4. Intrinsic Calibration</a>
+<li class=""><a href="/tagslam_web/intrinsic_calibration/">4. Intrinsic Calibration</a>
 </li>
 
 <li class=""><a href="/tagslam_web/input_files/">5. Input Files and Parameters</a>
@@ -185,7 +170,7 @@ attached.</p>
 <li class=""><a href="/tagslam_web/visualization/">9. Visualization</a>
 </li>
 
-<li class=""><a href="/tagslam_web/better_localization/">A. Hints for Better Localization</a>
+<li class="parent active"><a href="/tagslam_web/better_localization/">A. Hints for Better Localization</a>
 </li>
 
 <li class=""><a href="/tagslam_web/making_tags/">B. Making and Using AprilTags</a>
