@@ -1,7 +1,7 @@
 +++
 date = "2015-07-18T14:08:35+02:00"
 draft = false
-title = "5. Making and using AprilTags"
+title = "B. Making and Using AprilTags"
 +++
 At the moment, the only tags supported by TagSLAM are the
 popular [AprilTags](https://april.eecs.umich.edu/software/apriltag).

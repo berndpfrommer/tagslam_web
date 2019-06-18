@@ -1,8 +1,32 @@
 +++
 date = "2015-07-18T14:08:35+02:00"
 draft = false
-title = "6. Input files"
+title = "5. Input Files and Parameters"
 +++
+# Launch parameters
+
+- ``outbag`` (default: "out.bag") name of output bag file
+- ``playback_rate`` (default: 5) rate for playback of optimized data
+- ``pixel_noise`` (default: 1.0) penality (in pixels) for corner projection error
+- ``output_directory`` (default ".") where to write the output files to
+- ``bag_file`` (default: "") name of input bag file. If empty, run in
+    online mode
+- ``fixed_frame_id`` (default: "map") ROS frame id of the universe
+- ``max_number_of_frames`` (default: 1000000) stop playing bag after this number
+    of frames
+- ``minimum_viewing_angle`` (default: 20.0) minimum viewing angle (in
+  degrees), at which an observed tag is accepted. If the viewing angle
+  is smaller than that, the tag will be ignored.
+- ``max_subgraph_error`` (default: 50.0) maximum error allowed for an
+  initialization subgraph to be accepted into the full graph. If error
+  exceeds ``max_subgraph_error``, all data for this frame will be dropped.
+- ``optimize_full_graph`` (default: false) disables ISAM2 incremental
+  optimization
+- ``max_num_incremental_opt`` (default: 100) run full optimizer
+  (rather than incremental iSAM2) after
+- ``max_num_incremental_opt``. This is required to avoid error build
+  up for long sequences. Need to better understand why this is necessary!
+
 # cameras.yaml
 
 Here's how a typical camera.yaml file looks:
