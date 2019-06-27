@@ -1,7 +1,7 @@
 +++
 date = "2015-07-18T14:08:35+02:00"
 draft = false
-title = "A. Hints for Better Localization"
+title = "B. Hints for Better Localization"
 +++
 Paying attention to the details when using tags for localization can
 make a big difference for the quality of the results!

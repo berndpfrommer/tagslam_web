@@ -3,7 +3,22 @@ date = "2015-07-18T14:08:35+02:00"
 draft = false
 title = "9. Visualization"
 +++
-# How to get the rviz "Camera" feature to work.
+# How to render the tags in rviz
+
+The ``tagslam_viz`` package has python code to generate urdf models
+for the tags. The urdf is generated for all tags listed in the
+``poses.yaml`` file that is produced when you run TagSLAM. Here is how to
+generate the urdf, and load it into the ROS parameter space:
+
+    roslaunch tagslam_viz visualize_tags.launch tag_id_file:=$HOME/.ros/poses.yaml
+
+Now in rviz, you add a "RobotModel", and change the "Robot
+Description" from "robot_description" to "tags". All that is missing
+now is a transform from tag to world frame. So run TagSLAM again, and
+you should see the tags rendered.
+
+
+# How to get the rviz "Camera" feature to work
 For the "Camera" feature in rviz to work properly you need:
 
 - an *undistorted* camera image.

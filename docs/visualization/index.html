@@ -80,7 +80,22 @@ $
 <div class="content-container">
 <main><h1>9. Visualization</h1>
 
-<h1 id="how-to-get-the-rviz-camera-feature-to-work">How to get the rviz &ldquo;Camera&rdquo; feature to work.</h1>
+<h1 id="how-to-render-the-tags-in-rviz">How to render the tags in rviz</h1>
+
+<p>The <code>tagslam_viz</code> package has python code to generate urdf models
+for the tags. The urdf is generated for all tags listed in the
+<code>poses.yaml</code> file that is produced when you run TagSLAM. Here is how to
+generate the urdf, and load it into the ROS parameter space:</p>
+
+<pre><code>roslaunch tagslam_viz visualize_tags.launch tag_id_file:=$HOME/.ros/poses.yaml
+</code></pre>
+
+<p>Now in rviz, you add a &ldquo;RobotModel&rdquo;, and change the &ldquo;Robot
+Description&rdquo; from &ldquo;robot_description&rdquo; to &ldquo;tags&rdquo;. All that is missing
+now is a transform from tag to world frame. So run TagSLAM again, and
+you should see the tags rendered.</p>
+
+<h1 id="how-to-get-the-rviz-camera-feature-to-work">How to get the rviz &ldquo;Camera&rdquo; feature to work</h1>
 
 <p>For the &ldquo;Camera&rdquo; feature in rviz to work properly you need:</p>
 
@@ -159,7 +174,7 @@ rviz should have only small projection errors, as in the image below.</p>
 <div class="edit-meta">
 </div>
 <nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/examples/" title="8. Examples"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 8. Examples</a>
-<a class="nav nav-next" href="/tagslam_web/better_localization/" title="A. Hints for Better Localization">Next - A. Hints for Better Localization <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+<a class="nav nav-next" href="/tagslam_web/help/" title="A. Asking for Help">Next - A. Asking for Help <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer><p class="powered"></p>
 </footer>
 </main><div class="sidebar">
@@ -194,10 +209,13 @@ rviz should have only small projection errors, as in the image below.</p>
 <li class="parent active"><a href="/tagslam_web/visualization/">9. Visualization</a>
 </li>
 
-<li class=""><a href="/tagslam_web/better_localization/">A. Hints for Better Localization</a>
+<li class=""><a href="/tagslam_web/help/">A. Asking for Help</a>
 </li>
 
-<li class=""><a href="/tagslam_web/making_tags/">B. Making and Using AprilTags</a>
+<li class=""><a href="/tagslam_web/better_localization/">B. Hints for Better Localization</a>
+</li>
+
+<li class=""><a href="/tagslam_web/making_tags/">C. Making and Using AprilTags</a>
 </li>
 </ul>
 </nav>

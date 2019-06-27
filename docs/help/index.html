@@ -3,10 +3,10 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>3. Caveats and Limitations - TagSLAM</title>
+<title>A. Asking for Help - TagSLAM</title>
 <meta name="generator" content="Hugo 0.40.1" />
 <link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
-<link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/caveats/">
+<link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/help/">
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
 <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/chroma.min.css">
@@ -78,34 +78,13 @@ $
 </nav>
 </div>
 <div class="content-container">
-<main><h1>3. Caveats and Limitations</h1>
-
-<h1 id="limitations">Limitations</h1>
-
-<p>The following limitations apply when using TagSLAM:</p>
-
-<ul>
-<li><p>No duplicate tag ids are allowed! A tag can only exist in the
-world once. You must make sure that there are no duplicate tags
-anywhere.</p></li>
-
-<li><p>To use odometry with TagSLAM, the odometry updates must be
-synchronized with the tag detections, i.e. TagSLAM can only be used to
-loop close odometry that is derived from the same images in which the
-tags are detected.</p></li>
-
-<li><p>No mixing of AprilTag families! For a single data set, all tags must
-be of the same family</p></li>
-
-<li><p>All tags must have the same number of border bits.</p></li>
-</ul>
-
-<p>Note: the last two restrictions are due to the tag
-detector, and if fixed there, TagSLAM should be able to handle it.</p>
+<main><h1>A. Asking for Help</h1><p>Please ask any questions on the
+<a href="https://groups.google.com/forum/#!forum/tagslam">TagSLAM google group</a> rather
+than by email. That way the whole community can benefit from the answer. Thanks!</p>
 <div class="edit-meta">
 </div>
-<nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/concepts/" title="2. Concepts"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 2. Concepts</a>
-<a class="nav nav-next" href="/tagslam_web/intrinsic_calibration/" title="4. Intrinsic Calibration">Next - 4. Intrinsic Calibration <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+<nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/visualization/" title="9. Visualization"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 9. Visualization</a>
+<a class="nav nav-next" href="/tagslam_web/better_localization/" title="B. Hints for Better Localization">Next - B. Hints for Better Localization <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer><p class="powered"></p>
 </footer>
 </main><div class="sidebar">
@@ -119,7 +98,7 @@ detector, and if fixed there, TagSLAM should be able to handle it.</p>
 <li class=""><a href="/tagslam_web/concepts/">2. Concepts</a>
 </li>
 
-<li class="parent active"><a href="/tagslam_web/caveats/">3. Caveats and Limitations</a>
+<li class=""><a href="/tagslam_web/caveats/">3. Caveats and Limitations</a>
 </li>
 
 <li class=""><a href="/tagslam_web/intrinsic_calibration/">4. Intrinsic Calibration</a>
@@ -140,7 +119,7 @@ detector, and if fixed there, TagSLAM should be able to handle it.</p>
 <li class=""><a href="/tagslam_web/visualization/">9. Visualization</a>
 </li>
 
-<li class=""><a href="/tagslam_web/help/">A. Asking for Help</a>
+<li class="parent active"><a href="/tagslam_web/help/">A. Asking for Help</a>
 </li>
 
 <li class=""><a href="/tagslam_web/better_localization/">B. Hints for Better Localization</a>
