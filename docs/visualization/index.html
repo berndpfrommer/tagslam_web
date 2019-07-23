@@ -95,6 +95,18 @@ Description&rdquo; from &ldquo;robot_description&rdquo; to &ldquo;tags&rdquo;. A
 now is a transform from tag to world frame. So run TagSLAM again, and
 you should see the tags rendered.</p>
 
+<h1 id="how-to-render-cameras-in-rviz">How to render cameras in rviz</h1>
+
+<p>The <code>tagslam_viz</code> also has code to generate a simple camera urdf
+model for each camera in <code>cameras.yaml</code>. Run it like this:</p>
+
+<pre><code>roslaunch tagslam_viz visualize_cameras.launch cameras_file:=path_to_your_cameras.yaml
+</code></pre>
+
+<p>Just like for the tags, now add a &ldquo;RobotModel&rdquo; in rviz, and change the &ldquo;Robot
+Description&rdquo; from &ldquo;robot_description&rdquo; to &ldquo;cameras&rdquo;. The cameras should
+display once valid transforms are available.</p>
+
 <h1 id="how-to-get-the-rviz-camera-feature-to-work">How to get the rviz &ldquo;Camera&rdquo; feature to work</h1>
 
 <p>For the &ldquo;Camera&rdquo; feature in rviz to work properly you need:</p>
