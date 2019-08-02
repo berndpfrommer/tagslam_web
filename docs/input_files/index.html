@@ -98,12 +98,22 @@ is smaller than that, the tag will be ignored.</li>
 <li><code>max_subgraph_error</code> (default: 50.0) maximum error allowed for an
 initialization subgraph to be accepted into the full graph. If error
 exceeds <code>max_subgraph_error</code>, all data for this frame will be dropped.</li>
-<li><code>optimize_full_graph</code> (default: false) disables ISAM2 incremental
-optimization</li>
+<li><code>optimizer_mode</code>
+
+<ul>
+<li>&ldquo;full&rdquo;: non-incremental (full) optimization after each time step.
+    This is the slowest and most conservative mode.</li>
+<li>&ldquo;slow&rdquo;: (default) incremental optimization, but with error checks and
+    frequent relinearization.</li>
+<li>&ldquo;fast&rdquo;: incremental optimization with infrequent
+relinearization. Use this if the data is very clean and you need
+speed.</li>
+</ul></li>
 <li><code>max_num_incremental_opt</code> (default: 100) run full optimizer
-(rather than incremental iSAM2) after</li>
-<li><code>max_num_incremental_opt</code>. This is required to avoid error build
-up for long sequences. Need to better understand why this is necessary!</li>
+(rather than incremental iSAM2) after every
+<code>max_num_incremental_opt</code> frames.
+This is required to avoid error build up for long sequences. Need to
+better understand why this is necessary!</li>
 </ul>
 
 <h1 id="cameras-yaml">cameras.yaml</h1>

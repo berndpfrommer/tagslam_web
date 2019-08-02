@@ -20,12 +20,19 @@ title = "5. Input Files and Parameters"
 - ``max_subgraph_error`` (default: 50.0) maximum error allowed for an
   initialization subgraph to be accepted into the full graph. If error
   exceeds ``max_subgraph_error``, all data for this frame will be dropped.
-- ``optimize_full_graph`` (default: false) disables ISAM2 incremental
-  optimization
+- ``optimizer_mode``
+  - "full": non-incremental (full) optimization after each time step.
+            This is the slowest and most conservative mode.
+  - "slow": (default) incremental optimization, but with error checks and
+            frequent relinearization.
+  - "fast": incremental optimization with infrequent
+  relinearization. Use this if the data is very clean and you need
+  speed. 
 - ``max_num_incremental_opt`` (default: 100) run full optimizer
-  (rather than incremental iSAM2) after
-- ``max_num_incremental_opt``. This is required to avoid error build
-  up for long sequences. Need to better understand why this is necessary!
+  (rather than incremental iSAM2) after every
+  ``max_num_incremental_opt`` frames.
+  This is required to avoid error build up for long sequences. Need to
+  better understand why this is necessary!
 
 # cameras.yaml
 

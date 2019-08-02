@@ -82,9 +82,12 @@ $
 
 <h1 id="tagslam-localization-and-mapping-with-tags">TagSLAM: Localization and mapping with tags</h1>
 
-<p>TagSLAM is a ROS based package for simultaneous multi-camera localization and
-mapping (SLAM) with the
-popular <a href="https://april.eecs.umich.edu/software/apriltag">AprilTags</a>.
+<p>TagSLAM is a ROS based package for simultaneous multi-camera
+localization and mapping (SLAM) with the popular
+<a href="https://april.eecs.umich.edu/software/apriltag">AprilTags</a>. In
+essence TagSLAM is a front-end to
+the <a href="https://borg.cc.gatech.edu/">GTSAM optimizer</a> which makes it easy
+to use AprilTags for visual SLAM.
 <div style="position: relative; padding-bottom: 56.25%; height: 0;">
 <iframe src="//www.youtube.com/embed/51z1V-Jb3c8?autoplay=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="TagSLAM on aerial robot"></iframe>
 </div></p>
@@ -94,7 +97,10 @@ popular <a href="https://april.eecs.umich.edu/software/apriltag">AprilTags</a>.
 <h2 id="mapping">Mapping</h2>
 
 <p>Walk around with a camera and discover tag poses whenever
-multiple tags are visible in the same frame.</p>
+multiple tags are visible in the same frame.
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/BxrG-QItMSo?autoplay=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="TagSLAM mapping"></iframe>
+</div></p>
 
 <h2 id="localization">Localization</h2>
 
@@ -103,7 +109,15 @@ input, and now just localize off those tags.</p>
 
 <h2 id="loop-closing-on-visual-odometry">Loop closing on visual odometry</h2>
 
-<p>If a visual/inertial odometry trajectory and the tag detections <em>are computed from the same camera frames</em>, TagSLAM can perform loop closure.</p>
+<p>If a visual/inertial odometry trajectory and the tag detections <em>are
+computed from the same camera frames</em>, TagSLAM can perform loop
+closure. In the following video, the tags have been mapped beforehand
+with a laser pointer.
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/rLcJFse74X4?autoplay=0"
+  style="position: absolute; top: 0; left: 0; width: 100%; height:
+  100%; border:0;" allowfullscreen title="TagSLAM loop closure"></iframe>
+</div></p>
 
 <h2 id="extrinsic-camera-calibration">Extrinsic camera calibration</h2>
 
@@ -117,7 +131,7 @@ scattered around. No overlap between the cameras field of view is required.</p>
 <p>TagSLAM can estimate the pose of an object that has tags attached to
 it.
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="//www.youtube.com/embed/ul9THWqCOQY?autoplay=1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="TagSLAM state estimation"></iframe>
+  <iframe src="//www.youtube.com/embed/ul9THWqCOQY?autoplay=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="TagSLAM state estimation"></iframe>
 </div></p>
 
 <!--
