@@ -89,6 +89,9 @@ done. The board is significantly cheaper (about \$1.50/tag DIY, or
 than DiBond aluminum, but also much more fragile. Be careful not to
 touch the printed surface, or the color will come off over time.
 
+An even better solution is to use a laser printer
+and [these labels](https://www.onlinelabels.com/products/OL177CX) for about $0.45/sheet.
+
 ## Paper
 
 OK when used against flat surfaces like walls, or put on the

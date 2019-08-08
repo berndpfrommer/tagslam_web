@@ -3,7 +3,32 @@ date = "2015-07-18T14:08:35+02:00"
 draft = false
 title = "7. Output"
 +++
+
+# Console output
+
+If you run TagSLAM, you will get output like this on the console
+
+
+    [ INFO] [1565030387.934526496]: sum of subgraph err: 0.136667, full graph error: 0.142
+    [ INFO] [1565030387.934555291]: graph after update: opt fac: 22 unopt fac: 0 opt vals: 17 unopt vals: 0
+
+
+Note that the full graph error is the total error over all frames, all
+tags, all cameras, so this can easily grow into the thousands after a
+while. If you have set the pixel noise to about 1.0, the error will
+roughly correspond to the sum of all pixel errors. To understand the
+where the error comes from, look at ``error_map.txt`` (see below).
+
+To get more detailed output, switch on debug logging for tagslam by
+putting the following file into ``~/.ros/config/rosconsole.config``
+(or wherever your ``ROSCONSOLE_CONFIG_FILE`` environment variable
+points to):
+
+    # Set the logging to debug
+    log4j.logger.ros.tagslam=DEBUG
+
 # ROS topics published
+
 TagSLAM publishes the following standard ROS messages:
 
  - ``/clock [rosgraph_msgs/Clock]`` when running from a bag
