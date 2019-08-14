@@ -1,0 +1,189 @@
+\section{Robust Initialization}
+\label{sec:robustinit}
+Nonlinear non-convex optimizers such as GTSAM \cite{kaess2011} are
+iterative solvers and hence rely on a starting guess that is
+reasonably close to the optimum. If for example a camera pose is
+initialized such that one of the observed tag corner points lies
+behind the camera, the optimizer will fail.
+
+Several sources of error can contribute to poor pose
+initialization. TagSLAM has been used for several projects already,
+and in our experience, human errors are frequently the root cause,
+such as inaccuracies or outright typos when entering measured tag
+poses, intrinsic or extrinsic calibration errors, duplicate tag ids,
+errors in tag size due to printing or misspecfication, using tags that
+are not planar, or supplying unsychronized stereo images. One of the
+design goals of TagSLAM was to produce, as much as possible, a
+reasonable result with a bounded error even with compromised input
+data, such that at least the scene can be visualized for further
+analysis.
+
+Even when all input data is correct, initializing a camera or tag pose
+can be challenging, for example because the corner of the tag is not
+detected accurately, which may happen under motion blur, or when a tag
+is partially occluded.  As described in Ref.\ \cite{jin2017}, there
+are two camera poses from where a single tag looks quite similar, with
+only perspective distortion distinguishing between them. For a tag
+that is barely large enough to be detected and is viewed at a shallow
+angle, a tag corner error of just a single pixel can lead to a
+dramatically different pose initialization. Localizing off of a single
+tag is therefore intrinsically difficult, and should be
+avoided. Satisfactory results from a single tag can only be expected
+in combination with odometry input or when the tag image is
+sufficiently large.
+
+When multiple cameras and several tags are involved with known or
+unknown poses it is anything but obvious which measurements to use,
+and in which order.  For example, should the pose of camera 1 be
+established first from the tag corners, then the pose of camera 2 via
+a known extrinsic calibration, or the other way round? Which tags
+should be used for this purpose if several are visible?
+
+In case the tag poses are known, one might be tempted to answer the
+last question with: use the corner points of all tags simultaneously
+with a perspective n-point method \cite{fischler1981} (PnP). In
+practice we find that PnP is not robust to misspecified tag
+poses. Moreover when it fails it is not clear which of the tags is in
+error, necessitating an expensive elimination process. For this reason
+we base all pose initialization on homographies \cite{ma2003} from a
+minimum set of tags only, carefully picking which tags to use, and in
+which order. The remainder of this section will describe how exactly
+this is done.
+
+To fully exploit the history of observations, two separate graphs are
+maintained: the {\em full graph} contains factors and variables
+pertaining to all measurements up to the current time, whereas the
+{\em optimized graph} only has those variables and factors that are
+sufficiently constrained to form a well conditioned optimization
+problem. All incoming measurements are thus entered immediately into
+the {\em full graph}, but only find their way into the {\em optimized
+  graph} when the variables can actually be initialized.
+
+Usually several static poses can be initialized right away because a
+prior is available. In Fig.\ \ref {fig:sample_graph} for example, the
+poses $\ctrans{l}{T}{2}$, $\ctrans{\mathrm{w}}{T}{l}$,
+$\ctrans{\mathrm{r}}{T}{\mathrm{c}}$, and
+$\ctrans{\mathrm{b}}{T}{105}$ are determinable due to the prior
+factors shown to their left, and can therefore be directly inserted
+into the {\em optimized graph}.
+
+\subsection{Subgraph discovery}
+As measurements arrive, they give rise to new factors that create
+edges in the graph between existing and new variables. Variables
+connected to these factors may be rendered determinable, which in
+turn, through existing factors, may cause other variables to become
+determinable as well. Thus every new factor can give rise to a
+subgraph of newly determinable variables. We refer as {\em subgraph
+  discovery} to the exhaustive traversing of the graph until no more
+new variables can be determined. During this process, any
+deteriminable variables and factors are entered into the
+subgraph. Further, an {\em initialization list} is created that
+contains the factors in the order they are discovered. The
+initialization list later governs the order in which the subgraph will
+be initialized.  The discovered subgraph depends on the new factor
+from which the discovery is started, so potentially, each new factor
+gives rise to a different subgraph. In practice the subgraphs are
+connected, and often a set of new factors generates only a single
+subgraph.
+
+Note that also factors arising from past measurements may enter the
+subgraph. For example, if only tags $A$ and $B$ with unknown pose were
+seen at time step $t$, no camera rig pose could be determined. But if
+at $t+1$ tags $B$ and $C$ are observed, and tag $C$ has known pose,
+then the subgraph at $t+1$ will contain poses for tags $A$, $B$, and
+$C$, although tag $A$ was observed in the previous step.
+
+All variables of the so generated subgraph are determinable, but if
+any dynamic poses from previous time steps are present, they must be
+constrained or the problem is ill determined. This is done by
+inserting absolute priors for those
+poses. Fig.\ \ref{fig:sample_subgraph} shows a subgraph, derived from
+the graph in Fig.\ \ref{fig:sample_graph} during time step $t+1$. Note
+the removal of the tag projection factors and of the block pose for
+time $t$, and the addition of a prior (colored red) on pose
+$\ctrans{\mathrm{w}}{T}{\mathrm{r}}(t)$.
+
+\begin{figure}[ht]
+  \newcommand{\relfacgraphsize}{0.9}
+  \begin{center}
+    \begin{tabular}{cc}
+      \resizebox{\relfacgraphsize\columnwidth}{!}{
+      \input{sections/sample_subgraph.tex}
+      }
+    \end{tabular}
+  \end{center}
+  \caption{Subgraph of graph in Fig.\ \ref{fig:sample_graph}}
+  \label{fig:sample_subgraph}
+\end{figure}
+
+To arrive at a complete set of subgraphs, all new factors are entered
+into the {\em new factor list}. The order of the factors is important,
+and will be discussed further below. An iteration over this list is
+performed, and, unless the new factor is already part of an already
+discovered subgraph, a new subgraph is generated by discovery. This
+procedure results in a set of disjoint subgraphs with all determinable
+variables and connected factors, as well as the corresponding {\em
+  initialization lists}.
+
+\subsection{Order of subgraph discovery}
+
+What still remains to be settled is the order in which factors are
+entered into the {\em new factor list}. This strongly affects the {\em
+  initialization lists} generated during subgraph discovery, and hence
+the order in which measurements are used for initialization. For
+instance in Fig.\ \ref{fig:sample_subgraph}, there are two ways to
+initialize $\ctrans{\mathrm{w}}{T}{\mathrm{r}}(t+1)$. One is through
+the relative pose factor with respect to
+$\ctrans{\mathrm{w}}{T}{\mathrm{r}}(t)$, the other through the tag
+projection factor on tag 2.
+
+By examining the typical failure cases of several alternative
+approaches, the following order for entering factors into the {\em new
+  factor list} was established:
+\begin{enumerate}[wide, labelwidth=!, itemsep=-1ex]
+\item Any relative pose priors. Note that this prefers odometry
+  updates, which are typically more reliable in establishing a body
+  pose than initializing it from tag observations.
+\item Any tag projection factors. These factors are sorted in
+  descending order by pixel area of the observed tag, irrespective
+  which camera they were observed from. This means that larger tags
+  will be used first to establish a pose.
+\item Any factors that do not establish a pose. Examples are problem
+  specific additional factors such as distance measurements between
+  tag corners.
+\end{enumerate}
+
+\subsection{Optimization}
+Once the subgraphs have been obtained, their variables are initialized
+in the order specified by the corresponding {\em initialization
+  list}. Then all subgraphs are optimized using GTSAM, in
+non-incremental mode, i.e. without using iSAM2 \cite{kaess2011}, and
+their error is evaluated. This step is analogous to model validation
+in RANSAC \cite{fischler1981}. If a subgraph's error falls below a
+configurable threshold, the subgraph is accepted, and its factors and
+optimized values are transferred to the {\em optimized
+  graph}. Subsequently, the {\em optimized graph} is optimized with an
+iSAM2 update step.
+
+In the rare case where a subgraph is rejected due to excessive error,
+an initialization with different ordering is attempted. Since
+exhaustively trying all possible orderings is computationally too
+expensive, an ad hoc procedure is adopted that was found to work
+satisfactorily in practice: the {\em initialization list} of the
+subgraph is rotated such that the first factor goes to the end of the
+list, and all other elements of the list advance by one. This implies
+that successively smaller tags are used to seed the initialization
+process. The subgraph is initialized with the new ordering, followed
+by optimization. In case the subgraph error is still too high, this
+process is repeated until the original ordering is reached again. If
+no initialization ordering leads to an acceptable error, the subgraph
+is rejected, thus preventing an outlier measurement from contaminating
+the {\em optimized graph}.
+
+\subsection{Diagnostics}
+Rejection of a subgraph is usually a strong indicator of faulty input
+parameters or misdetected tag corners. In most cases however, subgraph
+rejection is not fatal, and TagSLAM will successfully handle
+subsequent incoming data. For diagnosis, TagSLAM produces per-factor
+and time resolved error statistics. Such output is essential for
+tracking down e.g. incorrectly specified tag poses.

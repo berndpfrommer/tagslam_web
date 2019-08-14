@@ -1,0 +1,62 @@
+\begin{tikzpicture}
+
+\newcommand{\ysepstatic}{0.2cm}  % y sep static poses
+\newcommand{\xsepprior}{0.2cm}   % x sep of priors
+\newcommand{\xsepdyn}{1.6cm}     % x sep dyn pose
+\newcommand{\xsepfac}{1.1cm}     % x sep dyn pose
+\newcommand{\nsize}{16mm}        % minimum node size
+\newcommand{\facoff}{12mm}       % factor offset
+\newcommand{\xsepfactpo}{4.0cm}  % x sep dyn pose t+1
+\newcommand{\xseprelfac}{0.75cm} % rel pose prior factor
+\tikzstyle{node} = [latent,minimum size=\nsize];
+
+%
+%
+% The static poses
+%
+\node[node]                               (lab_T_2)     {$\ctrans{l}{T}{2}$};
+\node[node, below=\ysepstatic of lab_T_2]   (w_T_lab)     {$\ctrans{\mathrm{w}}{T}{l}$};
+\node[node, below=\ysepstatic of w_T_lab]   (rig_T_cam)   {$\ctrans{\mathrm{r}}{T}{\mathrm{c}}$};
+\node[node, below=\ysepstatic of rig_T_cam] (block_T_105) {$\ctrans{\mathrm{b}}{T}{105}$};
+
+%
+%
+% priors on static poses
+%
+\factor[left=\xsepprior of lab_T_2]     {pAtag2} {above:{$p_A$}} {lab_T_2} {};
+\factor[left=\xsepprior of w_T_lab]     {pAlab}  {above:{$p_A$}} {w_T_lab} {};
+\factor[left=\xsepprior of rig_T_cam]   {pAcam}  {above:{$p_A$}} {rig_T_cam} {};
+\factor[left=\xsepprior of block_T_105] {pA105}  {above:{$p_A$}} {block_T_105} {};
+
+%
+% dynamic poses at t
+%
+\node[node,right=\xsepdyn of lab_T_2]     (w_T_rig_t)   {$\ctrans{\mathrm{w}}{T}{\mathrm{r}}(t)$};
+\node[node,right=\xsepdyn of block_T_105] (w_T_block_t) {$\ctrans{\mathrm{w}}{T}{\mathrm{b}}(t)$};
+
+%
+% tag projection factors at t
+%
+\factor[right=\xsepfac of lab_T_2] {pT2t}       {above:{$p_T$}} {lab_T_2,w_T_lab,rig_T_cam,w_T_rig_t}{};
+\factor[right=\xsepfac of block_T_105] {pT105t} {below:{$p_T$}} {block_T_105,w_T_rig_t,rig_T_cam,w_T_block_t}{};
+
+%
+% dynamic poses at t+1
+%
+\node[node,right=\xsepdyn of w_T_rig_t]   (w_T_rig_tp1)   {$\ctrans{\mathrm{w}}{T}{\mathrm{r}}(t+1)$};
+\node[node,right=\xsepdyn of w_T_block_t] (w_T_block_tp1) {$\ctrans{\mathrm{w}}{T}{\mathrm{b}}(t+1)$};
+
+%
+% tag projection factors at t + 1
+%
+\factor[right=\xsepfactpo of w_T_lab]   {pT2tp1}  {above:{$p_T$}} {lab_T_2,w_T_lab,rig_T_cam,w_T_rig_tp1}{};
+\factor[right=\xsepfactpo of rig_T_cam] {pT105tp1}{below:{$p_T$}} {block_T_105,w_T_rig_tp1,rig_T_cam,w_T_block_tp1}{};
+
+%
+% relative pose priors
+%
+
+\factor[right=\xseprelfac of w_T_rig_t]  {prelrig}{above:{$p_R$}} {w_T_rig_t,w_T_rig_tp1}{};
+
+
+\end{tikzpicture}

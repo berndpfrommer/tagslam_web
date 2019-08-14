@@ -1,0 +1,91 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+\pdfminorversion=4
+\documentclass[letterpaper, 10 pt]{IEEEconf}
+\let\labelindent\relax
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{tikzscale}
+\usepackage{tensor}
+\usepackage{cite}
+\usetikzlibrary{bayesnet}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{bbold}
+\usepackage{tabularx}
+\usepackage{courier}
+\usepackage{balance}
+\usepackage{hyperref}
+
+%\overrideIEEEmargins  
+
+% simple vec (mv stands for "my vector")
+\newcommand{\mv}[1]{\mathbf{#1}}
+% coordinate transform
+\newcommand{\ctrans}[3]{\tensor*[^{#1}]{\mv{#2}}{_{#3}}}
+\newcommand{\ctransi}[3]{\tensor*[^{#1}]{\mv{#2}}{^{-1}_{#3}}}
+% coordinate transform with time
+\newcommand{\ctranst}[4]{\tensor*[^{\mathrm{#2}}]{\mv{#3}}{_{\mathrm{#4(#1)}}}}
+% used in graph
+\newcommand{\ctransf}[4]{\tensor*[^{\mathrm{#2}}]{\mv{#3}}{_{\mathrm{#4(#1)}}}}
+% coordinate transform with frame index and ref
+\newcommand{\ctransfr}[5]{\tensor*[^{\mathrm{#2}}]{\mv{#3}}{_{\mathrm{#4(#1)}}^{\mathrm{#5}}}}
+% coordinate vector with coordinate system
+\newcommand{\cvec}[2]{\tensor*[^{#1}]{\mv{#2}}{}}
+% coordinate vector with coordinate system and point index
+\newcommand{\cvecp}[3]{\tensor*[^{\mathrm{#1}}]{\mv{#2}}{_{#3}}}
+% coordinate vector with coordinate system, point index, and tagid
+\newcommand{\cvecpt}[4]{\tensor*[^{\mathrm{#1}}]{\mv{#2}}{_{#3}^{#4}}}
+% coordinate vector with coordinate system, frame and point index
+\newcommand{\cvecfp}[4]{\tensor*[^{\mathrm{#2(#1)}}]{\mv{#3}}{_{#4}}}
+% coordinate vector with coordinate system, frame, point index, and tagid
+\newcommand{\cvecfpt}[5]{\tensor*[^{\mathrm{#2(#1)}}]{\mv{#3}}{_{#4}^{#5}}}
+%\newcommand{\mydeg}{\,^{\circ}}
+\newcommand{\mydeg}{^{\circ}}
+% rotational sigma
+\newcommand{\sigmarot}{\sigma_{\mathrm{rot}}}
+\newcommand{\sigmatrans}{\sigma_{\mathrm{trans}}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\begin{document}
+
+\title{\LARGE \bf TagSLAM: Robust SLAM with Fiducial Markers}
+\author{
+Bernd Pfrommer
+\footnote{University of Pennsylvania School of Engineering and Applied
+Science. ACKNOWLEDGE GRANTS HERE!}
+\footnote{Thanks to Chao Qu and Ke Sun for many useful discussions.}
+\\
+\and
+Kostas Daniilidis\footnotemark[1]
+}
+
+\maketitle
+\begin{abstract}
+TagSLAM provides a convenient, flexible, and robust way of performing
+Simultaneous Localization and Mapping (SLAM) with AprilTag fiducial
+markers. By leveraging a few simple abstractions (bodies, tags,
+cameras), TagSLAM provides a front end to the GTSAM factor graph
+optimizer that makes it possible to rapidly design a range of
+experiments that are based on tags: full SLAM, extrinsic camera
+calibration with non-overlapping views, visual localization for ground
+truth, loop closure for odometry, pose estimation etc. We discuss in
+detail how TagSLAM initializes the factor graph in a robust way, and
+present loop closure as an application example.  TagSLAM is a ROS
+based open source package and can be found
+at \url{https://berndpfrommer.github.io/tagslam_web}.
+\end{abstract}
+\input{sections/introduction.tex}
+\input{sections/related_work.tex}
+\input{sections/model_setup.tex}
+\input{sections/factor_graph.tex}
+\input{sections/robust_initialization.tex}
+\input{sections/application_example.tex}
+\input{sections/conclusion.tex}
+\balance
+\bibliography{tagslam}
+\bibliographystyle{IEEEtran}
+\end{document}

@@ -1,0 +1,55 @@
+\section{Model Setup}
+TagSLAM uses a few simple abstractions with which complex scenarios
+can be built without the need to write any code. This section will
+introduce the concepts and establish the necessary notation.
+
+We denote as $\ctrans{B}{T}{A}$ an SE(3) transform that takes vector
+coordinates $\cvec{A}{X}$ in reference system $A$ and expresses them in $B$:
+\begin{equation}
+\cvec{B}{X} = \ctrans{B}{T}{A}\cvec{A}{X}.
+\end{equation}
+Such a transform defines a pose. We distinguish two kinds:
+\begin{itemize}
+  \item Static pose: the transform $\ctrans{B}{T}{A}$ is independent
+    of time. A static poses is represented by a single variable for
+    the optimization process. Note that this does not mean the pose
+    must be known from the beginning (i.e have a prior), but could be
+    discovered as image data becomes available.
+  \item Dynamic pose: the transform $\ctrans{B}{T}{A}(t)$ is time
+    dependent. Such a pose is assumed to change, i.e. the optimizer
+    will allocate a new variable for every time step $t$. Sufficient
+    input data must be provided at time $t$ to solve for
+    $\ctrans{B}{T}{A}(t)$.
+\end{itemize}
+
+A {\em body} is an object that can have tags and cameras attached to
+it. Its pose is always given with respect to world coordinates, and
+can be classified as static or dynamic depending on the nature of the
+body. For static bodies, an optional prior pose may be specified.
+
+Tags must have a unique id, and each tag must be associated with a
+body to which it is attached. Tags without association are ignored,
+unless a default body is specified to which any unknown tag will be
+attached upon discovery.  In contrast to body poses, tag poses are
+{\em always static}, and are expressed with respect to the pertaining
+body. A tag pose prior is optional, so long as that is not required to
+determine the body pose.
+
+Camera poses, like tag poses, are {\em static}, and given with respect
+to the body to which the camera is attached. This body is referred to
+as the camera's ``rig'', although from a modeling point of view, it is
+a body like any other, and can have for instance tags attached to
+it. A prior camera pose (extrinsic calibration) is optional provided
+the optimization problem can be solved without it.
+
+With bodies, tags, and cameras, a rich set of SLAM problems can be
+modeled, as shown for a simple single-camera scenario in Figure
+\ref{fig:scene_with_block}. It is sufficient to provide the static
+priors for the lab-to-world ($\ctrans{\mathrm{w}}{T}{l}$),
+tag-2-to-lab ($\ctrans{l}{T}{2}$), tag-105-to-block
+($\ctrans{\mathrm{b}}{T}{105}$), and camera-to-rig transform
+($\ctrans{\mathrm{r}}{T}{\mathrm{c}}$).  The remaining poses
+$\ctrans{\mathrm{w}}{T}{\mathrm{b}}(t)$ and
+$\ctrans{\mathrm{w}}{T}{\mathrm{r}}(t)$, as well as the missing poses
+of the tags on the block can be determined from the images arriving at
+the camera.

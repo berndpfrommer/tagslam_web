@@ -1,0 +1,120 @@
+\section{Factor Graph}
+Our SLAM is formulated as a bipartite factor graph with two types of nodes:
+the variables (poses) which are elements of the set $\Theta$, and the
+factors, which constrain the variables via the set of measurements  $\mathcal{Z}$. The
+factor graph defines a probability $P(\Theta|\mathcal{Z})$ that
+assumes its maximum a posteriori (MAP) value for the optimal variable set
+$\Theta^*$, given the measurements:
+\begin{equation}
+\Theta^* = \argmax_\Theta P(\Theta|\mathcal{Z})
+\end{equation}
+The set of variables $\mathcal{Z}$ contains:
+\begin{itemize}
+\item The camera poses $\ctrans{\mathrm{body}(\mathrm{cam}\ j)}{T}{\mathrm{cam}\ j}$, with respect to the bodies they are attached to.
+\item The tag poses $\ctrans{\mathrm{body}(\mathrm{tag}\ k)}{T}{\mathrm{tag}\ k}$,  relative to their respective bodies.
+\item The world poses $\ctrans{\mathrm{w}}{T}{\mathrm{body}\ l}$, of static bodies.
+\item The time-dependent world poses $\ctrans{\mathrm{w}}{T}{\mathrm{body}\ m}(t)$, $t = 1\dots N_{\mathrm{t}}$ of dynamic bodies.
+\end{itemize}
+The likelihood is expressed \cite{kaess2011} as a product of factors $p^{(i)}$
+that connects the variables with each other via measurements to form the desired graph structure:
+\begin{equation}
+  \label{eq:totalprob}
+  P(\Theta|\mathcal{Z}) = \prod_ip^{(i)}(\Theta|\mathcal{Z})\ .
+\end{equation}
+To make the factors $p^{(i)}$ computationally tractable, we follow the standard
+approach \cite{kaess2011} and model them as Gaussians:
+\begin{equation}
+  g(x;\mu,\Sigma) = \exp(-\frac{1}{2}||x\ominus\mu||_\Sigma^2)\ .
+\end{equation}
+Here, $x$ is the variable, $\mu$ the center of the Gaussian, and $\Sigma$ defines the Mahalanobis distance.
+Note the use of the $\ominus$ operator, which reduces to straight subtraction for elements of a vector space,
+but produces 6-dimensional Lie algebra coordinates when applied to elements on the SE(3) manifold:
+\begin{equation}
+  \label{eq:ominus}
+  \ctrans{}{T}{A} \ominus \ctrans{}{T}{B} =
+  \left[[\log(\mathrm{Rot}(\ctransi{}{T}{B}\ctrans{}{T}{A}))]_\vee^\top,\mathrm{Trans}(\ctransi{}{T}{B}\ctrans{}{T}{A})^\top\right]^\top\ .
+\end{equation}
+In (\ref{eq:ominus}) Rot() and Trans() refer to the rotational and translational part of the SE(3) transform,
+respectively, log() is the matrix logarithm, and $\vee$ denotes the
+{\em vee} map operator. Equipped with the definition of a Gaussian
+on SE(3), we can now introduce the basic factors $p^{(i)}$ from Eq.\ (\ref{eq:totalprob}).
+
+{\em Absolute Pose Prior}. This unary factor can be used to specify a prior pose
+$\ctrans{}{T}{0}$ with noise $\Sigma$ for e.g. a tag or a camera:
+\begin{equation}
+  p_A(\ctrans{}{T}{}|\ctrans{}{T}{0},\Sigma) = g(\ctrans{}{T}{}; \ctrans{}{T}{0}, \Sigma)\ .
+\end{equation}
+
+{\em Relative Pose Prior}. With this binary factor, a known transform $\Delta \ctrans{}{T}{}$
+between two pose variables can be specified, with noise $\Sigma$:
+\begin{equation}
+  p_R(\ctrans{}{T}{A}, \ctrans{}{T}{B}|\Delta\ctrans{}{T}{},\Sigma) = g(\ctransi{}{T}{B}\ctrans{}{T}{A}; \Delta\ctrans{}{T}{}, \Sigma)\ .
+\end{equation}
+If odometry body pose differences $\Delta \ctrans{}{T}{\mathrm{odom}}(t)$ with noise $\sigma(t)$
+are available from e.g. a VIO algorithm running
+alongside TagSLAM, a relative pose prior of
+$p_R(\ctrans{\mathrm{w}}{T}{\mathrm{body}}(t),
+\ctrans{\mathrm{w}}{T}{\mathrm{body}}(t-1)|
+\Delta \ctrans{}{T}{\mathrm{odom}}(t),\sigma(t))$ is used to insert
+the odometry updates into the pose graph.
+
+{\em Tag Projection Factor}. The output of the tag detection
+library is a list of tag IDs and the corresponding image
+coordinates $\mv{u}_c$ (in units of pixels) of the corners
+$c=1\dots 4$ of every tag. This gives rise to one quaternary
+tag projection factor per tag:
+\begin{equation}
+  \begin{split}
+    p_T(\ctrans{\mathrm{w}}{T}{\mathrm{body}},
+    \ctrans{\mathrm{rig}}{T}{\mathrm{cam}},
+    \ctrans{\mathrm{body}}{T}{\mathrm{tag}},
+    \ctrans{\mathrm{w}}{T}{\mathrm{rig}}|\{\mv{u}_c\},\sigma_p) =\\
+    \prod_{c=1\dots 4}g(\Pi(\ctrans{\mathrm{cam}}{T}{\mathrm{rig}}
+    \ctrans{\mathrm{rig}}{T}{\mathrm{w}}
+    \ctrans{\mathrm{w}}{T}{\mathrm{body}}
+    \ctrans{\mathrm{body}}{T}{\mathrm{tag}}\mv{s}_c);
+    \mv{u}_c,\sigma_p)\ .
+  \end{split}
+\end{equation}
+Here, $\mv{s}$ refers to the corner coordinates in the tag reference frame,
+i.e. $\mv{s}_1 = [-l/2, -l/2, 0]^\top$,
+$\mv{s}_2 = [l/2, -l/2, 0]^\top$,
+$\mv{s}_3 = [l/2,  l/2, 0]^\top$,
+$\mv{s}_4 = [-l/2, l/2, 0]^\top$
+for a tag of side length $l$. A sequence of transforms expresses $\mv{s}$ in
+camera coordinates, after which the function $\Pi$ projects \cite{ma2003} the point onto the
+sensor plane and converts it to pixel coordinates. The noise parameter $\sigma_p$
+is a diagonal matrix that reflects the accuracy of the tag library's corner detector,
+which is usually assumed to be about one pixel.
+
+We can visualize the factor structure of Eq.\ \ref{eq:totalprob} by means of
+a graph as shown in Fig.\ \ref{fig:sample_graph} for the scene from
+Fig.\ \ref{fig:scene_with_block}. In Fig.\ \ref{fig:sample_graph},
+black squares represent factors, whereas circles denote pose variables
+to be optimized.
+The prior factors $p_A$ constrain
+the static poses  $\ctrans{l}{T}{2}$, $\ctrans{\mathrm{w}}{T}{l}$,
+$\ctrans{\mathrm{r}}{T}{\mathrm{c}}$, and
+$\ctrans{\mathrm{b}}{T}{105}$. A tag projection factors $p_T$ arising
+from an observation of Tag 2 determines the dynamic rig pose
+$\ctrans{\mathrm{w}}{T}{\mathrm{r}}(t)$, whereas an observation of Tag
+105 likewise yields the block pose
+$\ctrans{\mathrm{w}}{T}{\mathrm{b}}(t)$. Assuming that odometry for
+the rig is provided by some external algorithm, there is a relative
+pose factor $p_R$ connecting the rig poses for $t$ and $t+1$. Two more
+observations of the tags further constrain rig and block poses at $t+1$.
+
+
+\begin{figure}[ht]
+  \newcommand{\relfacgraphsize}{0.9}
+  \begin{center}
+    \begin{tabular}{cc}
+      \resizebox{\relfacgraphsize\columnwidth}{!}{
+      \input{sections/sample_graph.tex}
+      }
+    \end{tabular}
+  \end{center}
+  \caption{Factor graph of Eq.\ \ref{eq:totalprob} for the scene shown in Fig.\ \ref{fig:scene_with_block}}
+  \label{fig:sample_graph}
+\end{figure}
+
