@@ -13,4 +13,4 @@ $(FNAME).pdf: $(FNAME).tex sections/*.tex
 	$(LATEX)  $(FNAME).tex
 
 clean:
-	@rm -rf $(FNAME).pdf _region_* *.log *.bbl *.aux *.dvi *.blg
+	@rm -rf $(FNAME).pdf _region_* *.log *.bbl *.aux *.dvi *.blg *.out
