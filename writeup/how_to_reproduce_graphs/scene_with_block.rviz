@@ -1,0 +1,509 @@
+Panels:
+  - Class: rviz/Displays
+    Help Height: 0
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /Status1
+        - /Grid1
+        - /TF1
+        - /raw odom1/Shape1
+        - /tags1/Status1
+        - /cameras1
+        - /Camera1
+      Splitter Ratio: 0.5084525346755981
+    Tree Height: 228
+  - Class: rviz/Selection
+    Name: Selection
+  - Class: rviz/Tool Properties
+    Expanded:
+      - /2D Pose Estimate1
+      - /2D Nav Goal1
+      - /Publish Point1
+    Name: Tool Properties
+    Splitter Ratio: 0.5886790156364441
+  - Class: rviz/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz/Time
+    Experimental: false
+    Name: Time
+    SyncMode: 0
+    SyncSource: Camera
+Preferences:
+  PromptSaveOnExit: true
+Toolbars:
+  toolButtonStyle: 2
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 150
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Class: rviz/TF
+      Enabled: true
+      Frame Timeout: 40000
+      Frames:
+        All Enabled: false
+        block:
+          Value: true
+        cam0:
+          Value: true
+        cam1:
+          Value: true
+        cam2:
+          Value: true
+        cam3:
+          Value: true
+        cam_rig:
+          Value: true
+        lab:
+          Value: true
+        map:
+          Value: false
+        o_tag_0:
+          Value: true
+        o_tag_1:
+          Value: true
+        o_tag_2:
+          Value: true
+        o_tag_3:
+          Value: true
+        pennstock:
+          Value: true
+        rig:
+          Value: true
+        tag_0:
+          Value: true
+        tag_1:
+          Value: true
+        tag_100:
+          Value: true
+        tag_101:
+          Value: true
+        tag_102:
+          Value: true
+        tag_103:
+          Value: true
+        tag_104:
+          Value: true
+        tag_105:
+          Value: true
+        tag_106:
+          Value: true
+        tag_107:
+          Value: true
+        tag_108:
+          Value: true
+        tag_109:
+          Value: true
+        tag_2:
+          Value: true
+        tag_3:
+          Value: true
+        tag_44:
+          Value: true
+        tag_45:
+          Value: true
+        tag_46:
+          Value: true
+        tag_47:
+          Value: true
+        tag_57:
+          Value: true
+        tag_83:
+          Value: true
+        tag_86:
+          Value: true
+        tag_87:
+          Value: true
+        tag_91:
+          Value: true
+        tag_92:
+          Value: true
+      Marker Scale: 0.10000000149011612
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        map:
+          block:
+            tag_100:
+              {}
+            tag_101:
+              {}
+            tag_102:
+              {}
+            tag_103:
+              {}
+            tag_104:
+              {}
+            tag_105:
+              {}
+            tag_106:
+              {}
+            tag_107:
+              {}
+            tag_108:
+              {}
+            tag_109:
+              {}
+          cam_rig:
+            cam0:
+              {}
+          lab:
+            o_tag_0:
+              {}
+            o_tag_1:
+              {}
+            o_tag_2:
+              {}
+            o_tag_3:
+              {}
+            tag_0:
+              {}
+            tag_1:
+              {}
+            tag_2:
+              {}
+            tag_3:
+              {}
+          pennstock:
+            tag_44:
+              {}
+            tag_45:
+              {}
+            tag_46:
+              {}
+            tag_47:
+              {}
+            tag_57:
+              {}
+            tag_83:
+              {}
+            tag_86:
+              {}
+            tag_87:
+              {}
+            tag_91:
+              {}
+            tag_92:
+              {}
+          rig:
+            cam1:
+              {}
+            cam2:
+              {}
+            cam3:
+              {}
+      Update Interval: 0
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: false
+      Enabled: false
+      Keep: 10000
+      Name: raw odom
+      Position Tolerance: 0.10000000149011612
+      Shape:
+        Alpha: 1
+        Axes Length: 0.25
+        Axes Radius: 0.05000000074505806
+        Color: 255; 25; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
+        Value: Axes
+      Topic: /tagslam2/raw_odom/body_rig
+      Unreliable: false
+      Value: false
+    - Angle Tolerance: 0.029999999329447746
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: false
+      Enabled: false
+      Keep: 10000
+      Name: Odom Tagslam
+      Position Tolerance: 0.029999999329447746
+      Shape:
+        Alpha: 1
+        Axes Length: 0.25
+        Axes Radius: 0.05000000074505806
+        Color: 255; 25; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
+        Value: Axes
+      Topic: /tagslam/odom/body_rig
+      Unreliable: false
+      Value: false
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        map:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        tag_0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tag_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tag_100:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tag_101:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tag_102:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tag_103:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tag_104:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tag_105:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tag_106:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tag_107:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tag_108:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tag_109:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tag_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tag_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: tags
+      Robot Description: tags
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        cam0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        map:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+      Name: cameras
+      Robot Description: cameras
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Class: rviz/Camera
+      Enabled: true
+      Image Rendering: background and overlay
+      Image Topic: /ximea_cam/image_rect_color
+      Name: Camera
+      Overlay Alpha: 0.5
+      Queue Size: 2
+      Transport Hint: compressed
+      Unreliable: false
+      Value: true
+      Visibility:
+        Grid: false
+        Odom Tagslam: true
+        TF: true
+        Value: true
+        cameras: false
+        raw odom: true
+        tags: true
+      Zoom Factor: 1
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Default Light: true
+    Fixed Frame: map
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+    - Class: rviz/FocusCamera
+    - Class: rviz/Measure
+    - Class: rviz/SetInitialPose
+      Theta std deviation: 0.2617993950843811
+      Topic: /initialpose
+      X std deviation: 0.5
+      Y std deviation: 0.5
+    - Class: rviz/SetGoal
+      Topic: /move_base_simple/goal
+    - Class: rviz/PublishPoint
+      Single click: true
+      Topic: /clicked_point
+  Value: true
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 1.1543822288513184
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: 0.006522953510284424
+        Y: -0.11759239435195923
+        Z: 0.1313832700252533
+      Focal Shape Fixed Size: false
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.2153833955526352
+      Target Frame: body_top_floor
+      Value: Orbit (rviz)
+      Yaw: 4.040740013122559
+    Saved:
+      - Class: rviz/Orbit
+        Distance: 10
+        Enable Stereo Rendering:
+          Stereo Eye Separation: 0.05999999865889549
+          Stereo Focal Distance: 1
+          Swap Stereo Eyes: false
+          Value: false
+        Focal Point:
+          X: 0
+          Y: 0
+          Z: 0
+        Focal Shape Fixed Size: false
+        Focal Shape Size: 0.05000000074505806
+        Invert Z Axis: false
+        Name: Orbit
+        Near Clip Distance: 0.009999999776482582
+        Pitch: 0.7853981852531433
+        Target Frame: fla/left_cam
+        Value: Orbit (rviz)
+        Yaw: 0.7853981852531433
+Window Geometry:
+  Camera:
+    collapsed: false
+  Displays:
+    collapsed: false
+  Height: 1161
+  Hide Left Dock: false
+  Hide Right Dock: true
+  QMainWindow State: 000000ff00000000fd0000000400000000000003bc000003f6fc0200000014fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b0000011f000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d006100670065000000023c000001f50000000000000000fb00000008006d00610073006b0100000245000001e60000000000000000fb0000001a006400650074006500630074006500640020007400610067007300000002b5000000a20000000000000000fb0000001200720061007700200069006d0061006700650000000333000000f80000000000000000fb0000000a0049006d0061006700650100000156000002d50000000000000000fb0000001e0069006d006100670065002000770069007400680020007400610067007301000002150000021c0000000000000000fb0000001200740061006700200069006d0061006700650100000362000000cf0000000000000000fb0000000c00430061006d0065007200610000000405000000160000001600000016fb0000000a0049006d006100670065010000024a000000fd0000000000000000fb0000000c00430061006d0065007200610100000160000002d10000001600fffffffb0000000c00430061006d0065007200610100000363000000ce0000000000000000fb0000000c00430061006d0065007200610100000191000002a000000000000000000000000100000100000003f6fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003b000003f6000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000077c00000037fc0100000002fb0000000800540069006d006501000000000000077c0000024400fffffffb0000000800540069006d00650100000000000004500000000000000000000003ba000003f600000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Selection:
+    collapsed: false
+  Time:
+    collapsed: false
+  Tool Properties:
+    collapsed: false
+  Views:
+    collapsed: true
+  Width: 1916
+  X: 3840
+  Y: 18

@@ -1,0 +1,921 @@
+Panels:
+  - Class: rviz/Displays
+    Help Height: 0
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /Status1
+        - /Grid1
+        - /TF1
+        - /rig odom1
+        - /rig odom1/Shape1
+        - /vio odom1
+        - /vio odom1/Status1
+        - /vio odom1/Shape1
+        - /orb odom1
+        - /orb odom1/Shape1
+      Splitter Ratio: 0.5084525346755981
+    Tree Height: 992
+  - Class: rviz/Selection
+    Name: Selection
+  - Class: rviz/Tool Properties
+    Expanded:
+      - /2D Pose Estimate1
+      - /2D Nav Goal1
+      - /Publish Point1
+    Name: Tool Properties
+    Splitter Ratio: 0.5886790156364441
+  - Class: rviz/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz/Time
+    Experimental: false
+    Name: Time
+    SyncMode: 0
+    SyncSource: ""
+Preferences:
+  PromptSaveOnExit: true
+Toolbars:
+  toolButtonStyle: 2
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 160
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Class: rviz/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        camera_link:
+          Value: true
+        first_camera_rect:
+          Value: true
+        map:
+          Value: true
+        monstar:
+          Value: true
+        o_tag_100:
+          Value: true
+        o_tag_103:
+          Value: true
+        o_tag_104:
+          Value: true
+        o_tag_105:
+          Value: true
+        o_tag_106:
+          Value: true
+        o_tag_109:
+          Value: true
+        o_tag_11:
+          Value: true
+        o_tag_110:
+          Value: true
+        o_tag_113:
+          Value: true
+        o_tag_114:
+          Value: true
+        o_tag_115:
+          Value: true
+        o_tag_118:
+          Value: true
+        o_tag_14:
+          Value: true
+        o_tag_15:
+          Value: true
+        o_tag_16:
+          Value: true
+        o_tag_17:
+          Value: true
+        o_tag_19:
+          Value: true
+        o_tag_20:
+          Value: true
+        o_tag_21:
+          Value: true
+        o_tag_22:
+          Value: true
+        o_tag_26:
+          Value: true
+        o_tag_28:
+          Value: true
+        o_tag_3:
+          Value: true
+        o_tag_30:
+          Value: true
+        o_tag_31:
+          Value: true
+        o_tag_36:
+          Value: true
+        o_tag_37:
+          Value: true
+        o_tag_38:
+          Value: true
+        o_tag_39:
+          Value: true
+        o_tag_4:
+          Value: true
+        o_tag_40:
+          Value: true
+        o_tag_41:
+          Value: true
+        o_tag_42:
+          Value: true
+        o_tag_420:
+          Value: true
+        o_tag_43:
+          Value: true
+        o_tag_44:
+          Value: true
+        o_tag_45:
+          Value: true
+        o_tag_46:
+          Value: true
+        o_tag_47:
+          Value: true
+        o_tag_49:
+          Value: true
+        o_tag_5:
+          Value: true
+        o_tag_51:
+          Value: true
+        o_tag_520:
+          Value: true
+        o_tag_53:
+          Value: true
+        o_tag_535:
+          Value: true
+        o_tag_54:
+          Value: true
+        o_tag_55:
+          Value: true
+        o_tag_56:
+          Value: true
+        o_tag_57:
+          Value: true
+        o_tag_58:
+          Value: true
+        o_tag_59:
+          Value: true
+        o_tag_6:
+          Value: true
+        o_tag_60:
+          Value: true
+        o_tag_61:
+          Value: true
+        o_tag_62:
+          Value: true
+        o_tag_65:
+          Value: true
+        o_tag_66:
+          Value: true
+        o_tag_67:
+          Value: true
+        o_tag_68:
+          Value: true
+        o_tag_69:
+          Value: true
+        o_tag_70:
+          Value: true
+        o_tag_71:
+          Value: true
+        o_tag_72:
+          Value: true
+        o_tag_74:
+          Value: true
+        o_tag_77:
+          Value: true
+        o_tag_78:
+          Value: true
+        o_tag_79:
+          Value: true
+        o_tag_8:
+          Value: true
+        o_tag_80:
+          Value: true
+        o_tag_81:
+          Value: true
+        o_tag_85:
+          Value: true
+        o_tag_88:
+          Value: true
+        o_tag_89:
+          Value: true
+        o_tag_91:
+          Value: true
+        o_tag_95:
+          Value: true
+        o_tag_96:
+          Value: true
+        o_tag_97:
+          Value: true
+        o_tag_98:
+          Value: true
+        orbslam2_world:
+          Value: true
+        ovc:
+          Value: true
+        ovc/cam_0:
+          Value: true
+        ovc/cam_1:
+          Value: true
+        ovc/imu:
+          Value: true
+        second_camera_rect:
+          Value: true
+        tag_100:
+          Value: true
+        tag_103:
+          Value: true
+        tag_104:
+          Value: true
+        tag_105:
+          Value: true
+        tag_106:
+          Value: true
+        tag_109:
+          Value: true
+        tag_11:
+          Value: true
+        tag_110:
+          Value: true
+        tag_113:
+          Value: true
+        tag_114:
+          Value: true
+        tag_115:
+          Value: true
+        tag_118:
+          Value: true
+        tag_14:
+          Value: true
+        tag_15:
+          Value: true
+        tag_16:
+          Value: true
+        tag_17:
+          Value: true
+        tag_19:
+          Value: true
+        tag_20:
+          Value: true
+        tag_21:
+          Value: true
+        tag_22:
+          Value: true
+        tag_26:
+          Value: true
+        tag_28:
+          Value: true
+        tag_3:
+          Value: true
+        tag_30:
+          Value: true
+        tag_31:
+          Value: true
+        tag_36:
+          Value: true
+        tag_37:
+          Value: true
+        tag_38:
+          Value: true
+        tag_39:
+          Value: true
+        tag_4:
+          Value: true
+        tag_40:
+          Value: true
+        tag_41:
+          Value: true
+        tag_42:
+          Value: true
+        tag_420:
+          Value: true
+        tag_43:
+          Value: true
+        tag_44:
+          Value: true
+        tag_45:
+          Value: true
+        tag_46:
+          Value: true
+        tag_47:
+          Value: true
+        tag_49:
+          Value: true
+        tag_5:
+          Value: true
+        tag_51:
+          Value: true
+        tag_520:
+          Value: true
+        tag_53:
+          Value: true
+        tag_535:
+          Value: true
+        tag_54:
+          Value: true
+        tag_55:
+          Value: true
+        tag_56:
+          Value: true
+        tag_57:
+          Value: true
+        tag_58:
+          Value: true
+        tag_59:
+          Value: true
+        tag_6:
+          Value: true
+        tag_60:
+          Value: true
+        tag_61:
+          Value: true
+        tag_62:
+          Value: true
+        tag_65:
+          Value: true
+        tag_66:
+          Value: true
+        tag_67:
+          Value: true
+        tag_68:
+          Value: true
+        tag_69:
+          Value: true
+        tag_70:
+          Value: true
+        tag_71:
+          Value: true
+        tag_72:
+          Value: true
+        tag_74:
+          Value: true
+        tag_77:
+          Value: true
+        tag_78:
+          Value: true
+        tag_79:
+          Value: true
+        tag_8:
+          Value: true
+        tag_80:
+          Value: true
+        tag_81:
+          Value: true
+        tag_85:
+          Value: true
+        tag_88:
+          Value: true
+        tag_89:
+          Value: true
+        tag_91:
+          Value: true
+        tag_95:
+          Value: true
+        tag_96:
+          Value: true
+        tag_97:
+          Value: true
+        tag_98:
+          Value: true
+        top_floor:
+          Value: true
+        vision:
+          Value: true
+      Marker Scale: 3
+      Name: TF
+      Show Arrows: false
+      Show Axes: true
+      Show Names: false
+      Tree:
+        map:
+          orbslam2_world:
+            {}
+          ovc:
+            ovc/cam_0:
+              {}
+            ovc/cam_1:
+              monstar:
+                {}
+          top_floor:
+            o_tag_100:
+              {}
+            o_tag_103:
+              {}
+            o_tag_104:
+              {}
+            o_tag_105:
+              {}
+            o_tag_106:
+              {}
+            o_tag_109:
+              {}
+            o_tag_11:
+              {}
+            o_tag_110:
+              {}
+            o_tag_113:
+              {}
+            o_tag_114:
+              {}
+            o_tag_115:
+              {}
+            o_tag_118:
+              {}
+            o_tag_14:
+              {}
+            o_tag_15:
+              {}
+            o_tag_16:
+              {}
+            o_tag_17:
+              {}
+            o_tag_19:
+              {}
+            o_tag_21:
+              {}
+            o_tag_22:
+              {}
+            o_tag_26:
+              {}
+            o_tag_28:
+              {}
+            o_tag_3:
+              {}
+            o_tag_30:
+              {}
+            o_tag_31:
+              {}
+            o_tag_36:
+              {}
+            o_tag_37:
+              {}
+            o_tag_38:
+              {}
+            o_tag_39:
+              {}
+            o_tag_4:
+              {}
+            o_tag_40:
+              {}
+            o_tag_41:
+              {}
+            o_tag_42:
+              {}
+            o_tag_420:
+              {}
+            o_tag_43:
+              {}
+            o_tag_44:
+              {}
+            o_tag_45:
+              {}
+            o_tag_46:
+              {}
+            o_tag_47:
+              {}
+            o_tag_49:
+              {}
+            o_tag_5:
+              {}
+            o_tag_51:
+              {}
+            o_tag_520:
+              {}
+            o_tag_53:
+              {}
+            o_tag_535:
+              {}
+            o_tag_54:
+              {}
+            o_tag_55:
+              {}
+            o_tag_56:
+              {}
+            o_tag_57:
+              {}
+            o_tag_58:
+              {}
+            o_tag_59:
+              {}
+            o_tag_6:
+              {}
+            o_tag_60:
+              {}
+            o_tag_61:
+              {}
+            o_tag_62:
+              {}
+            o_tag_65:
+              {}
+            o_tag_66:
+              {}
+            o_tag_67:
+              {}
+            o_tag_68:
+              {}
+            o_tag_69:
+              {}
+            o_tag_70:
+              {}
+            o_tag_71:
+              {}
+            o_tag_72:
+              {}
+            o_tag_74:
+              {}
+            o_tag_77:
+              {}
+            o_tag_78:
+              {}
+            o_tag_79:
+              {}
+            o_tag_8:
+              {}
+            o_tag_80:
+              {}
+            o_tag_81:
+              {}
+            o_tag_85:
+              {}
+            o_tag_88:
+              {}
+            o_tag_89:
+              {}
+            o_tag_91:
+              {}
+            o_tag_95:
+              {}
+            o_tag_96:
+              {}
+            o_tag_97:
+              {}
+            o_tag_98:
+              {}
+            tag_100:
+              {}
+            tag_103:
+              {}
+            tag_104:
+              {}
+            tag_105:
+              {}
+            tag_106:
+              {}
+            tag_109:
+              {}
+            tag_11:
+              {}
+            tag_110:
+              {}
+            tag_113:
+              {}
+            tag_114:
+              {}
+            tag_115:
+              {}
+            tag_118:
+              {}
+            tag_14:
+              {}
+            tag_15:
+              {}
+            tag_16:
+              {}
+            tag_17:
+              {}
+            tag_19:
+              {}
+            tag_21:
+              {}
+            tag_22:
+              {}
+            tag_26:
+              {}
+            tag_28:
+              {}
+            tag_3:
+              {}
+            tag_30:
+              {}
+            tag_31:
+              {}
+            tag_36:
+              {}
+            tag_37:
+              {}
+            tag_38:
+              {}
+            tag_39:
+              {}
+            tag_4:
+              {}
+            tag_40:
+              {}
+            tag_41:
+              {}
+            tag_42:
+              {}
+            tag_420:
+              {}
+            tag_43:
+              {}
+            tag_44:
+              {}
+            tag_45:
+              {}
+            tag_46:
+              {}
+            tag_47:
+              {}
+            tag_49:
+              {}
+            tag_5:
+              {}
+            tag_51:
+              {}
+            tag_520:
+              {}
+            tag_53:
+              {}
+            tag_535:
+              {}
+            tag_54:
+              {}
+            tag_55:
+              {}
+            tag_56:
+              {}
+            tag_57:
+              {}
+            tag_58:
+              {}
+            tag_59:
+              {}
+            tag_6:
+              {}
+            tag_60:
+              {}
+            tag_61:
+              {}
+            tag_62:
+              {}
+            tag_65:
+              {}
+            tag_66:
+              {}
+            tag_67:
+              {}
+            tag_68:
+              {}
+            tag_69:
+              {}
+            tag_70:
+              {}
+            tag_71:
+              {}
+            tag_72:
+              {}
+            tag_74:
+              {}
+            tag_77:
+              {}
+            tag_78:
+              {}
+            tag_79:
+              {}
+            tag_8:
+              {}
+            tag_80:
+              {}
+            tag_81:
+              {}
+            tag_85:
+              {}
+            tag_88:
+              {}
+            tag_89:
+              {}
+            tag_91:
+              {}
+            tag_95:
+              {}
+            tag_96:
+              {}
+            tag_97:
+              {}
+            tag_98:
+              {}
+          vision:
+            ovc/imu:
+              {}
+      Update Interval: 0
+      Value: true
+    - Angle Tolerance: 0.20000000298023224
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: false
+      Enabled: true
+      Keep: 100000
+      Name: rig odom
+      Position Tolerance: 0.30000001192092896
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 255; 0; 255
+        Head Length: 0
+        Head Radius: 0.10000000149011612
+        Shaft Length: 0.20000000298023224
+        Shaft Radius: 0.20000000298023224
+        Value: Arrow
+      Topic: /tagslam/odom/body_ovc
+      Unreliable: false
+      Value: true
+    - Angle Tolerance: 0.20000000298023224
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: false
+      Enabled: true
+      Keep: 100000
+      Name: vio odom
+      Position Tolerance: 0.30000001192092896
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 0; 255; 255
+        Head Length: 0
+        Head Radius: 0.10000000149011612
+        Shaft Length: 0.20000000298023224
+        Shaft Radius: 0.20000000298023224
+        Value: Arrow
+      Topic: /vio/odom
+      Unreliable: false
+      Value: true
+    - Angle Tolerance: 0.20000000298023224
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: false
+      Enabled: true
+      Keep: 100000
+      Name: orb odom
+      Position Tolerance: 0.20000000298023224
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 255; 255; 0
+        Head Length: 0
+        Head Radius: 0.10000000149011612
+        Shaft Length: 0.20000000298023224
+        Shaft Radius: 0.20000000298023224
+        Value: Arrow
+      Topic: /orbslam_2/odom
+      Unreliable: false
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 255; 255; 255
+    Default Light: true
+    Fixed Frame: map
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+    - Class: rviz/FocusCamera
+    - Class: rviz/Measure
+    - Class: rviz/SetInitialPose
+      Theta std deviation: 0.2617993950843811
+      Topic: /initialpose
+      X std deviation: 0.5
+      Y std deviation: 0.5
+    - Class: rviz/SetGoal
+      Topic: /move_base_simple/goal
+    - Class: rviz/PublishPoint
+      Single click: true
+      Topic: /clicked_point
+  Value: true
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 53.76630401611328
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: 35.04998779296875
+        Y: 0.8173590302467346
+        Z: 0.2662045657634735
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 1.5697963237762451
+      Target Frame: tag_9
+      Value: Orbit (rviz)
+      Yaw: 4.713106632232666
+    Saved:
+      - Class: rviz/Orbit
+        Distance: 10
+        Enable Stereo Rendering:
+          Stereo Eye Separation: 0.05999999865889549
+          Stereo Focal Distance: 1
+          Swap Stereo Eyes: false
+          Value: false
+        Focal Point:
+          X: 0
+          Y: 0
+          Z: 0
+        Focal Shape Fixed Size: false
+        Focal Shape Size: 0.05000000074505806
+        Invert Z Axis: false
+        Name: Orbit
+        Near Clip Distance: 0.009999999776482582
+        Pitch: 0.7853981852531433
+        Target Frame: fla/left_cam
+        Value: Orbit (rviz)
+        Yaw: 0.7853981852531433
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 1161
+  Hide Left Dock: false
+  Hide Right Dock: false
+  QMainWindow State: 000000ff00000000fd0000000400000000000001560000041dfc0200000014fb000000100044006900730070006c006100790073020000061a0000025f000001580000041dfb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d006100670065000000023c000001f50000000000000000fb00000008006d00610073006b0100000245000001e60000000000000000fb0000001a006400650074006500630074006500640020007400610067007300000002b5000000a20000000000000000fb0000001200720061007700200069006d0061006700650000000333000000f80000000000000000fb0000000a0049006d0061006700650100000156000002d50000000000000000fb0000001e0069006d006100670065002000770069007400680020007400610067007301000002150000021c0000000000000000fb0000001200740061006700200069006d0061006700650100000362000000cf0000000000000000fb0000000c00430061006d006500720061000000003b000003f60000000000000000fb0000000a0049006d006100670065010000024a000000fd0000000000000000fb0000000c00430061006d006500720061010000034d000000160000000000000000fb0000000c00430061006d0065007200610100000363000000ce0000000000000000fb0000000c00430061006d0065007200610100000191000002a0000000000000000000000001000004c40000041dfc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003b0000041d000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b20000000000000000000000020000077c000000c7fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000077c00000037fc0100000002fb0000000800540069006d006501000000000000077c0000024400fffffffb0000000800540069006d006501000000000000045000000000000000000000077c000003f600000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Selection:
+    collapsed: false
+  Time:
+    collapsed: false
+  Tool Properties:
+    collapsed: false
+  Views:
+    collapsed: false
+  Width: 1916
+  X: 3840
+  Y: 18
