@@ -1,5 +1,5 @@
 
-FNAME=tagslam
+FNAME=root
 
 LATEX=pdflatex -interaction=nonstopmode "\input"
 BIBTEX=bibtex
