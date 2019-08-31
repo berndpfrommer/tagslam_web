@@ -50,12 +50,12 @@ between two pose variables can be specified, with noise $\Sigma$:
 \begin{equation}
   p_R(\ctrans{}{T}{A}, \ctrans{}{T}{B}|\Delta\ctrans{}{T}{},\Sigma) = g(\ctransi{}{T}{B}\ctrans{}{T}{A}; \Delta\ctrans{}{T}{}, \Sigma)\ .
 \end{equation}
-If odometry body pose differences $\Delta \ctrans{}{T}{\mathrm{odom}}(t)$ with noise $\sigma(t)$
+If odometry body pose differences $\Delta \ctrans{}{T}{\mathrm{odom}}(t)$ with noise $\sigma$
 are available from e.g. a VIO algorithm running
 alongside TagSLAM, a relative pose prior of
 $p_R(\ctrans{\mathrm{w}}{T}{\mathrm{body}}(t),
 \ctrans{\mathrm{w}}{T}{\mathrm{body}}(t-1)|
-\Delta \ctrans{}{T}{\mathrm{odom}}(t),\sigma(t))$ is used to insert
+\Delta \ctrans{}{T}{\mathrm{odom}}(t),\sigma)$ can be used to insert
 the odometry updates into the pose graph.
 
 {\em Tag Projection Factor}. The output of the tag detection
@@ -106,7 +106,7 @@ observations of the tags further constrain rig and block poses at $t+1$.
 
 
 \begin{figure}[ht]
-  \newcommand{\relfacgraphsize}{0.9}
+  \newcommand{\relfacgraphsize}{0.75}
   \begin{center}
     \begin{tabular}{cc}
       \resizebox{\relfacgraphsize\columnwidth}{!}{

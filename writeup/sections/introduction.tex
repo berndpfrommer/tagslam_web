@@ -1,7 +1,7 @@
 \section{Introduction}
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\columnwidth]{scene_with_block.png}
+  \includegraphics[width=0.8\columnwidth]{scene_with_block.png}
   \caption{Single-camera TagSLAM scene with dynamic ``rig'' and ``block''
     bodies, and a static ``lab'' body.}
   \label{fig:scene_with_block}
@@ -10,7 +10,7 @@
 Accurate and robust Simultaneous Localization And Mapping (SLAM)
 algorithms are arguably one of the corner pieces for building
 autonomous systems. For this reason, SLAM has been studied extensively
-since the 1980s, see Ref.\ \cite{cadena2016}. 
+since the 1980s \cite{cadena2016}. 
 In a nutshell, SLAM methods take sensor data such as camera images as
 input and extract easily recognizable features (``landmarks''). The
 landmarks are entered into a map such that when the same landmark is
@@ -27,7 +27,7 @@ observed from a different viewpoint, or under different lighting
 conditions. The other is maintaining a map of landmarks. To limit memory 
 consumption and achieve fast retrieval, landmarks must be at some
 point discarded, efficient retrieval databases must be updated and
-queried, adding considerable complexity \cite{murartal2016}. If loop
+queried, adding considerable complexity \cite{murartal2017}. If loop
 closure fails, the estimated camera pose starts to drift, which is a
 well-known problem with local-map-only algorithms such as
 visual-inertial odometry (VIO).

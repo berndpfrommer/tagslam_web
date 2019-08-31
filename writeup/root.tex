@@ -2,7 +2,7 @@
 %2345678901234567890123456789012345678901234567890123456789012345678901234567890
 %        1         2         3         4         5         6         7         8
 \pdfminorversion=4
-\documentclass[letterpaper, 10 pt]{IEEEconf}
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
 \let\labelindent\relax
 \usepackage{enumitem}
 \usepackage{graphicx}
@@ -21,6 +21,7 @@
 \usepackage{balance}
 \usepackage{hyperref}
 
+\IEEEoverridecommandlockouts % you want to use the \thanks command
 %\overrideIEEEmargins  
 
 % simple vec (mv stands for "my vector")
@@ -54,15 +55,14 @@
 
 \title{\LARGE \bf TagSLAM: Robust SLAM with Fiducial Markers}
 \author{
-Bernd Pfrommer
-\footnote{University of Pennsylvania School of Engineering and Applied
+Bernd Pfrommer$^{1,2}$\\
+\and
+Kostas Daniilidis$^{1}$\thanks{}
+\thanks{$^{1}$University of Pennsylvania School of Engineering and Applied
 Science. We gratefully acknowledge support through the following grants: NSF-IIP-1439681
 (I/UCRC RoSeHuB), NSF-IIS-1703319, NSF MRI 1626008, and the DARPA FLA
 program.}
-\footnote{Thanks to Chao Qu and Ke Sun for many useful discussions.}
-\\
-\and
-Kostas Daniilidis\footnotemark[1]
+\thanks{$^{2}$Thanks to Chao Qu and Ke Sun for many useful discussions.}
 }
 
 \maketitle
@@ -88,6 +88,6 @@ at \url{https://berndpfrommer.github.io/tagslam_web}.
 \input{sections/application_example.tex}
 \input{sections/conclusion.tex}
 \balance
-\bibliography{root}
 \bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,IEEEconfabrv,root}
 \end{document}

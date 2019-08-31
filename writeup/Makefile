@@ -6,7 +6,7 @@ BIBTEX=bibtex
 all:	$(FNAME).pdf
 
 # localization_graph.tex calibration_graph.tex
-$(FNAME).pdf: $(FNAME).tex sections/*.tex
+$(FNAME).pdf: $(FNAME).tex sections/*.tex $(FNAME).bib *.bib
 	$(LATEX)  $(FNAME).tex
 	$(BIBTEX) $(FNAME)
 	$(LATEX)  $(FNAME).tex
