@@ -4,7 +4,7 @@ Nonlinear non-convex optimizers such as GTSAM \cite{kaess2011} are
 iterative solvers and hence rely on a starting guess that is
 reasonably close to the optimum. If for example a camera pose is
 initialized such that one of the observed tag corner points lies
-behind the camera, the optimizer will fail.
+behind the camera, the optimizer will likely fail.
 
 Several sources of error can contribute to poor pose
 initialization. TagSLAM has been used for several projects already,
@@ -75,7 +75,7 @@ turn, through existing factors, may cause other variables to become
 determinable as well. Thus every new factor can give rise to a
 subgraph of newly determinable variables. We refer as {\em subgraph
   discovery} to the exhaustive traversing of the graph until no more
-new variables can be determined. During this process, any
+new variables can be determined. During this process, all
 deteriminable variables and factors are entered into the
 subgraph. Further, an {\em initialization list} is created that
 contains the factors in the order they are discovered. The

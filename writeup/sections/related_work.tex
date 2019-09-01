@@ -15,7 +15,7 @@ entered into a map beforehand.
 
 Ref. \cite{neunert2016} presents a visual-inertial approach for
 obtaining ground truth positions from a combination of inertial
-measurement unit (IMU) and camera. They also utilize AprilTags, but in
+measurement unit (IMU) and camera. They also utilize April\-Tags, but in
 contrast to TagSLAM use an Extended Kalman Filter (EKF), a method that
 is well suited for their goal to effectively provide a real-time,
 outdoor, low-cost motion capture system. Since TagSLAM uses a graph
@@ -34,7 +34,7 @@ loop closure and drift removal.
 A combination of AprilTags and GTSAM were used in
 Ref.\ \cite{pfrommer2017} to provide ground truth for VIO
 benchmarking. The software developed there served as a precursor to
-TagSLAM, but was lacking a framework for generalization to other
+TagSLAM, but it was lacking a framework for generalization to other
 scenarios, and required that approximate tag world poses be available
 beforehand.
 
@@ -52,8 +52,8 @@ straight forward.
 
 Some of the difficulties with optimizer initialization discussed in
 section \ref{sec:robustinit} have been nicely described in
-ref.\ \cite{jin2017}. The authors overcome these issues by using
-additional depth sensor information. In contrast TagSLAM leverages a
+Ref.\ \cite{jin2017}. The authors overcome these issues by using
+additional depth sensor information. In contrast, TagSLAM leverages a
 combination of multiple tags, multiple cameras, or pose history to
 arrive at a robust starting guess. This works also outdoors or over
 longer distances, where depth sensing is not an option.

@@ -6,7 +6,7 @@ factor graph defines a probability $P(\Theta|\mathcal{Z})$ that
 assumes its maximum a posteriori (MAP) value for the optimal variable set
 $\Theta^*$, given the measurements:
 \begin{equation}
-\Theta^* = \argmax_\Theta P(\Theta|\mathcal{Z})
+\Theta^* = \argmax_\Theta P(\Theta|\mathcal{Z})\ .
 \end{equation}
 The set of variables $\mathcal{Z}$ contains:
 \begin{itemize}
@@ -87,7 +87,7 @@ sensor plane and converts it to pixel coordinates. The noise parameter $\sigma_p
 is a diagonal matrix that reflects the accuracy of the tag library's corner detector,
 which is usually assumed to be about one pixel.
 
-We can visualize the factor structure of Eq.\ \ref{eq:totalprob} by means of
+We can visualize the factor structure of Eq.\ (\ref{eq:totalprob}) by means of
 a graph as shown in Fig.\ \ref{fig:sample_graph} for the scene from
 Fig.\ \ref{fig:scene_with_block}. In Fig.\ \ref{fig:sample_graph},
 black squares represent factors, whereas circles denote pose variables
@@ -102,7 +102,7 @@ $\ctrans{\mathrm{w}}{T}{\mathrm{r}}(t)$, whereas an observation of Tag
 $\ctrans{\mathrm{w}}{T}{\mathrm{b}}(t)$. Assuming that odometry for
 the rig is provided by some external algorithm, there is a relative
 pose factor $p_R$ connecting the rig poses for $t$ and $t+1$. Two more
-observations of the tags further constrain rig and block poses at $t+1$.
+tag observations at $t+1$ generate additional factors that further constrain rig and block poses at $t+1$.
 
 
 \begin{figure}[ht]
