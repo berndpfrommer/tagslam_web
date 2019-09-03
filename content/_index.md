@@ -45,6 +45,9 @@ TagSLAM supports *synchronized* (only!)  multi-camera systems, and
 therefore can be used to find the relative  poses of multiple
 cameras. No special calibration target is needed other than AprilTags
 scattered around. No overlap between the cameras field of view is required.
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/W7IGJZBSuvM?autoplay=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="TagSLAM extrstate estimation"></iframe>
+</div>
 
 ## State estimation
 TagSLAM can estimate the pose of an object that has tags attached to
