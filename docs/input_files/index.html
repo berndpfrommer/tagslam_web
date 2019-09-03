@@ -90,33 +90,12 @@ $
 <li><code>bag_file</code> (default: &ldquo;&rdquo;) name of input bag file. If empty, run in
 online mode</li>
 <li><code>fixed_frame_id</code> (default: &ldquo;map&rdquo;) ROS frame id of the universe</li>
-<li><code>max_number_of_frames</code> (default: 1000000) stop playing bag after this number
-of frames</li>
-<li><code>minimum_viewing_angle</code> (default: 20.0) minimum viewing angle (in
-degrees), at which an observed tag is accepted. If the viewing angle
-is smaller than that, the tag will be ignored.</li>
-<li><code>max_subgraph_error</code> (default: 50.0) maximum error allowed for an
-initialization subgraph to be accepted into the full graph. If error
-exceeds <code>max_subgraph_error</code>, all data for this frame will be dropped.</li>
-<li><code>optimizer_mode</code>
 
-<ul>
-<li>&ldquo;full&rdquo;: non-incremental (full) optimization after each time step.
-    This is the slowest and most conservative mode.</li>
-<li>&ldquo;slow&rdquo;: (default) incremental optimization, but with error checks and
-    frequent relinearization.</li>
-<li>&ldquo;fast&rdquo;: incremental optimization with infrequent
-relinearization. Use this if the data is very clean and you need
-speed.</li>
-</ul></li>
-<li><code>max_num_incremental_opt</code> (default: 100) run full optimizer
-(rather than incremental iSAM2) after every
-<code>max_num_incremental_opt</code> frames.
-This is required to avoid error build up for long sequences. Need to
-better understand why this is necessary!</li>
+<li><p><code>max_number_of_frames</code> (default: 1000000) stop playing bag after this number
+of frames</p>
+
+<h1 id="cameras-yaml">cameras.yaml</h1></li>
 </ul>
-
-<h1 id="cameras-yaml">cameras.yaml</h1>
 
 <p>Here&rsquo;s how a typical camera.yaml file looks:</p>
 
@@ -216,7 +195,36 @@ obtained from a previous extrinsic calibration run using TagSLAM.</p>
 
 <p>This is the main TagSLAM configuration file.</p>
 
-<pre><code>body_defaults:
+<pre><code>tagslam_parameters:
+  # optimizer mode: full (full optimization, no iSAM2 used)
+  #                 slow (use iSAM2, but test for error
+  #                       and use full GTSAM if error is large)
+  #                 fast (iSAM2 only, no test for error)
+  # default: slow
+  optimizer_mode: fast
+
+  # minimum angle [in degrees] between optical axis and tag surface
+  minimum_viewing_angle: 12.0
+
+  # number of incremental updates before running
+  # a full graph optimization (default: 50)
+  max_num_incremental_opt: 50
+
+  # estimated error of tag corner detector
+  pixel_noise: 1.0
+
+  # maximum allowed subgraph error. If error is above that,
+  # the frame is thrown away, the measurement ignored.
+  max_subgraph_error: 50.0
+
+  # Noise with which the subgraph absolute priors will be
+  # pinned down. This parameter usually does not need to be
+  # touched. Only modify it if there is large odom drift inbetween
+  # tag sightings, and the subgraph error test fails upon loop closure
+  subgraph_abs_prior_position_noise: 0.1
+  subgraph_abs_prior_rotation_noise: 0.1
+
+body_defaults:
   position_noise: 0.05
   rotation_noise: 0.01
 default_body: lab
@@ -272,26 +280,56 @@ bodies:
 <p>The supported keywords are as follows:</p>
 
 <ul>
-<li><code>body_defaults</code>: here you can specify a default <code>position_noise</code>
+<li><p><code>tagslam_parameters</code></p>
+
+<ul>
+<li><code>minimum_viewing_angle</code> (default: 20.0) minimum viewing angle (in
+degrees), at which an observed tag is accepted. If the viewing angle
+is smaller than that, the tag will be ignored.</li>
+<li><code>max_subgraph_error</code> (default: 50.0) maximum error allowed for an
+initialization subgraph to be accepted into the full graph. If error
+exceeds <code>max_subgraph_error</code>, all data for this frame will be dropped.</li>
+<li><code>optimizer_mode</code>
+
+<ul>
+<li>&ldquo;full&rdquo;: non-incremental (full) optimization after each time step.
+    This is the slowest and most conservative mode.</li>
+<li>&ldquo;slow&rdquo;: (default) incremental optimization, but with error checks and
+    frequent relinearization.</li>
+<li>&ldquo;fast&rdquo;: incremental optimization with infrequent
+    relinearization. Use this if the data is very clean and you need
+    speed.</li>
+</ul></li>
+<li><code>max_num_incremental_opt</code> (default: 100) run full optimizer
+(rather than incremental iSAM2) after every <code>max_num_incremental_opt</code> frames.
+This is required to avoid error build up for long sequences. Need to
+better understand why this is necessary!</li>
+</ul></li>
+
+<li><p><code>body_defaults</code>: here you can specify a default <code>position_noise</code>
 (in meters) and <code>rotation_noise</code> (rads). This is convenient in
 case you have many bodies with known poses, but don&rsquo;t want to
-specify the pose uncertainty (noise) for every one.</li>
-<li><code>default_body</code>: specify which body (see below) is the default. If
+specify the pose uncertainty (noise) for every one.</p></li>
+
+<li><p><code>default_body</code>: specify which body (see below) is the default. If
 tags are  discovered that are not explicitly associated with any body, they
 will be attached to the default body. <em>If no default body is
-specified, all unknown tags will be ignored</em>.</li>
-<li><code>bodies</code>: specifies the list of bodies. See below for keywords
-used to describe a body.</li>
-<li><code>distance_measurements</code>, <code>coordinate_measurements</code> etc: specify
+specified, all unknown tags will be ignored</em>.</p></li>
+
+<li><p><code>bodies</code>: specifies the list of bodies. See below for keywords
+used to describe a body.</p></li>
+
+<li><p><code>distance_measurements</code>, <code>coordinate_measurements</code> etc: specify
 measurements. See the section on measurements for a complete list
-and explanation.</li>
-<li><code>amnesia</code>: If set to <code>true</code> (default is <code>false</code>), TagSLAM will
+and explanation.</p></li>
+
+<li><p><code>amnesia</code>: If set to <code>true</code> (default is <code>false</code>), TagSLAM will
 only maintain a single instance of any time dependent poses
 around. This means that all previous observations are thrown away,
 and only the most recent tag observations are used to determine the
 pose of bodies. Use this option for e.g. state estimation, where all
 static poses are already known in advance, and only non-static poses
-are of interest.</li>
+are of interest.</p></li>
 
 <li><p><code>squash</code>: in case your data set has one particular observation at
 one specific time that throws off the optimizer, you can remove it

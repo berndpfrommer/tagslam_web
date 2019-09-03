@@ -14,26 +14,6 @@ title = "5. Input Files and Parameters"
 - ``fixed_frame_id`` (default: "map") ROS frame id of the universe
 - ``max_number_of_frames`` (default: 1000000) stop playing bag after this number
     of frames
-- ``minimum_viewing_angle`` (default: 20.0) minimum viewing angle (in
-  degrees), at which an observed tag is accepted. If the viewing angle
-  is smaller than that, the tag will be ignored.
-- ``max_subgraph_error`` (default: 50.0) maximum error allowed for an
-  initialization subgraph to be accepted into the full graph. If error
-  exceeds ``max_subgraph_error``, all data for this frame will be dropped.
-- ``optimizer_mode``
-  - "full": non-incremental (full) optimization after each time step.
-            This is the slowest and most conservative mode.
-  - "slow": (default) incremental optimization, but with error checks and
-            frequent relinearization.
-  - "fast": incremental optimization with infrequent
-  relinearization. Use this if the data is very clean and you need
-  speed. 
-- ``max_num_incremental_opt`` (default: 100) run full optimizer
-  (rather than incremental iSAM2) after every
-  ``max_num_incremental_opt`` frames.
-  This is required to avoid error build up for long sequences. Need to
-  better understand why this is necessary!
-
 # cameras.yaml
 
 Here's how a typical camera.yaml file looks:
@@ -129,6 +109,35 @@ obtained from a previous extrinsic calibration run using TagSLAM.
 
 This is the main TagSLAM configuration file.
 
+    tagslam_parameters:
+      # optimizer mode: full (full optimization, no iSAM2 used)
+      #                 slow (use iSAM2, but test for error
+      #                       and use full GTSAM if error is large)
+      #                 fast (iSAM2 only, no test for error)
+      # default: slow
+      optimizer_mode: fast
+
+      # minimum angle [in degrees] between optical axis and tag surface
+      minimum_viewing_angle: 12.0
+
+      # number of incremental updates before running
+      # a full graph optimization (default: 50)
+      max_num_incremental_opt: 50
+
+      # estimated error of tag corner detector
+      pixel_noise: 1.0
+
+      # maximum allowed subgraph error. If error is above that,
+      # the frame is thrown away, the measurement ignored.
+      max_subgraph_error: 50.0
+
+      # Noise with which the subgraph absolute priors will be
+      # pinned down. This parameter usually does not need to be
+      # touched. Only modify it if there is large odom drift inbetween
+	  # tag sightings, and the subgraph error test fails upon loop closure
+      subgraph_abs_prior_position_noise: 0.1
+      subgraph_abs_prior_rotation_noise: 0.1
+  
     body_defaults:
       position_noise: 0.05
       rotation_noise: 0.01
@@ -183,6 +192,26 @@ This is the main TagSLAM configuration file.
 
 	
 The supported keywords are as follows:
+
+- ``tagslam_parameters``
+   - ``minimum_viewing_angle`` (default: 20.0) minimum viewing angle (in
+     degrees), at which an observed tag is accepted. If the viewing angle
+     is smaller than that, the tag will be ignored.
+   - ``max_subgraph_error`` (default: 50.0) maximum error allowed for an
+     initialization subgraph to be accepted into the full graph. If error
+     exceeds ``max_subgraph_error``, all data for this frame will be dropped.
+   - ``optimizer_mode``
+      - "full": non-incremental (full) optimization after each time step.
+                This is the slowest and most conservative mode.
+      - "slow": (default) incremental optimization, but with error checks and
+                frequent relinearization.
+      - "fast": incremental optimization with infrequent
+                relinearization. Use this if the data is very clean and you need
+                speed. 
+   - ``max_num_incremental_opt`` (default: 100) run full optimizer
+       (rather than incremental iSAM2) after every ``max_num_incremental_opt`` frames.
+        This is required to avoid error build up for long sequences. Need to
+        better understand why this is necessary!
 
 - ``body_defaults``: here you can specify a default ``position_noise``
   (in meters) and ``rotation_noise`` (rads). This is convenient in
