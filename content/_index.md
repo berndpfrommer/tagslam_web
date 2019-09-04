@@ -10,7 +10,8 @@ localization and mapping (SLAM) with the popular
 [AprilTags](https://april.eecs.umich.edu/software/apriltag). In
 essence TagSLAM is a front-end to
 the [GTSAM optimizer](https://borg.cc.gatech.edu/) which makes it easy
-to use AprilTags for visual SLAM.
+to use AprilTags for visual SLAM. For more technical details, have a
+look at [this draft paper](media/tagslam.pdf).
 <div style="position: relative; padding-bottom: 56.25%; height: 0;">
 <iframe src="//www.youtube.com/embed/51z1V-Jb3c8?autoplay=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="TagSLAM on aerial robot"></iframe>
 </div>
