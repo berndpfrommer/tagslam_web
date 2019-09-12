@@ -77,14 +77,15 @@ objects that have tags attached to them. This means TagSLAM can also
 be used for pose estimation of objects other than cameras, as shown in
 Fig. \ref{fig:scene_with_block}. In fact, TagSLAM has been deployed for
 the University of Pennsylvania's Smart Aviary project in a scenario
-where {\em all} cameras are static. This is not directly possible with any SLAM
-package that we are aware of.
+where {\em all} cameras are static, and only some tags are
+moving. This is not directly possible with any SLAM package that we
+are aware of.
 
 TagSLAM's robustness and
 availability as an open-source ROS \cite{quigley2009} package make it
 particularly accessible for researchers new to robotics. It is now
-being used at the University of Pennsylvania's GRASP lab for extrinsic camera calibration with
-non-overlapping views, loop closure on visual-inertial odometry
-benchmarks, tag mapping, object pose estimation, and more. TagSLAM is
-also employed in a forthcoming project by the University of Michigan's
-DASC laboratory.
+being used at the University of Pennsylvania's GRASP lab for extrinsic
+camera calibration with non-overlapping views, loop closure on
+visual-inertial odometry benchmarks, tag mapping, object pose
+estimation, and more. TagSLAM is also employed in a forthcoming
+project by the University of Michigan's DASC laboratory.

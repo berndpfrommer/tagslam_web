@@ -1,17 +1,7 @@
 \section{Related Work}
-A review of the vast SLAM literature is beyond the scope of this
-paper. For a thorough survey we refer to \cite{cadena2016}. The focus
-of this section will be on SLAM or localization techniques that
-operate off of fiducial markers.
-
-Several works on this topic however do not employ graph based
-optimizers. For instance, Ref. \cite{kayhani2019} presents a
-Kalman-filter based approach for localizing off of multiple
-AprilTags. The authors
-use localization via tags for aerial construction surveillance because
-often GPS signals are compromised by surrounding buildings. In further
-contrast to TagSLAM, there is no mapping: all tag poses must be
-entered into a map beforehand.
+As a review of the vast SLAM literature is beyond the scope of this
+paper, we refer to the thorough survey in Ref.\ \cite{cadena2016}. In
+this section we will focus on SLAM that utilizes fiducial markers.
 
 Ref. \cite{neunert2016} presents a visual-inertial approach for
 obtaining ground truth positions from a combination of inertial
@@ -19,27 +9,38 @@ measurement unit (IMU) and camera. They also utilize April\-Tags, but in
 contrast to TagSLAM use an Extended Kalman Filter (EKF), a method that
 is well suited for their goal to effectively provide a real-time,
 outdoor, low-cost motion capture system. Since TagSLAM uses a graph
-optimizer instead of a filter, it can be operated in non-real time to
-leverage observations from both the past and the future, resulting in
-smoother trajectories. TagSLAM also does not require the presence of
-an IMU and can work with cameras alone. This simplifies the
-experimental setup, but also reduces robustness to motion blur during
-quick rotations. In case IMU data is available, TagSLAM can be set up
+optimizer instead of a filter, it can leverage observations from both
+the past and the future, resulting in 
+smoother trajectories. In case IMU data is available, TagSLAM can be set up
 to operate in a similar fashion to the system described in
-\cite{neunert2016}. One could for example run a standard monocular VIO
-algorithm without the use of any tags, and feed the computed odometry
-updates into TagSLAM to be combined with AprilTag observations for
-loop closure and drift removal.
+\cite{neunert2016} by supplying externally generated VIO data.
 
-A combination of AprilTags and GTSAM were used in
-Ref.\ \cite{pfrommer2017} to provide ground truth for VIO
-benchmarking. The software developed there served as a precursor to
-TagSLAM, but it was lacking a framework for generalization to other
-scenarios, and required that approximate tag world poses be available
-beforehand.
+Most similar to our work is Ref.\ \cite{munoz2018}, where a system is
+described that can perform real-time SLAM from square planar markers
+(SPM-SLAM). By using keyframes and having different algorithms for
+tracking and loop closure, they achieve high performance and
+scalability to large scenes. In
+contrast, TagSLAM considers every frame a keyframe, and relies on
+iSAM2 \cite{kaess2011} to exploit sparsity. This significantly simplifies
+TagSLAM's code base, and facilitates the implementation of its
+flexible model.
+For long trajectories and many tags, we expect SPM-SLAM to scale
+better due to its use of keyframes. However, our
+experiments (Sec. \ref{sec:application}) indicate that TagSLAM can handle
+scenes that are sufficiently large for many situations. Unlike
+TagSLAM, SPM-SLAM cannot incorporate keypoints via odometry
+measurements, although this shortcoming is addressed in a forthcoming
+paper (``UcoSLAM''). As far as robustness is concerned, both TagSLAM and
+SPM-SLAM rely on detecting tag pose ambiguity \cite{schweighofer2006},
+but SPM-SLAM attempts to use the measurements right away by relying on
+a sophisticated two-frame initialization algorithm, whereas TagSLAM delays use
+of the tag's observations until its pose can be determined
+unambiguously. For achieving robustness during relocalization,
+SPM-SLAM relies again on pose ambiguity measures, whereas TagSLAM
+additionally considers the tag's apparent size.
 
-Closely related to the present paper is the underwater SLAM performed
-in \cite{westman2018}. The authors also leverage AprilTags and the
+Also closely related to the present paper is the underwater SLAM performed
+in \cite{westman2018}. The authors leverage AprilTags and the
 GTSAM factor graph optimizer to obtain vision based ground truth poses
 and extrinsic calibration. The focus of their work however is more on
 providing a solution for a particular problem, whereas TagSLAM aims to
@@ -50,10 +51,4 @@ code structure of TagSLAM is designed such that adding the
 problem-specific XHY and ZPR factors from \cite{westman2018} should be
 straight forward.
 
-Some of the difficulties with optimizer initialization discussed in
-section \ref{sec:robustinit} have been nicely described in
-Ref.\ \cite{jin2017}. The authors overcome these issues by using
-additional depth sensor information. In contrast, TagSLAM leverages a
-combination of multiple tags, multiple cameras, or pose history to
-arrive at a robust starting guess. This works also outdoors or over
-longer distances, where depth sensing is not an option.
+

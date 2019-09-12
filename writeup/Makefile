@@ -5,6 +5,11 @@ LATEX=pdflatex -interaction=nonstopmode "\input"
 BIBTEX=bibtex
 all:	$(FNAME).pdf
 
+zip: $(FNAME).zip
+
+$(FNAME).zip: sections/*.tex *.tex *.bib *.cls *.bst *.png *.sty
+	zip -r $(FNAME).zip sections *.tex *.bib *.cls *.bst *.png *.sty
+
 # localization_graph.tex calibration_graph.tex
 $(FNAME).pdf: $(FNAME).tex sections/*.tex $(FNAME).bib *.bib
 	$(LATEX)  $(FNAME).tex

@@ -21,7 +21,7 @@ analysis.
 Even when all input data is correct, initializing a camera or tag pose
 can be challenging, for example because the corner of the tag is not
 detected accurately, which may happen under motion blur, or when a tag
-is partially occluded.  As described in Ref.\ \cite{jin2017}, there
+is partially occluded.  As described in Ref.\ \cite{schweighofer2006}, there
 are two camera poses from where a single tag looks quite similar, with
 only perspective distortion distinguishing between them. For a tag
 that is barely large enough to be detected and is viewed at a shallow
@@ -41,7 +41,7 @@ should be used for this purpose if several are visible?
 
 In case the tag poses are known, one might be tempted to answer the
 last question with: use the corner points of all tags simultaneously
-with a perspective n-point method \cite{fischler1981} (PnP). In
+with a perspective n-point method (PnP). In
 practice we find that PnP is not robust to misspecified tag
 poses. Moreover when it fails it is not clear which of the tags is in
 error, necessitating an expensive elimination process. For this reason
@@ -92,6 +92,14 @@ seen at time step $t$, no camera rig pose could be determined. But if
 at $t+1$ tags $B$ and $C$ are observed, and tag $C$ has known pose,
 then the subgraph at $t+1$ will contain poses for tags $A$, $B$, and
 $C$, although tag $A$ was observed in the previous step.
+
+For robustness against ambiguity, a tag pose will not enter a
+subgraph unless its pose is either already determined from previous
+observations, or given by a pose prior, or has a pose ambiguity error
+ratio \cite{munoz2018} of $e(\gamma)/e(\dot{\gamma}) > 0.3$ while
+being viewed at an angle of less than 60$^{\circ}$. The last condition
+reflects the fact that tag pose ambiguity is most serious a problem
+when the tag is seen at a small angle.
 
 All variables of the so generated subgraph are determinable, but if
 any dynamic poses from previous time steps are present, they must be
@@ -159,7 +167,7 @@ in the order specified by the corresponding {\em initialization
   list}. Then all subgraphs are optimized using GTSAM, in
 non-incremental mode, i.e. without using iSAM2 \cite{kaess2011}, and
 their error is evaluated. This step is analogous to model validation
-in RANSAC \cite{fischler1981}. If a subgraph's error falls below a
+in RANSAC. If a subgraph's error falls below a
 configurable threshold, the subgraph is accepted, and its factors and
 optimized values are transferred to the {\em optimized
   graph}. Subsequently, the {\em optimized graph} is optimized with an
