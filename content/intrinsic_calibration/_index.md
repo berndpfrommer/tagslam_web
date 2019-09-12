@@ -66,3 +66,7 @@ You will need to adjust the ``tagtopic`` to match the actual ROS topic
 under which the extracted tags are published. The ``rig_body`` must be
 set to match the name of the TagSLAM body to which the camera is
 attached.
+
+NOTE: the intrinsics data is ``[fx, fy, cx, cy]``! It is a common mistake
+to switch that around, as they show up in a different order in the K-matrix.
+
