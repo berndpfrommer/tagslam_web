@@ -51,13 +51,16 @@ scattered around. No overlap between the cameras field of view is required.
 </div>
 
 ## State estimation
+### Pose estimation of block from single, moving camera
 TagSLAM can estimate the pose of an object that has tags attached to
-it. 
+it. Here an example of a block pose estimation:\\
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
   <iframe src="//www.youtube.com/embed/ul9THWqCOQY?autoplay=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="TagSLAM state estimation"></iframe>
 </div>
 
-<!--
-<img src="media/block_scene.png" alt="pennstock"  width="600"/>
-{{< youtube src="ul9THWqCOQY" width="600" >}}
--->
+### Pose estimation of wand with eight static cameras
+Another example of state estimation, at the UPenn Aviary, using 8 stationary cameras that are extrinsically calibrated off AprilTag boards, while
+simultaneously localizing a moving wand with tags attached to it:
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/4Z2Pf9ClcbI?autoplay=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="TagSLAM at UPenn Aviary"></iframe>
+</div>

@@ -147,6 +147,9 @@ projection_matrix:
 under which the extracted tags are published. The <code>rig_body</code> must be
 set to match the name of the TagSLAM body to which the camera is
 attached.</p>
+
+<p>NOTE: the intrinsics data is <code>[fx, fy, cx, cy]</code>! It is a common mistake
+to switch that around, as they show up in a different order in the K-matrix.</p>
 <div class="edit-meta">
 </div>
 <nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/caveats/" title="3. Caveats and Limitations"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 3. Caveats and Limitations</a>
