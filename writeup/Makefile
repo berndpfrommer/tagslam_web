@@ -7,8 +7,8 @@ all:	$(FNAME).pdf
 
 zip: $(FNAME).zip
 
-$(FNAME).zip: sections/*.tex *.tex *.bib *.cls *.bst *.png *.sty
-	zip -r $(FNAME).zip sections *.tex *.bib *.cls *.bst *.png *.sty
+$(FNAME).zip: sections/*.tex *.tex *.bib *.cls *.bst *.png *.sty *.bbl
+	zip -r $(FNAME).zip sections *.tex *.bib *.cls *.bst *.png *.sty *.bbl
 
 # localization_graph.tex calibration_graph.tex
 $(FNAME).pdf: $(FNAME).tex sections/*.tex $(FNAME).bib *.bib
