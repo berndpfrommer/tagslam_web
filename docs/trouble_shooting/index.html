@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Troubleshooting - TagSLAM</title>
+<meta name="generator" content="Hugo 0.40.1" />
+<link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/trouble_shooting/">
+<link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://berndpfrommer.github.io/tagslam_web/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://berndpfrommer.github.io/tagslam_web/js/jquery.backtothetop/jquery.backtothetop.min.js"></script><style>
+.container {
+    max-width: 1200px;
+}
+
+pre {
+  overflow: auto;
+  background: #f4f6f8;
+  padding: 1rem;
+  line-height: 115%;
+  border: 1px solid #f0f0f0;
+}
+
+code {
+  background: #f0f0f0;
+}
+</style>
+</head>
+<body>
+<div class="container"><header>
+<h1>TagSLAM</h1>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+  inlineMath: [['$','$'], ['\\(','\\)']],
+  displayMath: [['$$','$$']],
+  processEscapes: true,
+  processEnvironments: true,
+  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+  TeX: { equationNumbers: { autoNumber: "AMS" },
+  extensions: ["AMSmath.js", "AMSsymbols.js"]
+  }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+$
+\newcommand{\cc}[1]{\color{black}{#1}}
+\newcommand{\mvec}[1]{\mathbf{#1}}
+\newcommand{\cvec}[2]{^\mathrm{#2}\mathbf{#1}}
+\newcommand{\ctrans}[3]{^\mathrm{#3}\mathbf{#1}_\mathrm{#2}}
+$
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/tagslam_web/">Home</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Troubleshooting</h1>
+
+<h2 id="1-tagslam-is-not-doing-anything">1) TagSLAM is not doing anything</h2>
+
+<p>This problem is often encountered when running TagSLAM in online mode. There are several common reasons for that.</p>
+
+<h3 id="a-ros-topic-mismatch">a) ROS topic mismatch</h3>
+
+<p>ROS topic mismatch: are all input topics matched to output topics? The pedestrian way to check it is this: run <code>rosnode list</code> to see what your node names are. For the example, you should get output that looks like this:</p>
+
+<pre><code>/detector
+/play_1577107423477023017
+/tagslam
+</code></pre>
+
+<p>Does the /tagslam node find the topics it needs? You can find out with <code>rosnode info /tagslam</code>. That should give you output similar to this:</p>
+
+<pre><code>Node [/tagslam]
+Publications:
+* /rosout [rosgraph_msgs/Log]
+* /tagslam/odom/body_rig [nav_msgs/Odometry]
+* /tagslam/path/body_rig [nav_msgs/Path]
+* /tf [tf2_msgs/TFMessage]
+
+Subscriptions:
+* /clock [rosgraph_msgs/Clock]
+* /detector/tags [apriltag_msgs/ApriltagArrayStamped]
+</code></pre>
+
+<p>Looks good. Let&rsquo;s say the /detector/tags topic was not published by any node, the <code>Subscriptions</code> section would look like this:</p>
+
+<pre><code>Subscriptions:
+* /clock [rosgraph_msgs/Clock]
+* /detector/tags [unknown type]
+</code></pre>
+
+<p>The moment you see <code>[unknown type]</code>, something is wrong. You can double check with <code>rostopic info /detector/tags</code> to confirm that nobody is publishing that topic:</p>
+
+<pre><code>Type: apriltag_msgs/ApriltagArrayStamped
+Publishers: None
+Subscribers:
+* /tagslam (http://enz:38275/)
+</code></pre>
+
+<p>Follow the chain of published topics all the way up to the camera node. Use <code>rostopic hz &lt;topic_name&gt;</code> at every step to check if a topic is indeed receiving data.</p>
+
+<p>The faster way to check if topics are connected is by using <code>rqt_graph</code>, which will show you the graph of all connected topics:
+    <img src="../media/rqt_graph.png" alt="rqt_graph" /></p>
+
+<h3 id="b-ros-topic-not-ticking">b) ROS topic not ticking</h3>
+
+<p>Use the <code>rostopic hz</code> command to verify that each topic along the chain is producing data</p>
+
+<h3 id="c-data-is-not-synced">c) Data is not synced</h3>
+
+<p>If tags from multiple cameras are used, they must be synchronized across cameras, i.e. their message time stamps must be <em>identical</em>. If you use external odometry, the time stamps of the odom messages need to also be identical to the image stamps. Use <code>rostopic echo</code> simulataneously on all topics that TagSLAM is subscribed to. Are the header &ldquo;stamps&rdquo; of all images <em>and the odometry messages</em> (if you are using external odom) identical? Check with <code>rostopic echo</code> (by appending <code>/header</code> to the topic you can avoid printing out the whole image):</p>
+
+<pre><code>rostopic echo /pg_17274483/image_raw/compressed/header
+seq: 20
+stamp:
+    secs: 1558997723
+    nsecs: 150345650
+frame_id: &quot;pg_17274483&quot;
+---
+</code></pre>
+
+<h3 id="d-no-clock-published">d) No clock published</h3>
+
+<p>If you play back data from a bag, check that you have done <code>rosparam set use_sim_time true</code></p>
+
+<h2 id="2-tagslam-kinda-works-but-sometimes-jumps-around-all-over-the-place">2) TagSLAM kinda works, but sometimes jumps around all over the place.</h2>
+
+<p>Usually this is due to poor image quality and/or motion blur due to poor lighting and long shutter times. The RealSense cameras are notorious for long shutter times because they have a small image sensor.</p>
+
+<p><em>Check your images!</em> How many tags are visible at any point? Use the debug images from the detector, with the inpainted tags. If you only see one tag, you will get poor localization, and if it&rsquo;s far away, your position will be all over the place. In that case, put up more tags, it helps even if you don&rsquo;t measure their pose.</p>
+
+<p>In some cases you can get a smoother trajectory by switching on &ldquo;fake odometry&rdquo;. This results in temporal averaging that gives smoother trajectories, but also introduces temporal lag that is hard to quantify.</p>
+
+<h2 id="3-at-some-point-along-the-path-tagslam-bombs-out-flies-away-etc">3) At some point along the path, TagSLAM bombs out / &lsquo;flies away&rsquo; etc</h2>
+
+<p>Often this is due to loop closure that happens when e.g. your odometry has drifted significantly, and TagSLAM cannot close the loop because the error is too big. Sometimes you can work around the problem by increasing the permissible subgraph error. Or you can bump the noise on the odometry, such that TagSLAM has an easier time &ldquo;bending&rdquo; the trajectory into place upon loop closure.</p>
+
+<h2 id="4-there-is-a-nasty-kink-in-the-trajectory">4) There is a nasty kink in the trajectory</h2>
+
+<p>Several reasons:</p>
+
+<ul>
+<li>input static pose, number, or size of a tag is wrong</li>
+<li>that nasty kink comes from a jump in the odometry, while no tags are visible. Find out what&rsquo;s going on with the odom</li>
+<li>TagSLAM failed on the loop closure, and consequently had to drop some factors from the graph because the subgraph error was too high. The dropped factors include the odometry factors, which results in a kink in the trajectory</li>
+</ul>
+
+<h2 id="5-sometimes-there-are-a-few-poses-in-the-trajectory-that-are-total-outliers">5) Sometimes there are a few poses in the trajectory that are total outliers</h2>
+
+<p>This typically indicates that the rig pose initialization was bad. Usually this is due to poor tag visibility. You can paper over some of those issues by switching on &ldquo;fake odometry&rdquo;. This often helps because then TagSLAM initializes the camera rig pose from the previous (t-1) pose, instead of initializing it at every time step from scratch off of the tags. Alas, this also hides the root cause: you have locations along your path where only a few tags are visible from far. The other option is to simply remove the offending observation from your data with a <code>squash</code> section.</p>
+
+<h2 id="6-the-trajectory-goes-almost-straight-through-the-tags">6) The trajectory goes almost straight through the tags</h2>
+
+<p>Check that your tag size is correct.</p>
+
+<h2 id="7-the-camera-moves-weirdly-crooked-and-consistently-points-the-wrong-way">7) The camera moves weirdly crooked, and consistently points the wrong way</h2>
+
+<p>Your image center is off. Check that you are using the right intrinsic calibration.</p>
+<div class="edit-meta">
+</div>
+<nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/visualization/" title="Visualization"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Visualization</a>
+<a class="nav nav-next" href="/tagslam_web/help/" title="A. Asking for Help">Next - A. Asking for Help <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered"></p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/">Home</a></li>
+
+<li class=""><a href="/tagslam_web/getting_started/">Getting Started</a>
+</li>
+
+<li class=""><a href="/tagslam_web/concepts/">Concepts</a>
+</li>
+
+<li class=""><a href="/tagslam_web/caveats/">Caveats and Limitations</a>
+</li>
+
+<li class=""><a href="/tagslam_web/intrinsic_calibration/">Intrinsic Calibration</a>
+</li>
+
+<li class=""><a href="/tagslam_web/input_files/">Input Files and Parameters</a>
+</li>
+
+<li class=""><a href="/tagslam_web/measurements/">Measurements</a>
+</li>
+
+<li class=""><a href="/tagslam_web/output/">Output</a>
+</li>
+
+<li class=""><a href="/tagslam_web/examples/">Examples</a>
+</li>
+
+<li class=""><a href="/tagslam_web/visualization/">Visualization</a>
+</li>
+
+<li class="parent active"><a href="/tagslam_web/trouble_shooting/">Troubleshooting</a>
+</li>
+
+<li class=""><a href="/tagslam_web/help/">A. Asking for Help</a>
+</li>
+
+<li class=""><a href="/tagslam_web/better_localization/">B. Hints for Better Localization</a>
+</li>
+
+<li class=""><a href="/tagslam_web/making_tags/">C. Making and Using AprilTags</a>
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>
