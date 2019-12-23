@@ -1,7 +1,8 @@
 +++
 date = "2015-07-18T14:08:35+02:00"
 draft = false
-title = "4. Intrinsic Calibration"
+title = "Intrinsic Calibration"
+weight = 40
 +++
 # Intrinsic calibration
 TagSLAM can *not* perform intrinsic calibration. You must supply

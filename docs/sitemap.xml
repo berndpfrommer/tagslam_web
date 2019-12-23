@@ -3,11 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://berndpfrommer.github.io/tagslam_web/</loc>
-    <lastmod>2018-12-05T15:26:15+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://berndpfrommer.github.io/tagslam_web/getting_started/</loc>
     <lastmod>2015-07-18T14:08:35+02:00</lastmod>
   </url>
@@ -50,6 +45,16 @@
   <url>
     <loc>https://berndpfrommer.github.io/tagslam_web/visualization/</loc>
     <lastmod>2015-07-18T14:08:35+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://berndpfrommer.github.io/tagslam_web/trouble_shooting/</loc>
+    <lastmod>2015-07-18T14:08:35+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://berndpfrommer.github.io/tagslam_web/</loc>
+    <lastmod>2018-12-05T15:26:15+00:00</lastmod>
   </url>
   
   <url>

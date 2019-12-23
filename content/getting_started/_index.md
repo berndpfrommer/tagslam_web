@@ -1,7 +1,8 @@
 +++
 date = "2015-07-18T14:08:35+02:00"
 draft = false
-title = "1. Getting Started"
+title = "Getting Started"
+weight = 10
 +++
 # Installation
 TagSLAM has been tested on Ubuntu 16.04 and 18.04LTS. You will need a

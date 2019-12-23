@@ -1,7 +1,8 @@
 +++
 date = "2015-07-18T14:08:35+02:00"
 draft = false
-title = "6. Measurements"
+title = "Measurements"
+weight = 60
 +++
 Sometimes distance or other measurements are available that can act as
 constraints for tag and body poses. For example, one can measure the

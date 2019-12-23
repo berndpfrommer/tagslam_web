@@ -1,7 +1,8 @@
 +++
 date = "2015-07-18T14:08:35+02:00"
 draft = false
-title = "2. Concepts"
+title = "Concepts"
+weight = 20
 +++
 # Notation for transforms
 In the following, transforms written as:

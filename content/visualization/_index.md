@@ -1,7 +1,8 @@
 +++
 date = "2015-07-18T14:08:35+02:00"
 draft = false
-title = "9. Visualization"
+title = "Visualization"
+weight = 90
 +++
 # How to render the tags in rviz
 
