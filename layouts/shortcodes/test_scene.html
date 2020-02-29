@@ -1,0 +1,14 @@
+<figure {{ with .Get "class" }}class="{{.}}"{{ end }}>
+    {{ with .Get "test"}} <a href="https://github.com/berndpfrommer/tagslam_test/blob/master/tests/test_{{.}}">{{ end }}
+        <img src="https://github.com/berndpfrommer/tagslam_test/blob/master/tests/test_{{ .Get "test" }}/scene.png?raw=true" {{ if or (.Get "alt") (.Get "caption") }}alt="{{ with .Get "alt"}}{{.}}{{else}}{{ .Get "caption" }}{{ end }}"{{ end }} />
+    </a>
+    <figcaption>{{ if isset .Params "title" }}
+        <h4>Test {{ .Get "test" }}</h4>{{ end }}
+        {{ if or (.Get "caption") (.Get "attr")}}<p>
+        {{ .Get "caption" }}
+        {{ with .Get "attrlink"}}<a href="{{.}}"> {{ end }}
+            {{ .Get "attr" }}
+        {{ if .Get "attrlink"}}</a> {{ end }}
+        </p> {{ end }}
+    </figcaption>
+</figure>

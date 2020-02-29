@@ -34,7 +34,7 @@ code {
 <body>
 <div class="container"><header>
 <h1>TagSLAM</h1>
-
+<a href="https://github.com/berndpfrommer/tagslam_root" class="github"><i class="fab fa-github"></i></a>
 <script type="text/javascript" async
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   MathJax.Hub.Config({
@@ -83,19 +83,28 @@ $
 <h1 id="launch-parameters">Launch parameters</h1>
 
 <ul>
-<li><code>outbag</code> (default: &ldquo;out.bag&rdquo;) name of output bag file</li>
-<li><code>playback_rate</code> (default: 5) rate for playback of optimized data</li>
-<li><code>pixel_noise</code> (default: 1.0) penality (in pixels) for corner projection error</li>
-<li><code>output_directory</code> (default &ldquo;.&rdquo;) where to write the output files to</li>
+<li><code>outbag</code> (default: &ldquo;out.bag&rdquo;) name of output bag file.</li>
+<li><code>playback_rate</code> (default: 5) rate for playback of optimized data.</li>
+<li><code>pixel_noise</code> (default: 1.0) penality (in pixels) for corner
+projection error. This is how much error you get <em>per corner per
+tag</em>. Roughly speaking, the error grows like  <code>pixel_noise *
+pixel_error^2</code>. This is for each corner for each tag observed. So
+if after optimization you are off by 2 pixels on 5 tag corners, your
+total graph error will go up by <code>5 * pixel_noise * 4</code>. Setting a
+smaller pixel_noise will force the optimizer to try harder to move
+the tags corners to the correct position, and consequently care less
+about the prior pose specified, or the odometry measurements.</li>
+<li><code>output_directory</code> (default &ldquo;.&rdquo;) where to write the output files
+to. Note that some files are always written to the default ROS
+directory &ldquo;~/.ros&rdquo;.</li>
 <li><code>bag_file</code> (default: &ldquo;&rdquo;) name of input bag file. If empty, run in
-online mode</li>
-<li><code>fixed_frame_id</code> (default: &ldquo;map&rdquo;) ROS frame id of the universe</li>
-
-<li><p><code>max_number_of_frames</code> (default: 1000000) stop playing bag after this number
-of frames</p>
-
-<h1 id="cameras-yaml">cameras.yaml</h1></li>
+online mode.</li>
+<li><code>fixed_frame_id</code> (default: &ldquo;map&rdquo;) ROS frame id of the</li>
+<li><code>max_number_of_frames</code> (default: 1000000) stop playing bag after
+this number of frames.</li>
 </ul>
+
+<h1 id="cameras-yaml">cameras.yaml</h1>
 
 <p>Here&rsquo;s how a typical camera.yaml file looks:</p>
 
@@ -286,24 +295,50 @@ bodies:
 <li><code>minimum_viewing_angle</code> (default: 20.0) minimum viewing angle (in
 degrees), at which an observed tag is accepted. If the viewing angle
 is smaller than that, the tag will be ignored.</li>
-<li><code>max_subgraph_error</code> (default: 50.0) maximum error allowed for an
-initialization subgraph to be accepted into the full graph. If error
-exceeds <code>max_subgraph_error</code>, all data for this frame will be dropped.</li>
+<li><code>max_subgraph_error</code> (default: 50.0). Before a new measurement
+(i.e. tag observation) is included in the full graph, a subgraph is
+formed that contains the new measurement, plus the minimum necessary
+part of the existing graph. That subgraph is then optimized. If the
+error is below <code>max_subgraph_error</code>, the new measurement is inserted
+into the full graph. If tag measurements are rejected because they
+exceed <code>max_subgraph_error</code>, you should get a warning in the log
+file. Such warnings are usually a sign of trouble.</li>
 <li><code>optimizer_mode</code>
+After a new measurement (e.g. tag observation) has been inserted
+into graph, the graph is optimized. The <code>optimizer_mode</code>
+parameter determines how that optimization is done. Note that
+irrespective of the mode you set here, when you do the rosservice
+&ldquo;dump&rdquo; call at the end of the run, TagSLAM will perform a &ldquo;full&rdquo;
+optimization no matter what, to make sure that any pose data
+written to the file is fully optimized.
 
 <ul>
 <li>&ldquo;full&rdquo;: non-incremental (full) optimization after each time step.
-    This is the slowest and most conservative mode.</li>
-<li>&ldquo;slow&rdquo;: (default) incremental optimization, but with error checks and
-    frequent relinearization.</li>
-<li>&ldquo;fast&rdquo;: incremental optimization with infrequent
-    relinearization. Use this if the data is very clean and you need
+    This is the slowest and most conservative mode. The
+    computation effort quickly grows with time. This mode
+    should generally be avoided.</li>
+<li>&ldquo;slow&rdquo;: (default) incremental optimization, using iSAM2. A
+single iSAM2 iteration is done, after which the total graph
+error is checked to see if it has increased above a
+threshold. Usually a large increase in error is a sign of
+something going wrong, so in that case, further iSAM2
+iterations are performed to reduce the error. Note that even
+just switching on the error check requires GTSAM to compute
+the error of the graph, which is a big performance hit,
+although still much faster than a full graph optimization. In
+practice, if <code>slow</code> mode works, then <code>fast</code> mode usually
+does, too, so you definitely want to try <code>fast</code>.</li>
+<li>&ldquo;fast&rdquo;: single incremental iSAM2 optimization step, without computing the
+    total graph error. This is the fastest mode, but since
+    the total graph error is not known, you won&rsquo;t learn
+    right away if some bad detections have entered the
+    graph. Use this if the data is clean and you need
     speed.</li>
 </ul></li>
 <li><code>max_num_incremental_opt</code> (default: 100) run full optimizer
 (rather than incremental iSAM2) after every <code>max_num_incremental_opt</code> frames.
-This is required to avoid error build up for long sequences. Need to
-better understand why this is necessary!</li>
+This is sometimes required to avoid error build up for long
+sequences.</li>
 </ul></li>
 
 <li><p><code>body_defaults</code>: here you can specify a default <code>position_noise</code>
@@ -329,7 +364,9 @@ around. This means that all previous observations are thrown away,
 and only the most recent tag observations are used to determine the
 pose of bodies. Use this option for e.g. state estimation, where all
 static poses are already known in advance, and only non-static poses
-are of interest.</p></li>
+are of interest. This option is also useful for real-time SLAM, but
+you need to have a full map, i.e. the poses of the tags need to be
+given in <code>tagslam.yaml</code></p></li>
 
 <li><p><code>squash</code>: in case your data set has one particular observation at
 one specific time that throws off the optimizer, you can remove it

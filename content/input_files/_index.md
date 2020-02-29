@@ -6,17 +6,27 @@ weight = 50
 +++
 # Launch parameters
 
-- ``outbag`` (default: "out.bag") name of output bag file
-- ``playback_rate`` (default: 5) rate for playback of optimized data
-- ``pixel_noise`` (default: 1.0) penality (in pixels) for corner projection error
-- ``output_directory`` (default ".") where to write the output files to
+- ``outbag`` (default: "out.bag") name of output bag file.
+- ``playback_rate`` (default: 5) rate for playback of optimized data.
+- ``pixel_noise`` (default: 1.0) penality (in pixels) for corner
+  projection error. This is how much error you get *per corner per
+  tag*. Roughly speaking, the error grows like  ``pixel_noise *
+  pixel_error^2``. This is for each corner for each tag observed. So
+  if after optimization you are off by 2 pixels on 5 tag corners, your
+  total graph error will go up by ``5 * pixel_noise * 4``. Setting a
+  smaller pixel_noise will force the optimizer to try harder to move
+  the tags corners to the correct position, and consequently care less
+  about the prior pose specified, or the odometry measurements.
+- ``output_directory`` (default ".") where to write the output files
+  to. Note that some files are always written to the default ROS
+  directory "~/.ros".
 - ``bag_file`` (default: "") name of input bag file. If empty, run in
-    online mode
-- ``fixed_frame_id`` (default: "map") ROS frame id of the universe
-- ``max_number_of_frames`` (default: 1000000) stop playing bag after this number
-    of frames
-# cameras.yaml
+    online mode.
+- ``fixed_frame_id`` (default: "map") ROS frame id of the
+- ``max_number_of_frames`` (default: 1000000) stop playing bag after
+    this number of frames.
 
+# cameras.yaml
 Here's how a typical camera.yaml file looks:
 
     cam0:
@@ -198,21 +208,47 @@ The supported keywords are as follows:
    - ``minimum_viewing_angle`` (default: 20.0) minimum viewing angle (in
      degrees), at which an observed tag is accepted. If the viewing angle
      is smaller than that, the tag will be ignored.
-   - ``max_subgraph_error`` (default: 50.0) maximum error allowed for an
-     initialization subgraph to be accepted into the full graph. If error
-     exceeds ``max_subgraph_error``, all data for this frame will be dropped.
+   - ``max_subgraph_error`` (default: 50.0). Before a new measurement
+ (i.e. tag observation) is included in the full graph, a subgraph is 
+ formed that contains the new measurement, plus the minimum necessary
+ part of the existing graph. That subgraph is then optimized. If the
+ error is below ``max_subgraph_error``, the new measurement is inserted
+ into the full graph. If tag measurements are rejected because they
+ exceed ``max_subgraph_error``, you should get a warning in the log
+ file. Such warnings are usually a sign of trouble.
    - ``optimizer_mode``
+     After a new measurement (e.g. tag observation) has been inserted
+     into graph, the graph is optimized. The ``optimizer_mode``
+     parameter determines how that optimization is done. Note that
+     irrespective of the mode you set here, when you do the rosservice
+     "dump" call at the end of the run, TagSLAM will perform a "full"
+     optimization no matter what, to make sure that any pose data
+     written to the file is fully optimized.
       - "full": non-incremental (full) optimization after each time step.
-                This is the slowest and most conservative mode.
-      - "slow": (default) incremental optimization, but with error checks and
-                frequent relinearization.
-      - "fast": incremental optimization with infrequent
-                relinearization. Use this if the data is very clean and you need
+                This is the slowest and most conservative mode. The
+                computation effort quickly grows with time. This mode
+                should generally be avoided.
+      - "slow": (default) incremental optimization, using iSAM2. A
+        single iSAM2 iteration is done, after which the total graph
+        error is checked to see if it has increased above a
+        threshold. Usually a large increase in error is a sign of
+        something going wrong, so in that case, further iSAM2
+        iterations are performed to reduce the error. Note that even
+        just switching on the error check requires GTSAM to compute
+        the error of the graph, which is a big performance hit,
+        although still much faster than a full graph optimization. In
+        practice, if ``slow`` mode works, then ``fast`` mode usually
+        does, too, so you definitely want to try ``fast``.
+      - "fast": single incremental iSAM2 optimization step, without computing the
+                total graph error. This is the fastest mode, but since
+                the total graph error is not known, you won't learn
+                right away if some bad detections have entered the
+                graph. Use this if the data is clean and you need 
                 speed. 
    - ``max_num_incremental_opt`` (default: 100) run full optimizer
        (rather than incremental iSAM2) after every ``max_num_incremental_opt`` frames.
-        This is required to avoid error build up for long sequences. Need to
-        better understand why this is necessary!
+        This is sometimes required to avoid error build up for long
+       sequences.
 
 - ``body_defaults``: here you can specify a default ``position_noise``
   (in meters) and ``rotation_noise`` (rads). This is convenient in
@@ -233,7 +269,10 @@ The supported keywords are as follows:
   and only the most recent tag observations are used to determine the
   pose of bodies. Use this option for e.g. state estimation, where all
   static poses are already known in advance, and only non-static poses
-  are of interest.
+  are of interest. This option is also useful for real-time SLAM, but
+  you need to have a full map, i.e. the poses of the tags need to be
+  given in ``tagslam.yaml``
+  
 - ``squash``: in case your data set has one particular observation at
   one specific time that throws off the optimizer, you can remove it
   with this option. For example to squash observations of tags 85 and 8 at

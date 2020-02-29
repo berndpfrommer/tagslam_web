@@ -16,8 +16,8 @@ enableMissingTranslationPlaceholders = false
 
 [Params]
     # Souce Code repository section
-    #description = "Tag-based SLAM!"
-    #github_repository = "https://github.com/berndpfrommer/tagslam_root"
+    # description = "Tag-based SLAM!"
+    github_repository = "https://github.com/berndpfrommer/tagslam_root"
 
     # Documentation repository section
     # documentation repository (set edit link to documentation repository)
@@ -32,7 +32,7 @@ enableMissingTranslationPlaceholders = false
     dateformat = "" # default "2 Jan 2006"
 
     # path name excluded from documentation menu
-    menu_exclusion = ["archives", "blog", "entry", "post", "posts"]
+
 
 # Global menu section
 [[menu.main]]

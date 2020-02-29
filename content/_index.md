@@ -3,7 +3,7 @@ date: 2017-10-17T15:26:15Z
 lastmod: 2018-12-05T15:26:15Z
 ---
 
-# TagSLAM: Localization and mapping with tags
+# TagSLAM: Flexible SLAM with tags
 
 TagSLAM is a ROS based package for simultaneous multi-camera
 localization and mapping (SLAM) with the popular
@@ -12,11 +12,42 @@ essence TagSLAM is a front-end to
 the [GTSAM optimizer](https://borg.cc.gatech.edu/) which makes it easy
 to use AprilTags for visual SLAM. For more technical details, have a
 look at [this draft paper](media/tagslam.pdf).
+
+If you have a standard visual SLAM problem and want to use fiducial markers,
+you should probably *NOT* use TagSLAM because there are packages
+out there that are better suited. Consider for instance
+using [UcoSLAM](http://ucoslam.com) (disclosure: I haven't actually
+used it yet). It runs in real-time, and uses keyframes, which should
+make it scale to larger trajectories. Unlike TagSLAM, it can use both,
+features in the wild, and tags for loop closure, not just tags. It's a
+one-stop shop. Also TagSLAM can really only be used in real-time for
+relatively short trajectories, or if the mapping is done beforehand
+such that the location of the tags is known.
+
+If TagSLAM is really inferior at hard core SLAM, then why *should* you ever use
+it? Here's an example of TagSLAM being used to map tags in a dark tunnel,
+and localize a hexacopter, solely off of the tags:
+
 <div style="position: relative; padding-bottom: 56.25%; height: 0;">
 <iframe src="//www.youtube.com/embed/51z1V-Jb3c8?autoplay=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="TagSLAM on aerial robot"></iframe>
 </div>
 
-TagSLAM can also solve several sub problems related to SLAM: mapping only, localization only, extrinsic camera calibration etc.
+There are hardly any features visible on the walls of the tunnel,
+meaning SLAM has to work off of the tags only. Few SLAM systems can
+support 4 cameras, but TagSLAM supports a virtually arbitrary number
+of cameras. In this example, there is no overlap between the field
+of view of some cameras, but TagSLAM can handle the extrinsic
+calibration of all cameras.
+
+But really, the biggest reason to use TagSLAM is its
+flexibility. You can for instance combine VIO odometry from another
+component and feed it into TagSLAM, along with *synchronized* images
+(see section on [Caveats and Limitations](caveats/)), to arrive at
+a loop-closed trajectory. Or you can have multiple robots carrying
+cameras. Or you can do state estimation, i.e. stick tags on objects
+and track their poses optically, without using a motion capture
+system. And you can do this while the camera is moving as well. Have a
+look below at some of the examples.
 
 ## Mapping
 Walk around with a camera and discover tag poses whenever

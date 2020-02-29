@@ -34,7 +34,7 @@ code {
 <body>
 <div class="container"><header>
 <h1>TagSLAM</h1>
-
+<a href="https://github.com/berndpfrommer/tagslam_root" class="github"><i class="fab fa-github"></i></a>
 <script type="text/javascript" async
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   MathJax.Hub.Config({
@@ -82,25 +82,33 @@ $
 
 <h1 id="limitations">Limitations</h1>
 
-<p>The following limitations apply when using TagSLAM:</p>
+<p><a name="limitations"></a>
+The following limitations apply when using TagSLAM:</p>
 
-<ul>
-<li><p>No duplicate tag ids are allowed! A tag can only exist in the
+<ol>
+<li>No duplicate tag ids are allowed! A tag can only exist in the
 world once. You must make sure that there are no duplicate tags
-anywhere.</p></li>
-
-<li><p>To use odometry with TagSLAM, the odometry updates must be
+anywhere.</li>
+<li>To use odometry with TagSLAM, the odometry updates must be
 synchronized with the tag detections, i.e. TagSLAM can only be used to
 loop close odometry that is derived from the same images in which the
-tags are detected.</p></li>
+tags are detected. For every odometry message, there must be a message
+with detected tags that has an identical header time stamp, and vice
+versa. Note that having an <em>empty</em> tag detection message is perfectly
+allowed.</li>
+<li>No mixing of AprilTag families! For a single data set, all tags must
+be of the same family</li>
+<li>All tags must have the same number of border bits.</li>
+<li>Real-time usage is limited to situations where either the graph is
+so small that it can be solved quickly (maybe a thousand frames
+maximum!), or the pose of the tags can be determined beforehand,
+offline, with a &ldquo;mapping run&rdquo; that builds the full graph, and then
+stores the optimized tag poses for a subsequent real-time run. To
+get real-time performance, use the &ldquo;amnesia&rdquo; feature such that old
+information gets thrown away and the graph stays small.</li>
+</ol>
 
-<li><p>No mixing of AprilTag families! For a single data set, all tags must
-be of the same family</p></li>
-
-<li><p>All tags must have the same number of border bits.</p></li>
-</ul>
-
-<p>Note: the last two restrictions are due to the tag
+<p>Note: restrictions 3. and 4. are due to the tag
 detector, and if fixed there, TagSLAM should be able to handle it.</p>
 <div class="edit-meta">
 </div>
