@@ -11,13 +11,20 @@ The following limitations apply when using TagSLAM:
 1. No duplicate tag ids are allowed! A tag can only exist in the
 world once. You must make sure that there are no duplicate tags
 anywhere.
-- To use odometry with TagSLAM, the odometry updates must be
-synchronized with the tag detections, i.e. TagSLAM can only be used to
-loop close odometry that is derived from the same images in which the
-tags are detected. For every odometry message, there must be a message
-with detected tags that has an identical header time stamp, and vice
-versa. Note that having an *empty* tag detection message is perfectly
-allowed.
+- To use odometry with TagSLAM, the odometry updates should preferably
+be synchronized with the tag detections, for example the odometry
+should be computed from the same camera that does the camera
+recording. Starting release 2.1 TagSLAM accepts *approximately*
+synced data as well. This means that TagSLAM first filters the data
+approximately by running a filter identical to the [ROS
+ApproximateTime
+synchronizer](http://wiki.ros.org/message_filters/ApproximateTime). The
+frequency of the slowest sensor will determine the frequency of
+TagSLAM pose updates, and higher-frequency data inbetween will be
+dropped. If you want to have higher frequency data, you need to insert
+for instance *empty* tag detection messages. Note that by default the
+``use_approximate_sync`` feature is disabled, so if you feed in
+unsynchronized data *all* of it will be dropped.
 - No mixing of AprilTag families! For a single data set, all tags must
 be of the same family
 - All tags must have the same number of border bits.

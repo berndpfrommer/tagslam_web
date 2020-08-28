@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Intrinsic Calibration - TagSLAM</title>
-<meta name="generator" content="Hugo 0.40.1" />
+<meta name="generator" content="Hugo 0.68.3" />
 <link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
 <link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/intrinsic_calibration/">
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
@@ -78,30 +78,22 @@ $
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Intrinsic Calibration</h1>
-
-<h1 id="intrinsic-calibration">Intrinsic calibration</h1>
-
+<main><h1>Intrinsic Calibration</h1><h1 id="intrinsic-calibration">Intrinsic calibration</h1>
 <p>TagSLAM can <em>not</em> perform intrinsic calibration. You must supply
 the intrinsic parameters in the <code>cameras.yaml</code> file.</p>
-
 <p>If you are dealing with a &ldquo;normal&rdquo; lens, it is recommended that you use the
 ROS <a href="http://wiki.ros.org/camera_calibration">camera_calibration</a>
 package for intrinsic calibration. It can do the standard <code>radtan</code>
 (<code>plumb_bob</code>) radial-tangential distortion model and is the easiest tool to
 use. However, it&rsquo;s output file must be converted to work with TagSLAM</p>
-
 <p>If you are dealing with a fisheye (<code>equidistant</code>)
 lens, consider using  <a href="https://github.com/ethz-asl/kalibr">Kalibr</a> or the
 <a href="https://github.com/KumarRobotics/multicam_calibration">multicam_calibration</a>
 tool. Kalibr and multicam_calibration will already give you the output in a
 format that is close to the one that TagSLAM uses.</p>
-
 <h2 id="converting-ros-calibration-files">Converting ROS calibration files</h2>
-
 <p>After running the ROS calibration you will end up with a file that is
 called <code>ost.yaml</code>. It will look like this:</p>
-
 <pre><code>image_width: 1920
 image_height: 1200
 camera_name: pg_17408093
@@ -125,14 +117,10 @@ projection_matrix:
   cols: 4
   data: [2094.321777, 0.000000, 993.054257, 0.000000, 0.000000, 2136.192139, 583.488844, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000]
 </code></pre>
-
 <p>This file must now be converted to a format that TagSLAM can process:</p>
-
 <pre><code>rosrun tagslam camerainfo_to_kalibr.py -i ost.yaml -o cameras.yaml
 </code></pre>
-
 <p>The resulting file should look like this:</p>
-
 <pre><code>cam0:
   camera_model: pinhole
   intrinsics: [2168.75828, 2166.97969, 990.68865, 583.91409]
@@ -142,12 +130,10 @@ projection_matrix:
   tagtopic: /pg_17408093/tags
   rig_body: XXX_NAME_OF_RIG_BODY
 </code></pre>
-
 <p>You will need to adjust the <code>tagtopic</code> to match the actual ROS topic
 under which the extracted tags are published. The <code>rig_body</code> must be
 set to match the name of the TagSLAM body to which the camera is
 attached.</p>
-
 <p>NOTE: the intrinsics data is <code>[fx, fy, cx, cy]</code>! It is a common mistake
 to switch that around, as they show up in a different order in the K-matrix.</p>
 <div class="edit-meta">

@@ -148,6 +148,15 @@ This is the main TagSLAM configuration file.
 	  # tag sightings, and the subgraph error test fails upon loop closure
       subgraph_abs_prior_position_noise: 0.1
       subgraph_abs_prior_rotation_noise: 0.1
+
+	  # by default the header.stamp time stamps of all incoming
+	  # image and odometry data must be perfectly synchronized.
+	  # Unsynchronized data will be dropped!
+	  # If you "set use_approximate_sync" to "true", you can feed
+	  # in unsynchronized data as well, and TagSLAM will try to
+      # time-align it as well as possible.
+	  
+      use_approximate_sync: false
   
     body_defaults:
       position_noise: 0.05
@@ -249,6 +258,10 @@ The supported keywords are as follows:
        (rather than incremental iSAM2) after every ``max_num_incremental_opt`` frames.
         This is sometimes required to avoid error build up for long
        sequences.
+   - ``use_approximate_sync`` (default: false) synchronize data in an
+     approximate way. This will allow running TagSLAM on
+     unsynchronized data, but beware that lack of synchronization
+     usually results in increased error if cameras or bodies move rapidly. 
 
 - ``body_defaults``: here you can specify a default ``position_noise``
   (in meters) and ``rotation_noise`` (rads). This is convenient in

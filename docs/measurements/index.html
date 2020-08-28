@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Measurements - TagSLAM</title>
-<meta name="generator" content="Hugo 0.40.1" />
+<meta name="generator" content="Hugo 0.68.3" />
 <link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
 <link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/measurements/">
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
@@ -78,26 +78,19 @@ $
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Measurements</h1>
-
-<p>Sometimes distance or other measurements are available that can act as
+<main><h1>Measurements</h1><p>Sometimes distance or other measurements are available that can act as
 constraints for tag and body poses. For example, one can measure the
 distance between two tags with a laser. Or a large number of tags are
 pinned against the same, straight wall such that the $y$ coordinate of
 all tags is known.
 TagSLAM has been designed such that implementation of new measurement
 constraints should be modular and fairly straight forward.</p>
-
 <p>When measurements refer to tags, the following convention for
 orientation of the tag and corner numbering is assumed:</p>
-
-<p><img src="../media/tag_corners.png" alt="tag corners" /></p>
-
+<p><img src="../media/tag_corners.png" alt="tag corners"></p>
 <h1 id="distance-measurements">Distance measurements</h1>
-
 <p>If you have a laser pointer, you can measure the distances between tag
 corners, and enter them like this into <code>tagslam.yaml</code>:</p>
-
 <pre><code>distance_measurements:
   - my_measurement_1:
       tag1: 24
@@ -114,30 +107,24 @@ corners, and enter them like this into <code>tagslam.yaml</code>:</p>
       distance: 6.002
       noise: 0.00159
 </code></pre>
-
 <p>The noise parameter should be set according to the expected accuracy
 of the measurement (in meters), and will determine how strongly that
 constraint will enter the optimization process.</p>
-
 <p>Once tagslam has completed, you can find an error analysis file in
 <code>$HOME/.ros/distance_diagnostics.txt</code>. The meaning of the columns
 is as follows:</p>
-
 <pre><code>optimizer |optimzed-
 error     |measured   optimzed    measured     name of measurement
 19.515 diff: -0.001   opt:  6.016 meas:  6.017 my_measurement_1
  0.001 diff:  0.001   opt:  6.003 meas:  6.002 my_measurement_2
 </code></pre>
-
 <h1 id="coordinate-measurements">Coordinate measurements</h1>
-
 <p>Coordinate measurements are a way to impose constraints on the
 absolute coordinates of the corner of a given tag. The following
 example (in tagslam.yaml) sets the coordinates along the direction
 <code>[0.0, 0.0, 1.0]</code>,
 i.e. the $z$-axis, of corner zero (bottom left) tags 6 and 17 to a
 known value.</p>
-
 <pre><code>coordinate_measurements:
   - tag6_z:
       tag: 6
@@ -152,15 +139,12 @@ known value.</p>
       noise: 0.010
       direction: [0.0, 0.0, 1.0]
 </code></pre>
-
 <p>The noise parameter should be set according to the expected accuracy
 of the measurement (in meters), and will determine how strongly that
 constraint will enter the optimization process.</p>
-
 <p>Once tagslam has completed, you can find an error analysis file in
 <code>$HOME/.ros/coordinate_diagnostics.txt</code>. The meaning of the columns
 is as follows:</p>
-
 <pre><code>optimizer |optimzed-
 error     |measured optimzed    measured     name of measurement
  0.000 diff:  0.000 opt:  2.070 meas:  2.070 tag6_z

@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Output - TagSLAM</title>
-<meta name="generator" content="Hugo 0.40.1" />
+<meta name="generator" content="Hugo 0.68.3" />
 <link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
 <link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/output/">
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
@@ -78,64 +78,44 @@ $
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Output</h1>
-
-<h1 id="console-output">Console output</h1>
-
+<main><h1>Output</h1><h1 id="console-output">Console output</h1>
 <p>If you run TagSLAM, you will get output like this on the console</p>
-
 <pre><code>[ INFO] [1565030387.934526496]: sum of subgraph err: 0.136667, full graph error: 0.142
 [ INFO] [1565030387.934555291]: graph after update: opt fac: 22 unopt fac: 0 opt vals: 17 unopt vals: 0
 </code></pre>
-
 <p>Note that the full graph error is the total error over all frames, all
 tags, all cameras, so this can easily grow into the thousands after a
 while. If you have set the pixel noise to about 1.0, the error will
 roughly correspond to the sum of all pixel errors. To understand the
 where the error comes from, look at <code>error_map.txt</code> (see below).</p>
-
 <p>To get more detailed output, switch on debug logging for tagslam by
 putting the following file into <code>~/.ros/config/rosconsole.config</code>
 (or wherever your <code>ROSCONSOLE_CONFIG_FILE</code> environment variable
 points to):</p>
-
 <pre><code># Set the logging to debug
 log4j.logger.ros.tagslam=DEBUG
 </code></pre>
-
 <h1 id="ros-topics-published">ROS topics published</h1>
-
 <p>TagSLAM publishes the following standard ROS messages:</p>
-
 <ul>
 <li><code>/clock [rosgraph_msgs/Clock]</code> when running from a bag</li>
 <li><code>odom/body_xxxxx [nav_msgs/Odometry]</code> the odometry of body xxxxx</li>
 <li><code>/tf</code> transforms</li>
 </ul>
-
 <h1 id="ros-services">ROS services</h1>
-
 <p>The following ROS service calls are implemented:</p>
-
 <ul>
 <li><code>dump</code>: causes TagSLAM to write all output files to <code>~/.ros/</code></li>
 <li><code>replay</code>: replays all odometry and transform messages at fixed
- rate (configurable via parameter &ldquo;playback_rate&rdquo;)</li>
+rate (configurable via parameter &ldquo;playback_rate&rdquo;)</li>
 </ul>
-
 <p>Example usage:</p>
-
 <pre><code>rosservice call /tagslam/replay
 </code></pre>
-
 <h1 id="output-files">Output files</h1>
-
 <p>Here&rsquo;s a list of output files that are generated in <code>~/.ros/</code></p>
-
-<h2 id="tag-corners-txt">tag_corners.txt</h2>
-
+<h2 id="tag_cornerstxt">tag_corners.txt</h2>
 <p>Has the tag corner image coordinates for each time stamp</p>
-
 <pre><code> # time_stamp tagid cameraid corner u v
  1560889276.319019864 1 0 0 526.064 392.177
  1560889276.319019864 1 0 1 598.609 394.595
@@ -146,14 +126,11 @@ log4j.logger.ros.tagslam=DEBUG
  1560889276.319019864 0 0 2 409.254 316.627
  1560889276.319019864 0 0 3 338.006 315.4
 </code></pre>
-
-<h2 id="error-map-txt">error_map.txt</h2>
-
+<h2 id="error_maptxt">error_map.txt</h2>
 <p>This file is very useful for figuring out what&rsquo;s causing errors. It
 gives the optimizer error for all factors in the graph. For tag
 projection factors, and error of 1 corresponds to about 1 pixel
 reprojection error.</p>
-
 <pre><code># format:
 # optimzer_err timestamp factor_name
 #
@@ -167,18 +144,12 @@ reprojection error.</p>
 0.142 1560889286.623750816  proj:cam0-tag:0,t:286623
 0.001 1560889297.422034803  proj:cam0-tag:2,t:297422
 </code></pre>
-
-<h2 id="poses-yaml">poses.yaml</h2>
-
+<h2 id="posesyaml">poses.yaml</h2>
 <p>Has the latest optimized poses of all static bodies. Also has all
 optimized tag poses.</p>
-
-<h2 id="camera-poses-yaml">camera_poses.yaml</h2>
-
+<h2 id="camera_posesyaml">camera_poses.yaml</h2>
 <p>Has the latest optimized camera poses.</p>
-
-<h2 id="out-bag">out.bag</h2>
-
+<h2 id="outbag">out.bag</h2>
 <p>Bag with odometry and transform messages. Needs a ros service call to
 <code>dump</code>.</p>
 <div class="edit-meta">

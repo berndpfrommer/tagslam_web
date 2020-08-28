@@ -41,8 +41,9 @@ calibration of all cameras.
 
 But really, the biggest reason to use TagSLAM is its
 flexibility. You can for instance combine VIO odometry from another
-component and feed it into TagSLAM, along with *synchronized* images
-(see section on [Caveats and Limitations](caveats/)), to arrive at
+component and feed it into TagSLAM, along with camera images
+(beware synchronization mentioned in [Caveats and
+Limitations](caveats/)), to arrive at 
 a loop-closed trajectory. Or you can have multiple robots carrying
 cameras. Or you can do state estimation, i.e. stick tags on objects
 and track their poses optically, without using a motion capture

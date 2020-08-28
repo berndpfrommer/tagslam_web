@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>C. Making and Using AprilTags - TagSLAM</title>
-<meta name="generator" content="Hugo 0.40.1" />
+<meta name="generator" content="Hugo 0.68.3" />
 <link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
 <link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/making_tags/">
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
@@ -78,13 +78,9 @@ $
 </nav>
 </div>
 <div class="content-container">
-<main><h1>C. Making and Using AprilTags</h1>
-
-<p>At the moment, the only tags supported by TagSLAM are the
+<main><h1>C. Making and Using AprilTags</h1><p>At the moment, the only tags supported by TagSLAM are the
 popular <a href="https://april.eecs.umich.edu/software/apriltag">AprilTags</a>.</p>
-
 <h1 id="what-tag-family-to-use">What tag family to use</h1>
-
 <p>The <a href="https://april.eecs.umich.edu/software/apriltag">AprilTags</a> come
 in several different variants (families), depending on how many bits a tag can
 represent. Some tag families have large, coarse bit blocks that can be
@@ -98,28 +94,15 @@ however: <em>you may have more false positive detections</em> when using this
 tag. This means the AprilTag library may mistake some rectangular
 objects on the image as tags! This can be a real nuisance when using
 TagSLAM.</p>
-
-<!--
-<table>
-<tr><td>![tag 36h11](../media/tag_36h11.png)</td>
-<td>![tag 16h5](../media/tag_16h5.png)</td>
-</tr>
-<tr><td>Tag family 36h11 (preferred). Small blocks, harder to detect, can
-represent larger numbers.</td>
-<td>Tag family 16h5. Large blocks, better visible, but susceptible to
-false positives.</td>
-</tr>
-<table>
--->
-
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <table>
 <thead>
 <tr>
-<th><img src="../media/tag_36h11.png" alt="tag 36h11" /></th>
-<th align="right"><img src="../media/tag_16h5.png" alt="tag 16h5" /></td></th>
+<th><img src="../media/tag_36h11.png" alt="tag 36h11"></th>
+<th align="right"><img src="../media/tag_16h5.png" alt="tag 16h5"><!-- raw HTML omitted --></th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>Tag family 36h11 (preferred). Small blocks, harder to detect, can represent larger numbers.</td>
@@ -127,11 +110,8 @@ false positives.</td>
 </tr>
 </tbody>
 </table>
-
 <h1 id="what-material-to-use">What material to use</h1>
-
 <p>An ideal AprilTag should be:</p>
-
 <ul>
 <li>perfectly flat, without any warp</li>
 <li>matte (not glossy!)</li>
@@ -139,92 +119,71 @@ false positives.</td>
 <li>rigid and sturdy</li>
 <li>light weight</li>
 </ul>
-
-<p><img src="../media/tag_and_board.jpg" alt="tag and board" /></p>
-
+<p><img src="../media/tag_and_board.jpg" alt="tag and board"></p>
 <p>Here are two popular options: foam core board (left), or DiBond
 aluminum (right)</p>
-
 <h2 id="dibond-aluminum">DiBond aluminum</h2>
-
 <p>For very sturdy tags, consider having them printed on DiBond
 aluminum, a material used for making advertisement signs.
 The company <a href="https://www.foamcoreprint.com/">FoamCorePrint.com</a> has
-been used for this before. Make sure to select <sup>1</sup>&frasl;<sub>4</sub>&rdquo; thick material
-(the <sup>1</sup>&frasl;<sub>8</sub>&rdquo; boards only come glossy, not matte), and specify explicitly
+been used for this before. Make sure to select 1/4&rdquo; thick material
+(the 1/8&rdquo; boards only come glossy, not matte), and specify explicitly
 that you want it matte, and no rescaling of the image. You must supply
 them with a pdf that exactly fills the size of the board. For a
-12&rdquo;x12&rdquo; board, the cost is currently about \$15 without shipping. The material is
+12&quot;x12&rdquo; board, the cost is currently about $15 without shipping. The material is
 quite heavy, so not easily attached to walls with duct tape. However, it&rsquo;s very
 rugged and weather resistant, i.e. suitable for permanent installation
 outdoors.</p>
-
 <p>DiBond is also great material for a calibration board that gets
 heavy use. Due to popular demand, here are links to
 the <a href="../media/aprilgrid_16x12.pdf">front</a>
 and <a href="../media/checkerboard_16x12.pdf">back</a> of the calibration board
-in the image. You can use them directly for printing on <sup>1</sup>&frasl;<sub>4</sub>&rdquo;x16&rdquo;x12&rdquo;
+in the image. You can use them directly for printing on 1/4&quot;x16&quot;x12&rdquo;
 DiBond at <a href="https://www.foamcoreprint.com/">FoamCorePrint.com</a>.</p>
-
 <h2 id="foam-core">Foam core</h2>
-
 <p>For a do-it-yourself approach, you can produce tags on foam core
 board. <em>Avoid</em> the &ldquo;Readi&rdquo; board sold by e.g. Dollar Tree
 stores. It warps badly! Rather get a board
 of
-<a href="https://www.jerrysartarama.com/jerrys-pro-foam"><sup>3</sup>&frasl;<sub>16</sub>&rdquo; ProFoam from Jerry&rsquo;s Artarama</a> for
-about \$6, from which you can cut 12 tags of size 10&rdquo;x10&rdquo;.</p>
-
+<a href="https://www.jerrysartarama.com/jerrys-pro-foam">3/16&rdquo; ProFoam from Jerry&rsquo;s Artarama</a> for
+about $6, from which you can cut 12 tags of size 10&quot;x10&rdquo;.</p>
 <p>Use an inkjet printer to print the tag on a matte clear adhesive label like
 the <a href="https://www.avery.com/products/labels/8665">Avery 8665</a>, which go
-for about \$1 for an 8.5&rdquo;x11&rdquo; page. Stick the label on the foam board,
-done. The board is significantly cheaper (about \$1.50/tag DIY, or
-\$4/tag + shipping if you have it printed) and lighter
+for about $1 for an 8.5&quot;x11&rdquo; page. Stick the label on the foam board,
+done. The board is significantly cheaper (about $1.50/tag DIY, or
+$4/tag + shipping if you have it printed) and lighter
 than DiBond aluminum, but also much more fragile. Be careful not to
 touch the printed surface, or the color will come off over time.</p>
-
 <p>An even better solution is to use a laser printer
 and <a href="https://www.onlinelabels.com/products/OL177CX">these labels</a> for about $0.45/sheet.</p>
-
 <h2 id="paper">Paper</h2>
-
 <p>OK when used against flat surfaces like walls, or put on the
 ground. Good for some initial experimentation. Make sure the tag is
 really not warped, as this will greatly affect the pose estimation.</p>
-
 <h1 id="how-to-print-your-own-apriltags">How to print your own AprilTags</h1>
-
 <p>There is a handy little program in the TagSLAM repo (courtesy of the
 Kalibr folks) with which you can generate a pdf of an AprilTag:</p>
-
 <pre><code>sudo apt install python-pyx
 rosrun tagslam make_tag.py --nx 1 --ny 1 --marginx 0.00 --marginy 0.00 --tsize 0.16 --tspace 0.0 --startid 4 --tfam t36h11 --borderbits 1 
 </code></pre>
-
 <p>This will produce a pdf file <code>target.pdf</code> of a single tag with id 4,
 size 16cm, and a 1 bit wide border. When you generate tags, you
 obviously want to print them as big as possible, but you <em>must leave a
 large white frame around the tag</em>! Make it about 2 bits wide (a bit
 corresponds to one of the small squares that make up the tag&rsquo;s
 code). The white border around the tag is crucial for detection!</p>
-
 <p>The <code>borderbits</code> parameter determines the size of the black border
 on the outside of the AprilTag. You will generally want to use a 1 bit
 wide border, although you can see that the calibration board in the
 image has tags with 2 bit borders (the corner squares between the tags
 are for more accurate localization of the tag corners, TagSLAM is not
 using them).</p>
-
 <p>To verify that the tag will actually have the size you want:</p>
-
 <pre><code>pdfinfo target.pdf | grep -n 'Page size'
 </code></pre>
-
 <p>output:</p>
-
 <pre><code>Page size:      455.543 x 455.543 pts
 </code></pre>
-
 <p>Divide this by 72 to get the physical size in inches, then multiply by
 0.0254 to get meters. In this case it works out to 0.1607, so actually
 a little off (why???).</p>

@@ -170,3 +170,15 @@ You can find many different usage examples [in the tagslam\_test github repo](ht
    - detector: MIT
    - total number of frames: 3000
 </td></tr></table>
+</td></tr></table>
+- Handheld walk up and down stairs with realsense T265 stereo camera
+and two TOF sensors. This is the first test of the
+approximate sync feature.
+<table><tr><td style="width: 50%;">{{<test_scene test="21">}}</td><td>
+   - location: 11 Nolen Ln
+   - cameras: 2 TOF 224 x 171 @ 5Hz, 1 Intel RealSense T265 848x800 approx-synced to 5Hz
+   - distortion: equidistant
+   - source bag: t265_pico_2020-05-13-11-30-07_0.bag
+   - detector: MIT
+   - total number of frames: 431
+</td></tr></table>

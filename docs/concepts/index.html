@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Concepts - TagSLAM</title>
-<meta name="generator" content="Hugo 0.40.1" />
+<meta name="generator" content="Hugo 0.68.3" />
 <link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
 <link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/concepts/">
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
@@ -78,73 +78,48 @@ $
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Concepts</h1>
-
-<h1 id="notation-for-transforms">Notation for transforms</h1>
-
+<main><h1>Concepts</h1><h1 id="notation-for-transforms">Notation for transforms</h1>
 <p>In the following, transforms written as:
 $$
 \ctrans{T}{A}{B}
-$$
-<html></p>
-
-<p></html>
-take coordinates $\cvec{X}{A}$ in  frame $\mathrm{A}$ and express them in frame $\mathrm{B}$:
-$$
-\cvec{X}{B} = \ctrans{T}{A}{B}\ \cvec{X}{A}
 $$</p>
-
-<h1 id="bodies">Bodies</h1>
-
-<p>In TagSLAM, every tag is associated with a body, and tag poses are
-given relative to that body. Likewise, every camera must be associated with
-a body, and camera poses are expressed with respect to that
-body.</p>
-
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <p>Consider the following scene:</p>
-
-<p><img src="../media/block_scene.png" alt="block scene" width="800"/></p>
-
+<!-- raw HTML omitted -->
 <p>In the example above, for the camera to localize itself, the &ldquo;lab&rdquo; body&rsquo;s world pose $\ctrans{T}{lab}{map}$ must be specified, as well as
 the pose $\ctrans{T}{tag\_2}{lab}$ of the tag with respect to the lab.
 Also needed is the pose $\ctrans{T}{cam0}{cam\_rig}$ of the camera with respect to the body it is attached to (&ldquo;cam_rig&rdquo;).</p>
-
 <p>For the block to be localized by TagSLAM, we only need to provide $\ctrans{T}{tag\_105}{block}$. When the camera sees tags 2 and tag 105 at the same time, it will be able to infer the missing transform $\ctrans{T}{block}{map}$.</p>
-
 <h1 id="poses">Poses</h1>
-
 <p>Poses can be classfied according to their time dependence:</p>
-
 <ul>
-<li><p>Static poses: such poses do not change over time, i.e. TagSLAM will
+<li>
+<p>Static poses: such poses do not change over time, i.e. TagSLAM will
 maintain a single variable throughout the entire data set. An
-example would be the pose of the lab $\ctrans{T}{lab}{map}$.</p></li>
-
-<li><p>Non-static poses: they can potentially change with every
+example would be the pose of the lab $\ctrans{T}{lab}{map}$.</p>
+</li>
+<li>
+<p>Non-static poses: they can potentially change with every
 frame. An example would be the pose $\ctrans{T}{cam\_rig}{map}$ of
-the camera rig or the pose $\ctrans{T}{block}{map}$ of the block.</p></li>
+the camera rig or the pose $\ctrans{T}{block}{map}$ of the block.</p>
+</li>
 </ul>
-
 <p>Note that <em>tag and camera poses are always static</em>! That means they do
 not change with time, i.e. TagSLAM assumes one constant pose over
 time. However, the <em>body</em> to which the tags or cameras are attached
 can have a time dependent pose!</p>
-
 <p>Further, static poses are distinguished by prior knowledge:</p>
-
 <ul>
 <li>Known poses: the pose is already known at the start, for instance
 from a previous run of TagSLAM.</li>
 <li>Unknown poses: the pose, although static, is unknown at the
 beginning, and must be discovered on the fly.</li>
 </ul>
-
 <h1 id="convention-for-tag-poses">Convention for tag poses</h1>
-
 <p>Here is how the coordinate axes are oriented when facing an upright
 AprilTag. Also note the corner numbering in purple.</p>
-
-<p><img src="../media/tag_corners.png" alt="tag corners" /></p>
+<p><img src="../media/tag_corners.png" alt="tag corners"></p>
 <div class="edit-meta">
 </div>
 <nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/getting_started/" title="Getting Started"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Getting Started</a>

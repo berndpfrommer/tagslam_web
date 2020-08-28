@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>B. Hints for Better Localization - TagSLAM</title>
-<meta name="generator" content="Hugo 0.40.1" />
+<meta name="generator" content="Hugo 0.68.3" />
 <link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
 <link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/better_localization/">
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
@@ -78,15 +78,10 @@ $
 </nav>
 </div>
 <div class="content-container">
-<main><h1>B. Hints for Better Localization</h1>
-
-<p>Paying attention to the details when using tags for localization can
+<main><h1>B. Hints for Better Localization</h1><p>Paying attention to the details when using tags for localization can
 make a big difference for the quality of the results!</p>
-
 <h1 id="camera-and-lighting">Camera and Lighting</h1>
-
 <p>Some important points when selecting a camera:</p>
-
 <ul>
 <li>Lighting: illuminate the tags as brightly as possible.
 The more light, the shorter the shutter times, the less motion blur. Avoid
@@ -99,13 +94,13 @@ cameras (webcams, GoPros etc) have rolling shutters that
 can <a href="https://www.youtube.com/watch?v=LVwmtwZLG88">distort objects</a>
 that are in motion.</li>
 <li>Short shutter times are crucial for avoiding motion blur. To this end, you want:
-
 <ul>
 <li>a large sensor with high quantum efficiency. The FLIR machine
 vision website (formerly PointGrey) has excellent sensor
 comparisons.</li>
 <li>a large aperture lens (but beware of focus!)</li>
-</ul></li>
+</ul>
+</li>
 <li>Auto focus cameras are to be avoided because their calibration could
 change while recording.</li>
 <li>If using multiple cameras, they must be synchronized (use hardware
@@ -115,11 +110,8 @@ not be able to detect any tags.</li>
 <li>Generally wide-angle lenses (up to 120deg) are preferred, but they
 must be used in combination with a high resolution sensor.</li>
 </ul>
-
 <h1 id="tag-placement">Tag placement</h1>
-
 <p>Here some tips on tag placement:</p>
-
 <ul>
 <li>always have multiple tags in view. Localizing from a single tag is very fragile.</li>
 <li>make sure tags are visible (unoccluded) from all points on the camera path.</li>
@@ -128,10 +120,7 @@ must be used in combination with a high resolution sensor.</li>
 that always multiple tags are still visible.</li>
 <li>resist the temptation to arrange your tags in a linear fashion, for example leaning them against the wall on the floor. TagSLAM uses a triangulation based approach, which works best with &hellip; triangles. The following video shows that better results can be obtained with 3 tags in a triangular arrangement than from 5 tags that are collinear.</li>
 </ul>
-
-<div style="position: relative; padding-bottom: 56.25%; height: 0;">
-<iframe src="//www.youtube.com/embed/ti4PFfSBZyk?autoplay=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="TagSLAM on linear vs triangular tags"></iframe>
-</div>
+<!-- raw HTML omitted -->
 <div class="edit-meta">
 </div>
 <nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/help/" title="A. Asking for Help"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - A. Asking for Help</a>

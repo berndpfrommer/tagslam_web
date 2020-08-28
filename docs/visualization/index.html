@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Visualization - TagSLAM</title>
-<meta name="generator" content="Hugo 0.40.1" />
+<meta name="generator" content="Hugo 0.68.3" />
 <link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
 <link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/visualization/">
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
@@ -78,111 +78,75 @@ $
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Visualization</h1>
-
-<h1 id="how-to-render-the-tags-in-rviz">How to render the tags in rviz</h1>
-
+<main><h1>Visualization</h1><h1 id="how-to-render-the-tags-in-rviz">How to render the tags in rviz</h1>
 <p>The <code>tagslam_viz</code> package has python code to generate urdf models
 for the tags. The urdf is generated for all tags listed in the
 <code>poses.yaml</code> file that is produced when you run TagSLAM. Here is how to
 generate the urdf, and load it into the ROS parameter space:</p>
-
 <pre><code>roslaunch tagslam_viz visualize_tags.launch tag_id_file:=$HOME/.ros/poses.yaml
 </code></pre>
-
 <p>Now in rviz, you add a &ldquo;RobotModel&rdquo;, and change the &ldquo;Robot
 Description&rdquo; from &ldquo;robot_description&rdquo; to &ldquo;tags&rdquo;. All that is missing
 now is a transform from tag to world frame. So run TagSLAM again, and
 you should see the tags rendered.</p>
-
 <h1 id="how-to-render-cameras-in-rviz">How to render cameras in rviz</h1>
-
 <p>The <code>tagslam_viz</code> also has code to generate a simple camera urdf
 model for each camera in <code>cameras.yaml</code>. Run it like this:</p>
-
 <pre><code>roslaunch tagslam_viz visualize_cameras.launch cameras_file:=path_to_your_cameras.yaml
 </code></pre>
-
 <p>Just like for the tags, now add a &ldquo;RobotModel&rdquo; in rviz, and change the &ldquo;Robot
 Description&rdquo; from &ldquo;robot_description&rdquo; to &ldquo;cameras&rdquo;. The cameras should
 display once valid transforms are available.</p>
-
 <h1 id="how-to-get-the-rviz-camera-feature-to-work">How to get the rviz &ldquo;Camera&rdquo; feature to work</h1>
-
 <p>For the &ldquo;Camera&rdquo; feature in rviz to work properly you need:</p>
-
 <ul>
 <li>an <em>undistorted</em> camera image.</li>
 <li>a valid and synchronized &ldquo;camera_info&rdquo; topic in the bag</li>
 <li>a valid transform from camera to map</li>
 <li>a matching &ldquo;frame_id&rdquo; for transform, camera_info, and image</li>
 </ul>
-
 <p>Only if all these requirements are fulfilled will rviz overlay the
 camera image with the 3d world.</p>
-
 <h2 id="massage-the-bag">Massage the bag</h2>
-
 <p>To start, the topics in your bag should look like this:</p>
-
 <pre><code>topics:      /camera/camera_info     1724 msgs    : sensor_msgs/CameraInfo
              /camera/compressed      1724 msgs    : sensor_msgs/CompressedImage
 </code></pre>
-
 <p>You can massage the bag topic scheme by using the topic renamer tool:</p>
-
 <pre><code>rosrun rosbag topic_renamer.py &lt;in topic&gt; &lt;in bag&gt; &lt;out topic&gt; &lt;out bag&gt;
 </code></pre>
-
 <p>If you don&rsquo;t have the camera info in the bag, add it like so:</p>
-
 <pre><code>rosrun tagslam add_camera_info.py --out_bag output.bag --caminfo_file camerainfo.yaml --caminfo_topic /camera/camera_info --image_topic /camera/compressed input.bag
 </code></pre>
-
 <p>Verify that your camera_info and image messages have a frame_id of
 &ldquo;cam0&rdquo; in the header. If not, change the frame_id like this:</p>
-
 <pre><code>rosrun bag_tools change_frame_id.py -o OUTPUT_BAGFILE -i INPUT_BAGFILE -f cam0 -t /camera/camera_info /camera/compressed
 </code></pre>
-
 <h2 id="run-rviz-and-necessary-modules">Run rviz and necessary modules</h2>
-
 <p>First, run a module to decompress the image:</p>
-
 <pre><code>rosrun image_transport republish compressed in:=/camera out:=/camera/image_raw
 </code></pre>
-
 <p>Now you need to run the image_proc module in the namespace of your camera
 to get a rectified (undistorted) image. This is very important. If you use the non-rectified image, the projections done by rviz will not be lining up with the camera image.</p>
-
 <pre><code>ROS_NAMESPACE=camera  rosrun image_proc image_proc
 </code></pre>
-
 <p>Next, create a Camera window in rviz, subscribing to the topic
 &ldquo;/camera/image_rect_color&rdquo;. Then run a detector node to decode the
 images, run tagslam to produce valid cam0-to-map transforms, and play
 the bag. The Camera in rviz should start displaying images now.</p>
-
 <p>To get the tags to visualize, first run tagslam for a while so you
 have all the valid tag poses. Then dump them into a file:</p>
-
 <pre><code>rosservice call /tagslam/dump
 </code></pre>
-
 <p>and load all required tags into the parameter space:</p>
-
 <pre><code>roslaunch tagslam_viz visualize_tags.launch tag_id_file:=$HOME/.ros/poses.yaml
 </code></pre>
-
 <p>Likewise all cameras:</p>
-
 <pre><code>roslaunch tagslam_viz visualize_tags.launch cameras_file:=full_path_to_cameras.yaml
 </code></pre>
-
 <p>If the camera calibration is correct, the resulting Camera display in
 rviz should have only small projection errors, as in the image below.</p>
-
-<p><img src="../media/rviz_camera.png" alt="rviz camera" /></p>
+<p><img src="../media/rviz_camera.png" alt="rviz camera"></p>
 <div class="edit-meta">
 </div>
 <nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/examples/" title="Examples"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Examples</a>
