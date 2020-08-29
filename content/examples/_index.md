@@ -9,10 +9,12 @@ You can find many different usage examples [in the tagslam\_test github repo](ht
 
 1. Simple and quick single-camera test to see that the basics are working</p>
 <table><tr><td style="width: 50%;">{{<test_scene test="1">}}</td><td>
-   - cameras: 1 FLIR 1280x1024 monochrome Chameleon 3 USB
-   - distortion: equidistant
-   - detector: MIT
-   - total number of frames: 269
+<ul>
+   <li>cameras: 1 FLIR 1280x1024 monochrome Chameleon 3 USB</li>
+   <li>distortion: equidistant</li>
+   <li>detector: MIT</li>
+   <li>total number of frames: 269</li>
+</ul>
 </td></tr></table>
 - Simple test for stereo extrinsic calibration with about 13 tags
 <table><tr><td style="width: 50%;">{{<test_scene test="2">}}</td><td>

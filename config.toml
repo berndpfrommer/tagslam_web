@@ -7,11 +7,11 @@ theme = "hugo-theme-techdoc"
 hasCJKLanguage = true
 metaDataFormat = "yaml"
 
-pygmentsUseClasses = true
-pygmentsCodefences = true
+#pygmentsUseClasses = true
+#pygmentsCodefences = true
 
 defaultContentLanguage = "en"
-defaultContentLanguageInSubdir= false
+defaultContentLanguageInSubdir = false
 enableMissingTranslationPlaceholders = false
 
 [Params]
@@ -29,13 +29,34 @@ enableMissingTranslationPlaceholders = false
     google_site_verification = "" # Your Google Site Verification
 
     # Theme settings section
-    dateformat = "" # default "2 Jan 2006"
 
     # path name excluded from documentation menu
 
+    custom_font_color = ""
+    custom_background_color = ""
 
-# Global menu section
-[[menu.main]]
-    name = "Home"
-    url = "/"
-    weight = 1
+    menu_style = "open-menu"
+    dateformat = "" # default "2 Jan 2006"
+    menu_exclusion = [
+        "archives",
+        "archive",
+        "blog",
+        "entry",
+        "post",
+        "posts",
+    ]
+
+# Markup configure section
+# See https://gohugo.io/getting-started/configuration-markup/
+[markup]
+    defaultMarkdownHandler = "goldmark"
+#    defaultMarkdownHandler = "blackfriday"
+    [markup.goldmark.renderer]
+        unsafe= true
+    [markup.tableOfContents]
+        startLevel = 2
+        endLevel = 6
+        ordered = false
+
+[outputs]
+    home = ["HTML", "RSS"]

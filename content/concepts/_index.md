@@ -16,6 +16,7 @@ take coordinates $\cvec{X}{A}$ in  frame $\mathrm{A}$ and express them in frame 
 $$
 \cvec{X}{B} = \ctrans{T}{A}{B}\ \cvec{X}{A}
 $$
+
 # Bodies
 In TagSLAM, every tag is associated with a body, and tag poses are
 given relative to that body. Likewise, every camera must be associated with 
