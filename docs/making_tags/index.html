@@ -1,41 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>C. Making and Using AprilTags - TagSLAM</title>
 <meta name="generator" content="Hugo 0.68.3" />
-<link href="https://berndpfrommer.github.io/tagslam_web/index.xml" rel="alternate" type="application/rss+xml">
+<link href="https://berndpfrommer.github.io/tagslam_web//index.xml" rel="alternate" type="application/rss+xml">
 <link rel="canonical" href="https://berndpfrommer.github.io/tagslam_web/making_tags/">
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/theme.min.css">
 <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <link rel="stylesheet" href="https://berndpfrommer.github.io/tagslam_web/css/chroma.min.css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-<script src="https://berndpfrommer.github.io/tagslam_web/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
-<script src="https://berndpfrommer.github.io/tagslam_web/js/jquery.backtothetop/jquery.backtothetop.min.js"></script><style>
-.container {
-    max-width: 1200px;
-}
-
-pre {
-  overflow: auto;
-  background: #f4f6f8;
-  padding: 1rem;
-  line-height: 115%;
-  border: 1px solid #f0f0f0;
-}
-
-code {
-  background: #f0f0f0;
-}
+<script src="https://berndpfrommer.github.io/tagslam_web/js/bundle.js"></script><style>
+:root {}
 </style>
-</head>
-<body>
-<div class="container"><header>
-<h1>TagSLAM</h1>
-<a href="https://github.com/berndpfrommer/tagslam_root" class="github"><i class="fab fa-github"></i></a>
-<script type="text/javascript" async
+<meta property="og:title" content="C. Making and Using AprilTags" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://berndpfrommer.github.io/tagslam_web/making_tags/" />
+<meta property="og:updated_time" content="2015-07-18T14:08:35+02:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C. Making and Using AprilTags"/>
+<meta name="twitter:description" content=""/>
+<meta itemprop="name" content="C. Making and Using AprilTags">
+<meta itemprop="description" content=""><script type="text/javascript" async
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   MathJax.Hub.Config({
   tex2jax: {
@@ -70,13 +59,12 @@ $
 \newcommand{\cvec}[2]{^\mathrm{#2}\mathbf{#1}}
 \newcommand{\ctrans}[3]{^\mathrm{#3}\mathbf{#1}_\mathrm{#2}}
 $
+</head>
+<body><div class="container"><header>
+<h1>TagSLAM</h1>
+<a href="https://github.com/berndpfrommer/tagslam_root" class="github"><i class="fab fa-github"></i></a>
 </header>
-<div class="menu">
-<nav>
-<ul>
-<li><a href="/tagslam_web/">Home</a></li></ul>
-</nav>
-</div>
+
 <div class="content-container">
 <main><h1>C. Making and Using AprilTags</h1><p>At the moment, the only tags supported by TagSLAM are the
 popular <a href="https://april.eecs.umich.edu/software/apriltag">AprilTags</a>.</p>
@@ -94,13 +82,23 @@ however: <em>you may have more false positive detections</em> when using this
 tag. This means the AprilTag library may mistake some rectangular
 objects on the image as tags! This can be a real nuisance when using
 TagSLAM.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<!--
+<table>
+<tr><td>![tag 36h11](../media/tag_36h11.png)</td>
+<td>![tag 16h5](../media/tag_16h5.png)</td>
+</tr>
+<tr><td>Tag family 36h11 (preferred). Small blocks, harder to detect, can
+represent larger numbers.</td>
+<td>Tag family 16h5. Large blocks, better visible, but susceptible to
+false positives.</td>
+</tr>
+<table>
+-->
 <table>
 <thead>
 <tr>
 <th><img src="../media/tag_36h11.png" alt="tag 36h11"></th>
-<th align="right"><img src="../media/tag_16h5.png" alt="tag 16h5"><!-- raw HTML omitted --></th>
+<th align="right"><img src="../media/tag_16h5.png" alt="tag 16h5"></td></th>
 </tr>
 </thead>
 <tbody>
@@ -187,57 +185,70 @@ using them).</p>
 <p>Divide this by 72 to get the physical size in inches, then multiply by
 0.0254 to get meters. In this case it works out to 0.1607, so actually
 a little off (why???).</p>
-<div class="edit-meta">
-</div>
-<nav class="pagination"><a class="nav nav-prev" href="/tagslam_web/better_localization/" title="B. Hints for Better Localization"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - B. Hints for Better Localization</a>
-<a class="nav nav-next" href="/tagslam_web/getting_started/" title="Getting Started">Next - Getting Started <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
-</nav><footer><p class="powered"></p>
+<div class="edit-meta"><br></div><nav class="pagination"><a class="nav nav-prev" href="https://berndpfrommer.github.io/tagslam_web/better_localization/" title="B. Hints for Better Localization"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - B. Hints for Better Localization</a>
+<a class="nav nav-next" href="https://berndpfrommer.github.io/tagslam_web/getting_started/" title="Getting Started">Next - Getting Started <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer>
 </footer>
 </main><div class="sidebar">
-<nav>
+
+<nav class="open-menu">
 <ul>
 <li class=""><a href="https://berndpfrommer.github.io/tagslam_web/">Home</a></li>
 
-<li class=""><a href="/tagslam_web/getting_started/">Getting Started</a>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/getting_started/">Getting Started</a>
+  
 </li>
 
-<li class=""><a href="/tagslam_web/concepts/">Concepts</a>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/concepts/">Concepts</a>
+  
 </li>
 
-<li class=""><a href="/tagslam_web/caveats/">Caveats and Limitations</a>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/caveats/">Caveats and Limitations</a>
+  
 </li>
 
-<li class=""><a href="/tagslam_web/intrinsic_calibration/">Intrinsic Calibration</a>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/intrinsic_calibration/">Intrinsic Calibration</a>
+  
 </li>
 
-<li class=""><a href="/tagslam_web/input_files/">Input Files and Parameters</a>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/input_files/">Input Files and Parameters</a>
+  
 </li>
 
-<li class=""><a href="/tagslam_web/measurements/">Measurements</a>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/measurements/">Measurements</a>
+  
 </li>
 
-<li class=""><a href="/tagslam_web/output/">Output</a>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/output/">Output</a>
+  
 </li>
 
-<li class=""><a href="/tagslam_web/examples/">Examples</a>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/examples/">Examples</a>
+  
 </li>
 
-<li class=""><a href="/tagslam_web/visualization/">Visualization</a>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/visualization/">Visualization</a>
+  
 </li>
 
-<li class=""><a href="/tagslam_web/trouble_shooting/">Troubleshooting</a>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/trouble_shooting/">Troubleshooting</a>
+  
 </li>
 
-<li class=""><a href="/tagslam_web/help/">A. Asking for Help</a>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/help/">A. Asking for Help</a>
+  
 </li>
 
-<li class=""><a href="/tagslam_web/better_localization/">B. Hints for Better Localization</a>
+<li class=""><a href="https://berndpfrommer.github.io/tagslam_web/better_localization/">B. Hints for Better Localization</a>
+  
 </li>
 
-<li class="parent active"><a href="/tagslam_web/making_tags/">C. Making and Using AprilTags</a>
+<li class="parent active"><a href="https://berndpfrommer.github.io/tagslam_web/making_tags/">C. Making and Using AprilTags</a>
+  
 </li>
 </ul>
 </nav>
+
 
 
 <div class="sidebar-footer"></div>
