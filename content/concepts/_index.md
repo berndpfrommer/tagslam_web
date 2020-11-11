@@ -57,6 +57,15 @@ Further, static poses are distinguished by prior knowledge:
 - Unknown poses: the pose, although static, is unknown at the
   beginning, and must be discovered on the fly.
 
+# Specifying poses
+
+Poses in TagSLAM are given as position and rotation components (SE(3)). The
+rotations are specified as a rotation vector, i.e. the log of the
+rotation matrix. The direction of the rotation vector specifies the
+rotation axis, the length of it the rotation angle in radians. Use
+Andre Gaschler's handy [rotation
+converter](https://www.andre-gaschler.com/rotationconverter/) to
+convert to and from "axis with angle magnitude (radians)".
 
 # Convention for tag poses
 

@@ -113,6 +113,14 @@ from a previous run of TagSLAM.</li>
 <li>Unknown poses: the pose, although static, is unknown at the
 beginning, and must be discovered on the fly.</li>
 </ul>
+<h1 id="specifying-poses">Specifying poses</h1>
+<p>Poses in TagSLAM are given as position and rotation components (SE(3)). The
+rotations are specified as a rotation vector, i.e. the log of the
+rotation matrix. The direction of the rotation vector specifies the
+rotation axis, the length of it the rotation angle in radians. Use
+Andre Gaschler&rsquo;s handy <a href="https://www.andre-gaschler.com/rotationconverter/">rotation
+converter</a> to
+convert to and from &ldquo;axis with angle magnitude (radians)&quot;.</p>
 <h1 id="convention-for-tag-poses">Convention for tag poses</h1>
 <p>Here is how the coordinate axes are oriented when facing an upright
 AprilTag. Also note the corner numbering in purple.</p>
