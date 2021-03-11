@@ -87,7 +87,7 @@ about \$6, from which you can cut 12 tags of size 10"x10".
 
 Use an inkjet printer to print the tag on a matte clear adhesive label like
 the [Avery 8665](https://www.avery.com/products/labels/8665), which go
-for about \$1 for an 8.5"x11" page. Stick the label on the foam board,
+for about \$1.00 for an 8.5"x11" page. Stick the label on the foam board,
 done. The board is significantly cheaper (about \$1.50/tag DIY, or
 \$4/tag + shipping if you have it printed) and lighter
 than DiBond aluminum, but also much more fragile. Be careful not to
