@@ -56,10 +56,13 @@ aluminum (right)
 For very sturdy tags, consider having them printed on DiBond
 aluminum, a material used for making advertisement signs.
 The company [FoamCorePrint.com](https://www.foamcoreprint.com/) has
-been used for this before. Make sure to select 1/4" thick material
-(the 1/8" boards only come glossy, not matte), and specify explicitly
-that you want it matte, and no rescaling of the image. You must supply
-them with a pdf that exactly fills the size of the board. For a
+been used for this before, although they only allow 1/4" thick material
+for matte, their 1/8" boards only come glossy and you must specify explicitly
+that you want it matte, and no rescaling of the image. If you want the
+thinner boards, [Printmoz](https://www.printmoz.com/dibond-printing)
+also has been used successfully before (uncheck the option for glossy cover paint).
+
+You must supply the printing company with a pdf that exactly fills the size of the board. For a
 12"x12" board, the cost is currently about \$15 without shipping. The material is
 quite heavy, so not easily attached to walls with duct tape. However, it's very
 rugged and weather resistant, i.e. suitable for permanent installation
@@ -69,8 +72,9 @@ DiBond is also great material for a calibration board that gets
 heavy use. Due to popular demand, here are links to
 the [front](../media/aprilgrid_16x12.pdf)
 and [back](../media/checkerboard_16x12.pdf) of the calibration board
-in the image. You can use them directly for printing on 1/4"x16"x12"
-DiBond at [FoamCorePrint.com](https://www.foamcoreprint.com/).
+in the image. You can use them directly for printing on 1/8"x16"x12"
+DiBond at [FoamCorePrint.com](https://www.foamcoreprint.com/) or (if
+you prefer the thinner board) 1/4"x16"x12" at [Printmoz](https://www.printmoz.com/dibond-printing).
 
 ## Foam core
 
@@ -90,7 +94,8 @@ than DiBond aluminum, but also much more fragile. Be careful not to
 touch the printed surface, or the color will come off over time.
 
 An even better solution is to use a laser printer
-and [these labels](https://www.onlinelabels.com/products/OL177CX) for about $0.45/sheet.
+and [these labels](https://www.onlinelabels.com/products/OL177CX) for
+about \$0.45/sheet.
 
 ## Paper
 
