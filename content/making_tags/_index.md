@@ -63,7 +63,7 @@ thinner boards, [Printmoz](https://www.printmoz.com/dibond-printing)
 also has been used successfully before (uncheck the option for glossy cover paint).
 
 You must supply the printing company with a pdf that exactly fills the size of the board. For a
-12"x12" board, the cost is currently about \$15 without shipping. The material is
+12"x12" board, the cost is currently about \\$15 without shipping. The material is
 quite heavy, so not easily attached to walls with duct tape. However, it's very
 rugged and weather resistant, i.e. suitable for permanent installation
 outdoors.
@@ -74,7 +74,10 @@ the [front](../media/aprilgrid_16x12.pdf)
 and [back](../media/checkerboard_16x12.pdf) of the calibration board
 in the image. You can use them directly for printing on 1/8"x16"x12"
 DiBond at [FoamCorePrint.com](https://www.foamcoreprint.com/) or (if
-you prefer the thinner board) 1/4"x16"x12" at [Printmoz](https://www.printmoz.com/dibond-printing).
+you prefer the thinner board) 1/4"x16"x12" at
+[Printmoz](https://www.printmoz.com/dibond-printing).
+The last board printed (May 2020) at Printmoz came to \\$43.50
+including shipping and handling.
 
 ## Foam core
 
@@ -83,19 +86,19 @@ board. *Avoid* the "Readi" board sold by e.g. Dollar Tree
 stores. It warps badly! Rather get a board
 of
 [3/16" ProFoam from Jerry's Artarama](https://www.jerrysartarama.com/jerrys-pro-foam) for
-about \$6, from which you can cut 12 tags of size 10"x10".
+about \\$6, from which you can cut 12 tags of size 10"x10".
 
 Use an inkjet printer to print the tag on a matte clear adhesive label like
 the [Avery 8665](https://www.avery.com/products/labels/8665), which go
-for about \$1.00 for an 8.5"x11" page. Stick the label on the foam board,
-done. The board is significantly cheaper (about \$1.50/tag DIY, or
-\$4/tag + shipping if you have it printed) and lighter
+for about \\$1.00 for an 8.5"x11" page. Stick the label on the foam board,
+done. The board is significantly cheaper (about \\$1.50/tag DIY, or
+\\$4/tag + shipping if you have it printed) and lighter
 than DiBond aluminum, but also much more fragile. Be careful not to
 touch the printed surface, or the color will come off over time.
 
 An even better solution is to use a laser printer
 and [these labels](https://www.onlinelabels.com/products/OL177CX) for
-about \$0.45/sheet.
+about \\$0.45/sheet.
 
 ## Paper
 
