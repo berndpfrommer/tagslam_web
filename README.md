@@ -17,3 +17,7 @@ If that works:
 It can take a good while until the changes will be reflected on the
 [project page](https://berndpfrommer.github.io/tagslam_web).
 
+## License
+
+This documentation and any future contributions to it are licensed under
+the [Apache License 2.0](LICENSE).
