@@ -339,12 +339,21 @@ The following are valid parameters for a body:
             board:
               tag_start_id: 12
               tag_size: 0.12
-              tag_bits: 6
+              tag_bits: 6  # tag family (ignored)
               tag_spacing: 0.25
               tag_rows: 2
               tag_columns: 3
-              tag_rotation_noise: 0.001
-              tag_position_noise: 0.001
+              tag_rotation_noise: 0.001 # rot noise between body and tag
+              tag_position_noise: 0.001 # pos noise between body and tag
+              pose: # optional: T_board_body (pose of tag 0 wrt body)
+                position: # means tag 0 is at body coord (0.0735, 0.0735, 0.0) 
+                  x: 0.0735
+                  y: 0.0735
+                  z: 0
+                rotation:
+                  x: 0
+                  y: 0
+                  z: 0
 	
 - ``tags``: specifies which tags are known to be
   attached to this body. You must specify id and size, but not
@@ -379,7 +388,7 @@ The following are valid parameters for a body:
 
 - ``fake_odom_translation_noise``: Specify the translational noise of a fake
    odometry pose update for a non-static body. Set this parameter to
-   the maximum translation you would expect th body to undergo
+   the maximum translation you would expect the body to undergo
    inbetween two measurements. This will impose an identity prior for
    the pose difference
    $$\ctrans{T}{map}{body}(t)\ctrans{T}{body}{map}(t-1),$$ which
