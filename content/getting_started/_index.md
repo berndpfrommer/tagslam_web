@@ -5,8 +5,8 @@ title = "Getting Started"
 weight = 10
 +++
 # Installation
-TagSLAM has been tested on Ubuntu 16.04 and 18.04LTS. You will need a
-full ROS installation (Kinetic or Melodic). For installation
+TagSLAM has been tested on Ubuntu 16.04, 18.04LTS and 20.04LTS. You will need a
+full ROS installation (Kinetic/Melodic/Noetic). For installation
 instructions see
 [the tagslam root repository](https://github.com/berndpfrommer/tagslam_root).
 
