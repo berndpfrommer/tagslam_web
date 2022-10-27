@@ -139,3 +139,8 @@ output:
 Divide this by 72 to get the physical size in inches, then multiply by
 0.0254 to get meters. In this case it works out to 0.1607, so actually
 a little off (why???).
+
+Here is an example line for a 4x3 board to be printed on a 14x12
+durabond board:
+
+    python3 ./make_tag.py --nx 4 --ny 3 --tsize 0.07 --tspace 0.25 --borderbits 1 --marginx 0.036598 --marginy 0.0295473 --draw_box --no-symm_corners
