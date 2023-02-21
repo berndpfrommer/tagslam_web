@@ -354,6 +354,9 @@ The following are valid parameters for a body:
                   x: 0
                   y: 0
                   z: 0
+
+- ``staggered_board``: similar to ``board``, but with rows and columns
+      staggered as the boards look in ``test 24``.
 	
 - ``tags``: specifies which tags are known to be
   attached to this body. You must specify id and size, but not

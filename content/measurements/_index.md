@@ -87,3 +87,26 @@ is as follows:
 	error     |measured optimzed    measured     name of measurement
      0.000 diff:  0.000 opt:  2.070 meas:  2.070 tag6_z
      0.000 diff: -0.000 opt:  0.619 meas:  0.619 tag17_z
+
+# Plane measurements
+
+Use this feature to constrain the center of tags to be in a plane.
+The plane is given by the normal vector (``direction``) and its distance to the
+origin (in meters). This feature is useful if your tags are
+e.g. scattered on the floor or stuck to wall that you know is planar.
+The ``noise`` gives the uncertainty [in m] by which the tags are in
+the plane. Note that this does not constrain the orientation of the
+tags at all. Example:
+
+```
+plane_measurements:
+  - plane_1:
+      tags: [32, , 70, 65, 66, 67]
+      distance: 0.0
+      noise: 0.01
+      direction: [0.0, 0.0, 1.0]
+```
+
+The error output can be found in
+``$HOME/.ros/coordinate_diagnostics.txt``. For explanation of 
+the fields, see coordinate measurements (above).
