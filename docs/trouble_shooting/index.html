@@ -133,6 +133,17 @@ frame_id: &quot;pg_17274483&quot;
 <p>Check that your tag size is correct.</p>
 <h2 id="7-the-camera-moves-weirdly-crooked-and-consistently-points-the-wrong-way">7) The camera moves weirdly crooked, and consistently points the wrong way</h2>
 <p>Your image center is off. Check that you are using the right intrinsic calibration.</p>
+<h2 id="8-lots-of-messages-about-dropped-tags-due-to-viewing-angle">8) Lots of messages about dropped tags due to viewing angle.</h2>
+<p>If those tags are mostly near the image boundaries it is indicative of
+poor intrinsic calibration. Ensure that the calibration target covers the
+very extreme image corners.</p>
+<h2 id="9-tagslam-bombs-out-in-the-gtsam-solver">9) TagSLAM bombs out in the GTSAM solver</h2>
+<p>When tags occupy a small pixel area and/or are viewed at shallow angle
+the initialization can be bad, leading to unrecoverable
+errors. This happens particularly when using the UMich detector, which
+has become very good at detecting small tags at shallow angles.
+Bump the <code>minimum_viewing_angle</code> and <code>minimum_tag_area</code> parameters
+to drop such detections.</p>
 <div class="edit-meta"><br></div><nav class="pagination"><a class="nav nav-prev" href="https://berndpfrommer.github.io/tagslam_web/visualization/" title="Visualization"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Visualization</a>
 <a class="nav nav-next" href="https://berndpfrommer.github.io/tagslam_web/help/" title="A. Asking for Help">Next - A. Asking for Help <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>

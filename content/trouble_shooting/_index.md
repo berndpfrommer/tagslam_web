@@ -99,3 +99,18 @@ Check that your tag size is correct.
 
 Your image center is off. Check that you are using the right intrinsic calibration.
 
+## 8) Lots of messages about dropped tags due to viewing angle.
+
+If those tags are mostly near the image boundaries it is indicative of
+poor intrinsic calibration. Ensure that the calibration target covers the
+very extreme image corners.
+
+## 9) TagSLAM bombs out in the GTSAM solver
+
+When tags occupy a small pixel area and/or are viewed at shallow angle
+the initialization can be bad, leading to unrecoverable
+errors. This happens particularly when using the UMich detector, which
+has become very good at detecting small tags at shallow angles.
+Bump the ``minimum_viewing_angle`` and ``minimum_tag_area`` parameters
+to drop such detections.
+
