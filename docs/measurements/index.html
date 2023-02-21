@@ -138,6 +138,23 @@ error     |measured optimzed    measured     name of measurement
  0.000 diff:  0.000 opt:  2.070 meas:  2.070 tag6_z
  0.000 diff: -0.000 opt:  0.619 meas:  0.619 tag17_z
 </code></pre>
+<h1 id="plane-measurements">Plane measurements</h1>
+<p>Use this feature to constrain the center of tags to be in a plane.
+The plane is given by the normal vector (<code>direction</code>) and its distance to the
+origin (in meters). This feature is useful if your tags are
+e.g. scattered on the floor or stuck to wall that you know is planar.
+The <code>noise</code> gives the uncertainty [in m] by which the tags are in
+the plane. Note that this does not constrain the orientation of the
+tags at all. Example:</p>
+<pre><code>plane_measurements:
+  - plane_1:
+      tags: [32, , 70, 65, 66, 67]
+      distance: 0.0
+      noise: 0.01
+      direction: [0.0, 0.0, 1.0]
+</code></pre><p>The error output can be found in
+<code>$HOME/.ros/coordinate_diagnostics.txt</code>. For explanation of
+the fields, see coordinate measurements (above).</p>
 <div class="edit-meta"><br></div><nav class="pagination"><a class="nav nav-prev" href="https://berndpfrommer.github.io/tagslam_web/input_files/" title="Input Files and Parameters"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Input Files and Parameters</a>
 <a class="nav nav-next" href="https://berndpfrommer.github.io/tagslam_web/output/" title="Output">Next - Output <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>

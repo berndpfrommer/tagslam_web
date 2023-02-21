@@ -192,6 +192,10 @@ using them).</p>
 <p>Divide this by 72 to get the physical size in inches, then multiply by
 0.0254 to get meters. In this case it works out to 0.1607, so actually
 a little off (why???).</p>
+<p>Here is an example line for a 4x3 board to be printed on a 14x12
+durabond board:</p>
+<pre><code>python3 ./make_tag.py --nx 4 --ny 3 --tsize 0.07 --tspace 0.25 --borderbits 1 --marginx 0.036598 --marginy 0.0295473 --draw_box --no-symm_corners
+</code></pre>
 <div class="edit-meta"><br></div><nav class="pagination"><a class="nav nav-prev" href="https://berndpfrommer.github.io/tagslam_web/better_localization/" title="B. Hints for Better Localization"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - B. Hints for Better Localization</a>
 <a class="nav nav-next" href="https://berndpfrommer.github.io/tagslam_web/getting_started/" title="Getting Started">Next - Getting Started <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>
