@@ -16,7 +16,7 @@ look at [this draft paper](media/tagslam.pdf).
 If you have a standard visual SLAM problem and want to use fiducial markers,
 you should probably *NOT* use TagSLAM because there are packages
 out there that are better suited. Consider for instance
-using [UcoSLAM](http://ucoslam.com) (disclosure: I haven't actually
+using [UcoSLAM](https://www.uco.es/investiga/grupos/ava/portfolio/ucoslam/) (disclosure: I haven't actually
 used it yet). It runs in real-time, and uses keyframes, which should
 make it scale to larger trajectories. Unlike TagSLAM, it can use both,
 features in the wild, and tags for loop closure, not just tags. It's a
